@@ -360,7 +360,7 @@
     </div>
 
 <script>
-    const STORAGE_KEY = 'dnd-character-sheet-data'; // Chave única para o localStorage
+    const STORAGE_KEY = 'dnd-character-sheet-data';
 
     const dataStore = {
         attributes: [ { name: 'Força', short: 'STR' }, { name: 'Destreza', short: 'DEX' }, { name: 'Constituição', short: 'CON' }, { name: 'Inteligência', short: 'INT' }, { name: 'Sabedoria', short: 'WIS' }, { name: 'Carisma', short: 'CHA' } ],
@@ -381,9 +381,19 @@
             { name: 'Petrificado', icon: 'fas fa-gem' },
             { name: 'Surdo', icon: 'fas fa-volume-xmark' }
         ],
-        // Estrutura para consolidar todos os dados da ficha
         characterSheetData: {
-            staticInputs: {},
+            staticInputs: {
+                "char-name": "", "char-race": "", "char-origin": "",
+                "char-level": "1", "ac": "10", "speed": "30ft",
+                "hp-current": "0", "hp-max": "1",
+                "equipped-weapon": "", "equipped-shield": "", "equipped-armor": "",
+                "coins-cp": "0", "coins-sp": "0", "coins-gp": "0", "coins-pp": "0",
+                "personality-traits": "", "ideals": "", "bonds-backstory": "", "flaws": "", "backstory": "",
+                "journal-title": "", "journal-date": "", "journal-content": "",
+                "ability-name": "", "ability-desc": "", "ability-uses": "", "ability-reset": "none",
+                "bond-name": "", "bond-relationship": "", "bond-summary": "",
+                "weapon-name": "", "weapon-damage": "", "weapon-type": "", "weapon-properties": "", "weapon-attribute": "STR"
+            },
             toggles: {},
             dynamic: {
                 item: [],
@@ -392,11 +402,11 @@
                 bond: [],
                 weapon: []
             },
-            images: { // Objeto para armazenar URLs de imagem
+            images: {
                 charImage: "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon",
                 wallpaper: "url('https://www.transparenttextures.com/patterns/old-wall.png')",
             },
-            theme: 'light' // Para o tema claro/escuro
+            theme: 'light'
         }
     };
     let elementToDelete = null;
@@ -409,7 +419,7 @@
         populateConditions();
         setupEventListeners();
         loadFromLocalStorage(); 
-        applyThemeFromData(); // Aplica o tema salvo
+        applyThemeFromData();
         document.querySelectorAll('.tab-button.active').forEach(b => b.classList.add('glow-effect'));
     });
 
@@ -475,13 +485,13 @@
             const preview = document.getElementById('item-img-preview');
             preview.src = e.target.result;
             preview.classList.remove('hidden');
-            // Não salva diretamente aqui, pois a imagem do item será salva com o objeto do item
+            // A imagem do item será salva com o objeto do item na função saveData
         }));
         document.getElementById('bond-img-input').addEventListener('change', handleFileSelect(e => {
             const preview = document.getElementById('bond-img-preview');
             preview.src = e.target.result;
             preview.classList.remove('hidden');
-            // Não salva diretamente aqui, pois a imagem do vínculo será salva com o objeto do vínculo
+            // A imagem do vínculo será salva com o objeto do vínculo na função saveData
         }));
 
         document.getElementById('save-item-btn').addEventListener('click', () => { saveData('item'); debouncedSave(); });
@@ -686,7 +696,12 @@
         const modal = document.getElementById(modalId);
         modal.dataset.editingId = editingId || '';
         if (modalId !== 'confirm-delete-modal' && modalId !== 'journal-view-modal' && modalId !== 'settings-modal') {
-            modal.querySelectorAll('input, textarea').forEach(el => el.value = '');
+            modal.querySelectorAll('input, textarea').forEach(el => {
+                // Não tente definir o valor de inputs type="file"
+                if (el.type !== 'file') {
+                    el.value = '';
+                }
+            });
             const previews = modal.querySelectorAll('img[id$="-preview"]');
             previews.forEach(p => { p.classList.add('hidden'); p.removeAttribute('src'); });
         }
@@ -717,8 +732,9 @@
             document.documentElement.classList.remove('dark-mode');
             themeIcon.classList.replace('fa-sun', 'fa-moon');
         }
-        document.body.style.backgroundImage = dataStore.characterSheetData.images.wallpaper;
+        // Aplicar a imagem do personagem e o wallpaper
         document.getElementById('char-img-preview').src = dataStore.characterSheetData.images.charImage;
+        document.body.style.backgroundImage = dataStore.characterSheetData.images.wallpaper;
     }
 
     function handleFileSelect(callback) {
@@ -767,7 +783,6 @@
                 data.type = document.getElementById('item-type').value;
                 data.bonus = document.getElementById('item-bonus').value;
                 data.rarity = document.getElementById('item-rarity').value;
-                // Guarda a imagem do preview
                 data.img = document.getElementById('item-img-preview').src; 
                 data.id = editingId || crypto.randomUUID();
                 if (!data.name || !data.type || !data.bonus) {
@@ -809,7 +824,6 @@
                 data.name = document.getElementById('bond-name').value;
                 data.relationship = document.getElementById('bond-relationship').value;
                 data.summary = document.getElementById('bond-summary').value;
-                // Guarda a imagem do preview
                 data.img = document.getElementById('bond-img-preview').src;
                 data.id = editingId || crypto.randomUUID();
                 if (!data.name || !data.relationship) {
@@ -871,13 +885,13 @@
 
         if (type === 'ability') {
             listElement.querySelectorAll('.ability-use-tick').forEach(tick => {
-                tick.removeEventListener('click', handleGlobalClick); // Prevent duplicates
+                tick.removeEventListener('click', handleGlobalClick);
                 tick.addEventListener('click', handleGlobalClick);
             });
         }
         if (type === 'weapon') {
             listElement.querySelectorAll('.attack-button, .damage-button').forEach(button => {
-                button.removeEventListener('click', handleGlobalClick); // Prevent duplicates
+                button.removeEventListener('click', handleGlobalClick);
                 button.addEventListener('click', handleGlobalClick);
             });
         }
@@ -894,7 +908,7 @@
         document.getElementById('item-bonus').value = itemData.bonus;
         const preview = document.getElementById('item-img-preview');
         if (itemData.img && itemData.img.startsWith('data:image')) { preview.src = itemData.img; preview.classList.remove('hidden'); }
-        else { preview.src = ""; preview.classList.add('hidden'); } // Clear if no image data
+        else { preview.src = ""; preview.classList.add('hidden'); }
     }
     function editJournal(id) {
         const journalData = dataStore.characterSheetData.dynamic.journal.find(entry => entry.id === id);
@@ -925,7 +939,7 @@
         document.getElementById('bond-summary').value = bondData.summary;
         const preview = document.getElementById('bond-img-preview');
         if (bondData.img && bondData.img.startsWith('data:image')) { preview.src = bondData.img; preview.classList.remove('hidden'); }
-        else { preview.src = ""; preview.classList.add('hidden'); } // Clear if no image data
+        else { preview.src = ""; preview.classList.add('hidden'); }
     }
     function editWeapon(id) {
         const weaponData = dataStore.characterSheetData.dynamic.weapon.find(weapon => weapon.id === id);
@@ -1007,16 +1021,18 @@
         };
     }
 
-    // Função única de salvamento para todos os dados da ficha
     function saveToLocalStorage() {
         // Salva inputs estáticos
         document.querySelectorAll('input[id], textarea[id]').forEach(el => {
-            dataStore.characterSheetData.staticInputs[el.id] = el.value;
+            // Ignora inputs do tipo 'file' para evitar o erro de segurança
+            if (el.type !== 'file') {
+                dataStore.characterSheetData.staticInputs[el.id] = el.value;
+            }
         });
         
         // Salva estados de toggles
         document.querySelectorAll('.proficiency-toggle, .advantage-toggle, .death-save, .condition-token, #inspiration-tracker').forEach((el) => {
-            let key = el.id || el.dataset.name || el.title; // Tenta pegar ID, data-name ou title
+            let key = el.id || el.dataset.name || el.title;
             if (el.classList.contains('death-save')) {
                 key = el.parentElement.id + '-' + Array.from(el.parentElement.children).indexOf(el);
                 dataStore.characterSheetData.toggles[key] = el.classList.contains('filled');
@@ -1028,9 +1044,6 @@
                 dataStore.characterSheetData.toggles[key] = el.classList.contains('active');
             }
         });
-
-        // O conteúdo dinâmico (items, journal, etc.) já é atualizado diretamente em `dataStore.characterSheetData.dynamic`
-        // nas funções `saveData()` para cada tipo.
 
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(dataStore.characterSheetData));
@@ -1044,18 +1057,27 @@
     function loadFromLocalStorage() {
         const savedData = localStorage.getItem(STORAGE_KEY);
         if (!savedData) {
-            updateAllCalculations(); // Inicializa cálculos se não houver dados
+            // Se não houver dados salvos, inicializa com valores padrão para todos os inputs estáticos
+            Object.keys(dataStore.characterSheetData.staticInputs).forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.type !== 'file') { // Garante que não está tentando preencher inputs de arquivo
+                    el.value = dataStore.characterSheetData.staticInputs[id];
+                }
+            });
+            updateAllCalculations(); // Inicializa cálculos
             return;
         }
 
         try {
             const loadedSheetData = JSON.parse(savedData);
-            Object.assign(dataStore.characterSheetData, loadedSheetData); // Mescla dados salvos com a estrutura padrão
+            // Mescla dados salvos com a estrutura padrão, garantindo que novas propriedades sejam adicionadas
+            // sem sobrescrever a estrutura base.
+            dataStore.characterSheetData = { ...dataStore.characterSheetData, ...loadedSheetData };
 
             // Carrega inputs estáticos
             for (const id in dataStore.characterSheetData.staticInputs) {
                 const el = document.getElementById(id);
-                if (el) {
+                if (el && el.type !== 'file') { // MUITO IMPORTANTE: Ignora inputs do tipo 'file'
                     el.value = dataStore.characterSheetData.staticInputs[id];
                 }
             }
@@ -1098,8 +1120,9 @@
             }
 
             // Carrega imagens (personagem e wallpaper)
-            document.getElementById('char-img-preview').src = dataStore.characterSheetData.images.charImage;
-            document.body.style.backgroundImage = dataStore.characterSheetData.images.wallpaper;
+            // Certifique-se de que as imagens existam nos dados carregados, caso contrário use um fallback
+            document.getElementById('char-img-preview').src = dataStore.characterSheetData.images.charImage || "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon";
+            document.body.style.backgroundImage = dataStore.characterSheetData.images.wallpaper || "url('https://www.transparenttextures.com/patterns/old-wall.png')";
 
             // Carrega conteúdo dinâmico
             const dynamicSections = ['item', 'journal', 'ability', 'bond', 'weapon'];
@@ -1118,8 +1141,8 @@
         } catch (e) {
             console.error("Erro ao carregar ou analisar dados do localStorage. Iniciando ficha nova.", e);
             showToast("Erro ao carregar a ficha. Reiniciando dados. Detalhes: " + e.message, "error", 5000);
-            localStorage.removeItem(STORAGE_KEY); // Limpa dados corrompidos
-            // Re-inicializa a estrutura de dados para evitar erros futuros
+            localStorage.removeItem(STORAGE_KEY);
+            // Re-inicializa characterSheetData para seu estado padrão
             dataStore.characterSheetData = { 
                 staticInputs: {}, 
                 toggles: {}, 
@@ -1127,7 +1150,19 @@
                 images: { charImage: "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon", wallpaper: "url('https://www.transparenttextures.com/patterns/old-wall.png')" },
                 theme: 'light'
             };
-            updateAllCalculations(); // Atualiza a UI com dados padrão
+            // Define os valores padrão para inputs estáticos para evitar campos vazios após o reset
+            document.getElementById('char-level').value = "1";
+            document.getElementById('ac').value = "10";
+            document.getElementById('speed').value = "30ft";
+            document.getElementById('hp-current').value = "0";
+            document.getElementById('hp-max').value = "1";
+            document.getElementById('coins-cp').value = "0";
+            document.getElementById('coins-sp').value = "0";
+            document.getElementById('coins-gp').value = "0";
+            document.getElementById('coins-pp').value = "0";
+
+
+            updateAllCalculations();
         }
     }
 
@@ -1234,6 +1269,8 @@
     // --- Funções de Exportação e Importação ---
     function exportCharacterSheet() {
         try {
+            // Garante que os dados mais recentes estejam no dataStore.characterSheetData
+            saveToLocalStorage(); 
             const dataStr = JSON.stringify(dataStore.characterSheetData, null, 2);
             const blob = new Blob([dataStr], { type: "application/json" });
             const url = URL.createObjectURL(blob);
@@ -1265,18 +1302,21 @@
         reader.onload = (e) => {
             try {
                 const importedData = JSON.parse(e.target.result);
-                if (importedData && importedData.staticInputs && importedData.dynamic && importedData.images) {
-                    if (confirm('Importar esta ficha irá substituir todos os dados atuais. Deseja continuar?')) {
-                        localStorage.setItem(STORAGE_KEY, e.target.result); // Salva o novo JSON no localStorage
+                // Verifica se a estrutura básica da ficha é compatível
+                if (importedData && typeof importedData === 'object' && 
+                    importedData.staticInputs && importedData.dynamic && importedData.images) {
+                    if (confirm('Importar esta ficha irá substituir TODOS os dados atuais. Deseja continuar?')) {
+                        // Salva o JSON importado diretamente no localStorage
+                        localStorage.setItem(STORAGE_KEY, e.target.result); 
                         showToast("Ficha importada com sucesso! Recarregando...", "success");
                         setTimeout(() => location.reload(), 1000); // Recarrega a página para aplicar
                     }
                 } else {
-                    showToast("Arquivo JSON inválido. Não é um formato de ficha.", "error");
+                    showToast("Arquivo JSON inválido. Certifique-se de que é um arquivo de exportação de ficha válido.", "error");
                 }
             } catch (error) {
                 console.error("Erro ao analisar o arquivo de importação:", error);
-                showToast("Erro ao ler o arquivo. Certifique-se de que é um JSON válido.", "error");
+                showToast("Erro ao ler o arquivo. Certifique-se de que é um JSON válido. Detalhes: " + error.message, "error");
             }
         };
         reader.readAsText(file);
