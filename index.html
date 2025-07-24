@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Personagem D&D 5e</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Mate+SC&family=MedievalSharp&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- Configuração Base e Modo Claro --- */
+        :root {
+            --bg-color: #f3e9d2;
+            --text-color: #4a2c2a;
+            --border-color: #c8a06e;
+            --border-strong-color: #8a6c4a;
+            --card-bg-color: rgba(243, 233, 210, 0.75);
+            --accent-color: #4a2c2a;
+            --accent-text-color: #f3e9d2;
+            --tab-active-bg: rgba(200, 160, 110, 0.7);
+            --danger-color: #991b1b;
+            --danger-text-color: #fecaca;
+            --glow-color: rgba(138, 108, 74, 0.7);
+            --success-color: #15803d;
+            --success-bg-color: rgba(74, 222, 128, 0.8);
+        }
+
+        /* --- Modo Noturno (Preto e Lilás) --- */
+        .dark-mode {
+            --bg-color: #1a1a2e;
+            --text-color: #e0e0e0;
+            --border-color: #a78bfa; /* Lilás */
+            --border-strong-color: #c4b5fd; /* Lilás mais claro */
+            --card-bg-color: rgba(26, 26, 46, 0.7);
+            --accent-color: #c4b5fd;
+            --accent-text-color: #1a1a2e;
+            --tab-active-bg: rgba(167, 139, 250, 0.5);
+            --danger-color: #f87171;
+            --danger-text-color: #1a1a2e;
+            --glow-color: rgba(196, 181, 253, 0.6);
+            --success-color: #a7f3d0;
+            --success-bg-color: rgba(22, 163, 74, 0.8);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: url('https://www.transparenttextures.com/patterns/old-wall.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Mate SC', serif;
+            color: var(--text-color);
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .font-ornate { font-family: 'IM Fell English SC', serif; }
+        
+        /* --- Layout de Papiro --- */
+        .parchment-container {
+            border-style: solid;
+            border-width: 25px;
+            border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cpath d='M0 0 H 25 V 10 H 10 V 25 H 0 Z' fill='%23c8a06e'/%3E%3Cpath d='M25 0 H 50 V 25 H 40 V 15 H 30 V 25 H 25 Z' fill='%23c8a06e'/%3E%3Cpath d='M50 0 H 75 V 25 H 60 V 5 H 50 Z' fill='%23c8a06e'/%3E%3Cpath d='M0 25 H 15 V 35 H 5 V 50 H 0 Z' fill='%23c8a06e'/%3E%3Cpath d='M25 25 H 50 V 50 H 35 V 40 H 45 V 30 H 25 Z' fill='%23c8a06e'/%3E%3Cpath d='M50 25 H 75 V 40 H 60 V 50 H 50 Z' fill='%23c8a06e'/%3E%3Cpath d='M0 50 H 25 V 60 H 10 V 75 H 0 Z' fill='%23c8a06e'/%3E%3Cpath d='M25 50 H 50 V 75 H 40 V 65 H 30 V 75 H 25 Z' fill='%23c8a06e'/%3E%3Cpath d='M50 50 H 75 V 75 H 65 V 60 H 50 Z' fill='%23c8a06e'/%3E%3C/svg%3E") 25;
+            border-image-outset: 5px;
+        }
+        .dark-mode .parchment-container {
+            border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cpath d='M0 0 H 25 V 10 H 10 V 25 H 0 Z' fill='%23a78bfa'/%3E%3Cpath d='M25 0 H 50 V 25 H 40 V 15 H 30 V 25 H 25 Z' fill='%23a78bfa'/%3E%3Cpath d='M50 0 H 75 V 25 H 60 V 5 H 50 Z' fill='%23a78bfa'/%3E%3Cpath d='M0 25 H 15 V 35 H 5 V 50 H 0 Z' fill='%23a78bfa'/%3E%3Cpath d='M25 25 H 50 V 50 H 35 V 40 H 45 V 30 H 25 Z' fill='%23a78bfa'/%3E%3Cpath d='M50 25 H 75 V 40 H 60 V 50 H 50 Z' fill='%23a78bfa'/%3E%3Cpath d='M0 50 H 25 V 60 H 10 V 75 H 0 Z' fill='%23a78bfa'/%3E%3Cpath d='M25 50 H 50 V 75 H 40 V 65 H 30 V 75 H 25 Z' fill='%23a78bfa'/%3E%3Cpath d='M50 50 H 75 V 75 H 65 V 60 H 50 Z' fill='%23a78bfa'/%3E%3C/svg%3E") 25;
+        }
+
+        /* --- Efeito de Brilho --- */
+        .glow-effect { box-shadow: 0 0 8px 2px var(--glow-color), 0 0 12px 3px var(--accent-color) inset; }
+        .action-button:hover, .proficiency-toggle.proficient, .proficiency-toggle.expertise, .advantage-toggle.active, #inspiration-tracker.active { box-shadow: 0 0 8px 2px var(--glow-color); }
+
+        /* --- Animação do Ícone do Personagem --- */
+        #char-img-preview { transition: transform 0.3s ease-in-out; }
+        label[for="char-img-input"]:hover #char-img-preview { transform: scale(1.1); }
+
+        /* --- Animação das Abas --- */
+        .tab-button { display: flex; align-items: center; padding: 0.5rem; border-radius: 0.5rem 0.5rem 0 0; transition: all 0.3s; }
+        .tab-button .tab-text { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transition: max-width 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-left 0.4s ease-in-out; margin-left: 0; }
+        .tab-button:hover .tab-text, .tab-button.active .tab-text { max-width: 150px; opacity: 1; margin-left: 0.5rem; }
+        .tab-button.active { background-color: var(--tab-active-bg); border-bottom: 2px solid var(--border-strong-color); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .paper-bg { background-color: var(--card-bg-color); border: 1px solid var(--border-color); box-shadow: 0 0 15px rgba(0,0,0,0.3); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background-color 0.5s, border-color 0.5s; }
+        
+        .input-base { background-color: transparent; border: none; border-bottom: 1px solid var(--border-strong-color); text-align: center; width: 100%; color: var(--text-color); }
+        input:focus, textarea:focus { outline: none; border-bottom: 1px solid var(--accent-color); }
+        textarea.input-base { text-align: left; padding: 4px; border: 1px solid var(--border-strong-color); border-radius: 4px; }
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        .num-input-control { cursor: pointer; font-size: 1.2rem; line-height: 1; padding: 0 0.25rem; color: var(--border-strong-color); transition: color 0.2s; user-select: none; }
+        .num-input-control:hover { color: var(--accent-color); }
+
+        .proficiency-toggle, .advantage-toggle { width: 18px; height: 18px; border: 1px solid var(--border-strong-color); border-radius: 50%; cursor: pointer; display: inline-flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; transition: all 0.2s ease-in-out; user-select: none; }
+        .proficiency-toggle.proficient { background-color: var(--accent-color); color: var(--accent-text-color); }
+        .proficiency-toggle.expertise { background-color: var(--border-color); color: var(--accent-color); border-color: var(--accent-color); }
+        .dark-mode .proficiency-toggle.expertise { color: var(--accent-text-color); }
+        .advantage-toggle.active { background-color: var(--accent-color); color: var(--accent-text-color); }
+
+        .death-save { width: 20px; height: 20px; border: 1px solid var(--border-strong-color); border-radius: 50%; cursor: pointer; }
+        .death-save.filled { background-color: var(--accent-color); }
+        
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
+        .modal-content { background-color: var(--bg-color); margin: 5% auto; padding: 20px; border: 1px solid var(--border-color); width: 80%; max-width: 600px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
+        .close-button { color: #aaa; float: right; font-size: 28px; font-weight: bold; }
+        .close-button:hover, .close-button:focus { color: var(--text-color); text-decoration: none; cursor: pointer; }
+        
+        .action-button { background-color: var(--border-strong-color); color: var(--accent-text-color); transition: background-color 0.3s, box-shadow 0.3s; }
+        .danger-button { background-color: var(--danger-color); color: var(--danger-text-color); }
+        
+        /* --- Toast / Popup de Notificação --- */
+        #toast-container { position: fixed; top: 20px; right: 20px; z-index: 200; }
+        .toast { padding: 15px 20px; border-radius: 8px; margin-bottom: 10px; font-size: 1rem; color: var(--accent-text-color); animation: fadeInOut 3s forwards; }
+        .toast.success { background-color: var(--success-bg-color); color: var(--success-color); border: 1px solid var(--success-color); }
+        .toast.error { background-color: rgba(220, 38, 38, 0.8); color: var(--danger-text-color); border: 1px solid var(--danger-color); }
+        @keyframes fadeInOut { 0% { opacity: 0; transform: translateX(100%); } 15% { opacity: 1; transform: translateX(0); } 85% { opacity: 1; transform: translateX(0); } 100% { opacity: 0; transform: translateX(100%); } }
+        
+        /* --- Barra de Vida --- */
+        .hp-bar-container { width: 90%; margin-left: auto; margin-right: auto; height: 12px; background-color: rgba(0,0,0,0.2); border: 1px solid var(--border-strong-color); border-radius: 6px; padding: 2px; }
+        .hp-bar-fill { height: 100%; border-radius: 4px; background-color: #16a34a; /* Verde por padrão */ width: 100%; transition: width 0.5s ease-in-out, background-color 0.5s ease-in-out; }
+        
+        /* --- Usos de Habilidade --- */
+        .ability-use-tick.used { background-color: var(--accent-color); }
+        
+        /* --- Animação de Atributo --- */
+        @keyframes flash { 0%, 100% { color: var(--text-color); transform: scale(1); } 50% { color: var(--accent-color); transform: scale(1.2); } }
+        .modifier-flash { animation: flash 0.6s ease-in-out; }
+
+        /* --- Ícones de Condição --- */
+        .condition-token { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.1); border: 1px solid var(--border-color); cursor: pointer; transition: all 0.3s; }
+        .condition-token i { font-size: 1.2rem; color: var(--text-color); opacity: 0.4; transition: all 0.3s; }
+        .condition-token.active { background-color: var(--danger-color); border-color: var(--danger-color); box-shadow: 0 0 8px 1px var(--danger-color); }
+        .condition-token.active i { opacity: 1; color: var(--danger-text-color); transform: scale(1.1); }
+
+        /* --- Estilos do Rolador de Dados --- */
+        .dice-button {
+            background-color: var(--border-strong-color);
+            color: var(--accent-text-color);
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.2rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+        .dice-button:hover {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 8px 2px var(--glow-color);
+        }
+        #dice-result {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            min-height: 3rem; /* Garante espaço mesmo sem resultado */
+        }
+
+        /* Estilos para o grimório (seção de magias) */
+        .spell-level-header {
+            background-color: var(--tab-active-bg);
+            border-bottom: 2px solid var(--border-strong-color);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .spell-level-content {
+            display: none;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .spell-level-content.active {
+            display: block;
+        }
+        .spell-slot-tick {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--border-strong-color);
+            border-radius: 50%;
+            cursor: pointer;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0,0,0,0.1);
+        }
+        .spell-slot-tick.used {
+            background-color: var(--accent-color);
+        }
+        .spell-card {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        .spell-card h4 {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+        .spell-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="sheet-container" class="max-w-7xl mx-auto paper-bg rounded-lg p-4 md:p-6 parchment-container">
+        <header class="grid grid-cols-1 md:grid-cols-3 gap-4 border-b-2 border-[var(--border-strong-color)] pb-4 mb-4">
+            <div class="col-span-1 md:col-span-2 flex items-center">
+                <label for="char-img-input" class="w-24 h-24 mr-4 rounded-full overflow-hidden border-2 border-[var(--border-strong-color)] flex-shrink-0 cursor-pointer"><img id="char-img-preview" src="https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon" alt="Ícone do Personagem" class="w-full h-full object-cover"></label>
+                <input type="file" id="char-img-input" class="hidden" accept="image/*">
+                <div>
+                    <input type="text" id="char-name" class="font-ornate text-4xl input-base w-full mb-1" placeholder="Nome do Personagem">
+                    <div class="grid grid-cols-2 gap-x-4"><input type="text" id="char-race" class="input-base" placeholder="Raça"><input type="text" id="char-origin" class="input-base" placeholder="Origem/Classe"></div>
+                </div>
+            </div>
+            <div class="col-span-1 flex flex-col items-end justify-between">
+                <div class="flex items-center space-x-4">
+                    <button id="wallpaper-btn" title="Mudar Papel de Parede" class="text-xl text-[var(--border-strong-color)] hover:text-[var(--accent-color)]"><i class="fas fa-image"></i></button>
+                    <input type="file" id="wallpaper-input" class="hidden" accept="image/*">
+                    <button id="theme-toggle" title="Alternar Modo" class="text-xl text-[var(--border-strong-color)] hover:text-[var(--accent-color)]"><i class="fas fa-moon"></i></button>
+                    <button id="settings-btn" title="Configurações da Ficha" class="text-xl text-[var(--border-strong-color)] hover:text-[var(--accent-color)]"><i class="fas fa-cog"></i></button>
+                </div>
+                <div class="flex items-center justify-around text-center w-full mt-2">
+                    <div id="inspiration-tracker" class="text-center cursor-pointer p-2 rounded-lg border border-transparent hover:border-[var(--border-color)] transition-all">
+                        <div class="font-ornate text-lg">Inspiração</div>
+                        <i class="fas fa-lightbulb text-2xl opacity-30"></i>
+                    </div>
+                    <div>
+                        <label for="char-level" class="font-ornate text-lg">Nível</label>
+                        <div class="flex items-center justify-center"><span class="num-input-control" data-target="char-level" data-step="-1">‹</span><input type="number" id="char-level" class="input-base text-2xl w-12" value="1" min="1" max="20"><span class="num-input-control" data-target="char-level" data-step="1">›</span></div>
+                    </div>
+                    <div><div class="font-ornate text-lg">Proficiência</div><div id="proficiency-bonus" class="text-2xl font-bold">+2</div></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="mb-4 flex justify-center space-x-2 md:space-x-4 border-b-2 border-[var(--border-color)] pb-2">
+            <button class="tab-button active" onclick="openTab(event, 'main-stats')"><i class="fas fa-scroll"></i><span class="tab-text">Status</span></button>
+            <button class="tab-button" onclick="openTab(event, 'character')"><i class="fas fa-user"></i><span class="tab-text">Personagem</span></button>
+            <button class="tab-button" onclick="openTab(event, 'inventory')"><i class="fas fa-briefcase"></i><span class="tab-text">Inventário</span></button>
+            <button class="tab-button" onclick="openTab(event, 'abilities')"><i class="fas fa-star"></i><span class="tab-text">Habilidades</span></button>
+            <button class="tab-button" onclick="openTab(event, 'journal')"><i class="fas fa-book-open"></i><span class="tab-text">Diário</span></button>
+            <button class="tab-button" onclick="openTab(event, 'bonds')"><i class="fas fa-users"></i><span class="tab-text">Vínculos</span></button>
+            <button class="tab-button" onclick="openTab(event, 'weapons')"><i class="fas fa-fire"></i><span class="tab-text">Armas</span></button>
+        </div>
+
+        <main>
+            <div id="main-stats" class="tab-content active"><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="space-y-6"><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Atributos</h2><div id="attributes-container" class="grid grid-cols-2 gap-4"></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Salvaguardas</h2><div id="saving-throws-container" class="space-y-2"></div></div></div><div class="space-y-6"><div class="grid grid-cols-3 gap-4 text-center"><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Classe de Armadura</label><input type="number" id="ac" class="input-base text-3xl" value="10"></div><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Iniciativa</label><div id="initiative-bonus" class="text-3xl font-bold">+0</div></div><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Deslocamento</label><input type="text" id="speed" class="input-base text-3xl" value="30ft"></div></div><div class="paper-bg p-4 rounded-lg text-center"><h2 class="font-ornate text-2xl mb-2">Pontos de Vida</h2><div class="flex items-center justify-center space-x-2"><input type="number" id="hp-current" placeholder="Atuais" class="input-base w-20 text-2xl"><span class="text-2xl">/</span><input type="number" id="hp-max" placeholder="Max" class="input-base w-20 text-2xl"></div><div class="hp-bar-container mt-3"><div id="hp-bar" class="hp-bar-fill"></div></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Condições</h2><div id="conditions-container" class="flex flex-wrap justify-center gap-2 mt-2"></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Testes Contra a Morte</h2><div class="flex justify-around"><div><h3 class="font-bold">Sucessos</h3><div id="death-saves-success" class="flex space-x-2 mt-2"><div class="death-save"></div><div class="death-save"></div><div class="death-save"></div></div></div><div><h3 class="font-bold">Falhas</h3><div id="death-saves-failure" class="flex space-x-2 mt-2"><div class="death-save"></div><div class="death-save"></div><div class="death-save"></div></div></div></div></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Perícias</h2><div id="skills-container" class="space-y-1"></div></div></div></div>
+            <div id="character" class="tab-content p-4">
+                <h2 class="font-ornate text-3xl mb-4 text-center">Aparência e História</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div><label class="font-ornate text-xl">Traços de Personalidade</label><textarea id="personality-traits" class="input-base w-full h-24"></textarea></div>
+                        <div><label class="font-ornate text-xl">Ideais</label><textarea id="ideals" class="input-base w-full h-24"></textarea></div>
+                        <div><label class="font-ornate text-xl">Vínculos (Backstory)</label><textarea id="bonds-backstory" class="input-base w-full h-24"></textarea></div>
+                        <div><label class="font-ornate text-xl">Defeitos</label><textarea id="flaws" class="input-base w-full h-24"></textarea></div>
+                    </div>
+                    <div>
+                        <label class="font-ornate text-xl">História do Personagem</label>
+                        <textarea id="backstory" class="input-base w-full h-full min-h-[400px]"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div id="inventory" class="tab-content p-4">
+                <div class="paper-bg p-4 rounded-lg mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-ornate text-2xl text-center mb-4">Itens Equipados</h3>
+                            <div class="space-y-2">
+                                <div><label class="text-sm font-bold">Arma</label><input type="text" id="equipped-weapon" class="input-base w-full text-left pl-2"></div>
+                                <div><label class="text-sm font-bold">Escudo</label><input type="text" id="equipped-shield" class="input-base w-full text-left pl-2"></div>
+                                <div><label class="text-sm font-bold">Armadura</label><input type="text" id="equipped-armor" class="input-base w-full text-left pl-2"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-ornate text-2xl text-center mb-4">Moedas</h3>
+                            <div class="grid grid-cols-2 gap-x-4 gap-y-2">
+                                <div class="text-center"><label class="text-sm font-bold">Cobre (PC)</label><input type="number" id="coins-cp" class="input-base w-full" value="0"></div>
+                                <div class="text-center"><label class="text-sm font-bold">Prata (PP)</label><input type="number" id="coins-sp" class="input-base w-full" value="0"></div>
+                                <div class="text-center"><label class="text-sm font-bold">Ouro (PO)</label><input type="number" id="coins-gp" class="input-base w-full" value="0"></div>
+                                <div class="text-center"><label class="text-sm font-bold">Platina (PL)</label><input type="number" id="coins-pp" class="input-base w-full" value="0"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="font-ornate text-3xl mb-4">Mochila</h2>
+                <button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('item-modal')">Adicionar Item</button>
+                <div id="inventory-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+            <div id="journal" class="tab-content p-4"><h2 class="font-ornate text-3xl mb-4">Diário</h2><button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('journal-modal')">Adicionar Entrada</button><div id="journal-entries" class="space-y-4"></div></div>
+            <div id="abilities" class="tab-content p-4"><h2 class="font-ornate text-3xl mb-4">Traços e Habilidades</h2><button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('ability-modal')">Adicionar Traço/Habilidade</button><div id="abilities-list" class="space-y-4"></div></div>
+            <div id="bonds" class="tab-content p-4"><h2 class="font-ornate text-3xl mb-4">Vínculos Sociais</h2><button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('bond-modal')">Adicionar Vínculo</button><div id="bonds-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div></div>
+            
+            <div id="weapons" class="tab-content p-4">
+                <h2 class="font-ornate text-3xl mb-4">Armas e Ataques</h2>
+                <button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('weapon-modal')">Adicionar Arma</button>
+                <div id="weapons-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    </div>
+            </div>
+        </main>
+        
+        <div class="paper-bg p-4 rounded-lg mt-6 text-center">
+            <h2 class="font-ornate text-2xl mb-4">Rolador de Dados</h2>
+            <div class="flex flex-wrap justify-center gap-2 mb-4">
+                <button class="dice-button" onclick="rollDice(4)">D4</button>
+                <button class="dice-button" onclick="rollDice(6)">D6</button>
+                <button class="dice-button" onclick="rollDice(8)">D8</button>
+                <button class="dice-button" onclick="rollDice(10)">D10</button>
+                <button class="dice-button" onclick="rollDice(12)">D12</button>
+                <button class="dice-button" onclick="rollDice(20)">D20</button>
+            </div>
+            <div id="dice-result" class="mt-2"></div>
+        </div>
+    </div>
+    
+    <div id="toast-container"></div>
+
+    <input type="file" id="import-file-input" class="hidden" accept="application/json">
+
+    <div id="item-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('item-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Item</h3><input type="text" id="item-name" class="input-base w-full mb-2" placeholder="Nome do Item"><label for="item-img-input" class="block text-center cursor-pointer p-2 border border-dashed border-[var(--border-strong-color)] rounded-md my-2 hover:bg-[var(--tab-active-bg)]">Carregar Imagem</label><input type="file" id="item-img-input" class="hidden" accept="image/*"><img id="item-img-preview" class="hidden w-full h-32 object-cover rounded mb-2"><input type="text" id="item-rarity" class="input-base w-full mb-2" placeholder="Raridade (ex: Comum, Lendário)"><input type="text" id="item-type" class="input-base w-full mb-2" placeholder="Tipo (ex: Arma, Armadura)"><textarea id="item-bonus" class="input-base w-full h-24" placeholder="Descrição e Bônus"></textarea><button id="save-item-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Item</button></div></div>
+    <div id="journal-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('journal-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Entrada no Diário</h3><input type="text" id="journal-title" class="input-base w-full mb-2" placeholder="Título"><input type="date" id="journal-date" class="input-base w-full mb-2"><textarea id="journal-content" class="input-base w-full h-40" placeholder="Escreva sua entrada..."></textarea><button id="save-journal-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Entrada</button></div></div>
+    <div id="ability-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('ability-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Traço ou Habilidade</h3><input type="text" id="ability-name" class="input-base w-full mb-2" placeholder="Nome"><textarea id="ability-desc" class="input-base w-full h-24 mb-2" placeholder="Descrição"></textarea><div class="flex items-center space-x-2"><input type="number" id="ability-uses" class="input-base w-16" placeholder="Usos"><select id="ability-reset" class="input-base bg-[var(--bg-color)]"><option value="none">N/A</option><option value="short-rest">por Descanso Curto</option><option value="long-rest">por Descanso Longo</option></select></div><button id="save-ability-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar</button></div></div>
+    <div id="bond-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('bond-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Vínculo Social</h3><input type="text" id="bond-name" class="input-base w-full mb-2" placeholder="Nome"><label for="bond-img-input" class="block text-center cursor-pointer p-2 border border-dashed border-[var(--border-strong-color)] rounded-md my-2 hover:bg-[var(--tab-active-bg)]">Carregar Imagem</label><input type="file" id="bond-img-input" class="hidden" accept="image/*"><img id="bond-img-preview" class="hidden w-24 h-24 object-cover rounded-full mx-auto mb-2"><input type="text" id="bond-relationship" class="input-base w-full mb-2" placeholder="Relação (ex: Aliado, Rival)"><textarea id="bond-summary" class="input-base w-full h-24" placeholder="Resumo da Relação"></textarea><button id="save-bond-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Vínculo</button></div></div>
+    
+    <div id="weapon-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('weapon-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Arma</h3><input type="text" id="weapon-name" class="input-base w-full mb-2" placeholder="Nome da Arma"><input type="text" id="weapon-damage" class="input-base w-full mb-2" placeholder="Dano (ex: 1d8 perfurante)"><input type="text" id="weapon-type" class="input-base w-full mb-2" placeholder="Tipo (ex: Simples, Corpo a Corpo)"><textarea id="weapon-properties" class="input-base w-full h-24 mb-2" placeholder="Propriedades (ex: Acuidade, Leve)"></textarea><label for="weapon-attribute" class="block text-sm font-bold mb-1">Atributo de Ataque:</label><select id="weapon-attribute" class="input-base bg-[var(--bg-color)] w-full mb-4"><option value="STR">Força (STR)</option><option value="DEX">Destreza (DEX)</option></select><button id="save-weapon-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Arma</button></div></div>
+
+    <div id="journal-view-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('journal-view-modal')">&times;</span><div id="journal-view-content" class="max-h-[70vh] overflow-y-auto pr-4"></div><div class="text-right mt-4"><button id="edit-journal-from-view-btn" class="action-button font-bold py-2 px-6 rounded">Editar</button></div></div></div>
+    
+    <div id="confirm-delete-modal" class="modal"><div class="modal-content text-center"><h3 class="font-ornate text-2xl mb-4">Tem certeza?</h3><p class="mb-6">Esta ação não pode ser desfeita.</p><div class="flex justify-center space-x-4"><button id="cancel-delete-btn" class="font-bold py-2 px-6 rounded">Cancelar</button><button id="confirm-delete-btn" class="danger-button font-bold py-2 px-6 rounded">Excluir</button></div></div></div>
+
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('settings-modal')">&times;</span>
+            <h3 class="font-ornate text-2xl mb-4 text-center">Configurações da Ficha</h3>
+            <div class="space-y-4">
+                <button class="action-button font-bold py-2 px-4 rounded w-full" onclick="exportCharacterSheet()">Exportar Ficha (.json)</button>
+                <label for="import-file-input" class="action-button font-bold py-2 px-4 rounded w-full text-center cursor-pointer">
+                    Importar Ficha (.json)
+                </label>
+                <p class="text-sm opacity-80 text-center">Importar irá substituir todos os dados atuais da ficha.</p>
+                <hr class="border-[var(--border-color)] my-4">
+                <button class="danger-button font-bold py-2 px-4 rounded w-full" onclick="resetCharacterSheetConfirm()">Redefinir Ficha (Limpar Tudo)</button>
+                <p class="text-sm opacity-80 text-center text-red-700">Esta ação não pode ser desfeita!</p>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const STORAGE_KEY = 'dnd-character-sheet-data'; // Chave única para o localStorage
+
+    const dataStore = {
+        attributes: [ { name: 'Força', short: 'STR' }, { name: 'Destreza', short: 'DEX' }, { name: 'Constituição', short: 'CON' }, { name: 'Inteligência', short: 'INT' }, { name: 'Sabedoria', short: 'WIS' }, { name: 'Carisma', short: 'CHA' } ],
+        skills: [ { name: 'Acrobacia', attr: 'DEX' }, { name: 'Lidar com Animais', attr: 'WIS' }, { name: 'Arcanismo', attr: 'INT' }, { name: 'Atletismo', attr: 'STR' }, { name: 'Enganação', attr: 'CHA' }, { name: 'História', attr: 'INT' }, { name: 'Intuição', attr: 'WIS' }, { name: 'Intimidação', attr: 'CHA' }, { name: 'Investigação', attr: 'INT' }, { name: 'Medicina', attr: 'WIS' }, { name: 'Natureza', attr: 'INT' }, { name: 'Percepção', attr: 'WIS' }, { name: 'Atuação', attr: 'CHA' }, { name: 'Persuasão', attr: 'CHA' }, { name: 'Religião', attr: 'INT' }, { name: 'Prestidigitação', attr: 'DEX' }, { name: 'Furtividade', attr: 'DEX' }, { name: 'Sobrevivência', attr: 'WIS' } ],
+        conditions: [ 
+            { name: 'Agarrado', icon: 'fas fa-hand-fist' },
+            { name: 'Amedrontado', icon: 'fas fa-face-grimace' },
+            { name: 'Atordoado', icon: 'fas fa-dizzy' },
+            { name: 'Caído', icon: 'fas fa-person-falling' },
+            { name: 'Cego', icon: 'fas fa-eye-slash' },
+            { name: 'Enfeitiçado', icon: 'fas fa-heart' },
+            { name: 'Envenenado', icon: 'fas fa-skull-crossbones' },
+            { name: 'Exaustão', icon: 'fas fa-tired' },
+            { name: 'Incapacitado', icon: 'fas fa-bed' },
+            { name: 'Inconsciente', icon: 'fas fa-moon' },
+            { name: 'Invisível', icon: 'fas fa-eye-low-vision' },
+            { name: 'Paralisado', icon: 'fas fa-ban' },
+            { name: 'Petrificado', icon: 'fas fa-gem' },
+            { name: 'Surdo', icon: 'fas fa-volume-xmark' }
+        ],
+        // Estrutura para consolidar todos os dados da ficha
+        characterSheetData: {
+            staticInputs: {},
+            toggles: {},
+            dynamic: {
+                item: [],
+                journal: [],
+                ability: [],
+                bond: [],
+                weapon: []
+            },
+            images: { // Objeto para armazenar URLs de imagem
+                charImage: "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon",
+                wallpaper: "url('https://www.transparenttextures.com/patterns/old-wall.png')",
+            },
+            theme: 'light' // Para o tema claro/escuro
+        }
+    };
+    let elementToDelete = null;
+    let lastHpValue = 0;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        populateAttributes();
+        populateSavingThrows();
+        populateSkills();
+        populateConditions();
+        setupEventListeners();
+        loadFromLocalStorage(); 
+        applyThemeFromData(); // Aplica o tema salvo
+        document.querySelectorAll('.tab-button.active').forEach(b => b.classList.add('glow-effect'));
+    });
+
+    function populateAttributes() {
+        const container = document.getElementById('attributes-container');
+        container.innerHTML = '';
+        dataStore.attributes.forEach(attr => {
+            container.innerHTML += `<div class="text-center paper-bg p-2 rounded-lg"><label for="attr-${attr.short}" class="font-ornate text-xl">${attr.name}</label><div class="flex items-center justify-center"><span class="num-input-control" data-target="attr-${attr.short}" data-step="-1">‹</span><input type="number" id="attr-${attr.short}" class="input-base text-3xl font-bold attribute-score w-16" value="10" data-attr="${attr.short}"><span class="num-input-control" data-target="attr-${attr.short}" data-step="1">›</span></div><div id="mod-${attr.short}" class="text-lg border-t border-[var(--border-color)] mt-1">+0</div></div>`;
+        });
+    }
+    function populateSavingThrows() {
+        const container = document.getElementById('saving-throws-container');
+        container.innerHTML = '';
+        dataStore.attributes.forEach(attr => {
+            container.innerHTML += `<div class="flex items-center justify-between"><div class="flex items-center space-x-2"><span class="advantage-toggle" title="Vantagem">A</span><span class="proficiency-toggle" data-type="save" data-name="${attr.short}" title="Proficiência/Especialização"></span><span>${attr.name}</span></div><div id="save-bonus-${attr.short}" class="font-bold">+0</div></div>`;
+        });
+    }
+    function populateSkills() {
+        const container = document.getElementById('skills-container');
+        container.innerHTML = '';
+        dataStore.skills.forEach(skill => {
+            container.innerHTML += `<div class="flex items-center justify-between text-sm"><div class="flex items-center space-x-2"><span class="advantage-toggle" title="Vantagem">A</span><span class="proficiency-toggle" data-type="skill" data-name="${skill.name}" title="Proficiência/Especialização"></span><span>${skill.name} <span class="text-xs opacity-70">(${skill.attr})</span></span></div><div id="skill-bonus-${skill.name.replace(/\s+/g, '')}" class="font-bold">+0</div></div>`;
+        });
+    }
+    function populateConditions() {
+        const container = document.getElementById('conditions-container');
+        container.innerHTML = '';
+        dataStore.conditions.forEach(condition => {
+            container.innerHTML += `<div class="condition-token" title="${condition.name}"><i class="${condition.icon}"></i></div>`;
+        });
+    }
+
+    function setupEventListeners() {
+        const debouncedSave = debounce(saveToLocalStorage, 500);
+        const sheetContainer = document.getElementById('sheet-container');
+        
+        sheetContainer.addEventListener('input', handleStatChange);
+        sheetContainer.addEventListener('input', debouncedSave);
+        sheetContainer.addEventListener('click', (e) => {
+            if (e.target.matches('.proficiency-toggle, .advantage-toggle, .death-save, .ability-use-tick, .condition-token, .condition-token i, #inspiration-tracker, #inspiration-tracker *')) {
+                debouncedSave();
+            }
+        });
+        
+        document.body.addEventListener('click', handleGlobalClick);
+        
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        document.getElementById('wallpaper-btn').addEventListener('click', () => document.getElementById('wallpaper-input').click());
+        
+        document.getElementById('wallpaper-input').addEventListener('change', handleFileSelect(e => {
+            document.body.style.backgroundImage = `url('${e.target.result}')`;
+            dataStore.characterSheetData.images.wallpaper = `url('${e.target.result}')`; // Salva a imagem de fundo
+            debouncedSave();
+        }));
+
+        document.getElementById('char-img-input').addEventListener('change', handleFileSelect(e => {
+            document.getElementById('char-img-preview').src = e.target.result;
+            dataStore.characterSheetData.images.charImage = e.target.result; // Salva a imagem do personagem
+            debouncedSave();
+        }));
+
+        document.getElementById('item-img-input').addEventListener('change', handleFileSelect(e => {
+            const preview = document.getElementById('item-img-preview');
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+            // Não salva diretamente aqui, pois a imagem do item será salva com o objeto do item
+        }));
+        document.getElementById('bond-img-input').addEventListener('change', handleFileSelect(e => {
+            const preview = document.getElementById('bond-img-preview');
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+            // Não salva diretamente aqui, pois a imagem do vínculo será salva com o objeto do vínculo
+        }));
+
+        document.getElementById('save-item-btn').addEventListener('click', () => { saveData('item'); debouncedSave(); });
+        document.getElementById('save-journal-btn').addEventListener('click', () => { saveData('journal'); debouncedSave(); });
+        document.getElementById('save-ability-btn').addEventListener('click', () => { saveData('ability'); debouncedSave(); });
+        document.getElementById('save-bond-btn').addEventListener('click', () => { saveData('bond'); debouncedSave(); });
+        document.getElementById('save-weapon-btn').addEventListener('click', () => { saveData('weapon'); debouncedSave(); });
+        
+        document.getElementById('cancel-delete-btn').addEventListener('click', () => closeModal('confirm-delete-modal'));
+        document.getElementById('confirm-delete-btn').addEventListener('click', () => {
+            if (elementToDelete) {
+                elementToDelete.remove();
+                showToast('Excluído com sucesso.', 'success');
+                elementToDelete = null;
+                debouncedSave();
+            }
+            closeModal('confirm-delete-modal');
+        });
+        document.getElementById('edit-journal-from-view-btn').addEventListener('click', (e) => {
+            const id = e.target.dataset.editingId;
+            if (id) {
+                closeModal('journal-view-modal');
+                editJournal(id);
+            }
+        });
+
+        document.querySelectorAll('.dice-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const diceType = parseInt(e.target.textContent.replace('D', ''));
+                rollDice(diceType);
+            });
+        });
+
+        // Configurações da ficha
+        document.getElementById('settings-btn').addEventListener('click', () => openModal('settings-modal'));
+        document.getElementById('import-file-input').addEventListener('change', importCharacterSheet);
+    }
+    
+    function handleGlobalClick(e) {
+        const target = e.target;
+        const control = target.closest('.num-input-control');
+        const deleteBtn = target.closest('.delete-btn');
+        const editBtn = target.closest('.edit-btn');
+        const journalCard = target.closest('.journal-card');
+        const abilityUseTick = target.closest('.ability-use-tick');
+        const conditionToken = target.closest('.condition-token');
+        const inspirationTracker = target.closest('#inspiration-tracker');
+        const attackButton = target.closest('.attack-button');
+        const damageButton = target.closest('.damage-button');
+
+        if (deleteBtn) {
+            elementToDelete = deleteBtn.closest('.dynamic-card');
+            openModal('confirm-delete-modal');
+            return;
+        }
+        if (editBtn) {
+            const card = editBtn.closest('.dynamic-card');
+            const type = card.dataset.type;
+            const id = card.id;
+            if (type === 'weapon') {
+                editWeapon(id);
+            } else {
+                window[`edit${capitalize(type)}`](id);
+            }
+            return;
+        }
+        if (attackButton) {
+            const weaponId = attackButton.closest('.dynamic-card').id;
+            rollAttack(weaponId);
+            return;
+        }
+        if (damageButton) {
+            const weaponId = damageButton.closest('.dynamic-card').id;
+            rollDamageForWeapon(weaponId);
+            return;
+        }
+
+        if (control) {
+            const targetId = control.dataset.target;
+            const step = parseInt(control.dataset.step);
+            const input = document.getElementById(targetId);
+            if (input) {
+                input.value = parseInt(input.value) + step;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                vibrate(20);
+            }
+        }
+        if (target.classList.contains('proficiency-toggle')) {
+            toggleProficiency(target);
+            vibrate(30);
+        }
+        if (target.classList.contains('advantage-toggle')) {
+            target.classList.toggle('active');
+            vibrate(30);
+        }
+        if (target.classList.contains('death-save')) {
+            target.classList.toggle('filled');
+            vibrate(30);
+        }
+        if (journalCard) {
+            viewJournalEntry(journalCard.id);
+        }
+        if (abilityUseTick) {
+            abilityUseTick.classList.toggle('used');
+            vibrate(50);
+        }
+        if (conditionToken || target.closest('.condition-token')) {
+            const actualToken = conditionToken || target.closest('.condition-token');
+            actualToken.classList.toggle('active');
+            vibrate(30);
+        }
+        if (inspirationTracker) {
+            inspirationTracker.classList.toggle('active');
+            const icon = inspirationTracker.querySelector('i');
+            icon.classList.toggle('opacity-30');
+            vibrate(40);
+        }
+    }
+
+    function handleStatChange(e) {
+        if (e.target.classList.contains('attribute-score') || e.target.id === 'char-level') {
+            updateAllCalculations();
+        }
+        if (e.target.id === 'hp-current' || e.target.id === 'hp-max') {
+            const currentHpEl = document.getElementById('hp-current');
+            const newHpValue = parseInt(currentHpEl.value) || 0;
+            if (newHpValue < lastHpValue) {
+                vibrate([100, 30, 100]);
+            }
+            lastHpValue = newHpValue;
+            updateHpBar();
+        }
+    }
+
+    function getProficiencyBonus() { return Math.floor(((parseInt(document.getElementById('char-level').value) || 1) - 1) / 4) + 2; }
+    function getAttributeModifier(attrShort) { return Math.floor(((parseInt(document.getElementById(`attr-${attrShort}`).value) || 10) - 10) / 2); }
+
+    function updateAllCalculations() {
+        const profBonus = getProficiencyBonus();
+        document.getElementById('proficiency-bonus').textContent = `+${profBonus}`;
+        dataStore.attributes.forEach(attr => {
+            const modEl = document.getElementById(`mod-${attr.short}`);
+            const oldMod = modEl.textContent;
+            const newModVal = getAttributeModifier(attr.short);
+            const newModText = newModVal >= 0 ? `+${newModVal}` : newModVal;
+            
+            if (oldMod !== newModText) {
+                modEl.textContent = newModText;
+                modEl.classList.add('modifier-flash');
+                modEl.addEventListener('animationend', () => modEl.classList.remove('modifier-flash'), { once: true });
+            }
+        });
+        const dexMod = getAttributeModifier('DEX');
+        document.getElementById('initiative-bonus').textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
+        dataStore.attributes.forEach(attr => {
+            const modifier = getAttributeModifier(attr.short);
+            const profToggle = document.querySelector(`.proficiency-toggle[data-type="save"][data-name="${attr.short}"]`);
+            let totalBonus = modifier;
+            if (profToggle.classList.contains('proficient')) totalBonus += profBonus;
+            else if (profToggle.classList.contains('expertise')) totalBonus += (profBonus * 2);
+            document.getElementById(`save-bonus-${attr.short}`).textContent = totalBonus >= 0 ? `+${totalBonus}` : totalBonus;
+        });
+        dataStore.skills.forEach(skill => {
+            const modifier = getAttributeModifier(skill.attr);
+            const profToggle = document.querySelector(`.proficiency-toggle[data-type="skill"][data-name="${skill.name}"]`);
+            let totalBonus = modifier;
+            if (profToggle.classList.contains('proficient')) totalBonus += profBonus;
+            else if (profToggle.classList.contains('expertise')) totalBonus += (profBonus * 2);
+            document.getElementById(`skill-bonus-${skill.name.replace(/\s+/g, '')}`).textContent = totalBonus >= 0 ? `+${totalBonus}` : totalBonus;
+        });
+        updateHpBar();
+    }
+
+    function updateHpBar() {
+        const currentHp = parseInt(document.getElementById('hp-current').value) || 0;
+        const maxHp = parseInt(document.getElementById('hp-max').value) || 1;
+        const hpPercentage = Math.max(0, Math.min(100, (currentHp / maxHp) * 100));
+        
+        const hpBar = document.getElementById('hp-bar');
+        hpBar.style.width = `${hpPercentage}%`;
+
+        if (hpPercentage > 50) { hpBar.style.backgroundColor = '#16a34a'; }
+        else if (hpPercentage > 25) { hpBar.style.backgroundColor = '#facc15'; }
+        else { hpBar.style.backgroundColor = '#dc2626'; }
+    }
+
+    function toggleProficiency(element) {
+        if (element.classList.contains('proficient')) { element.classList.remove('proficient'); element.classList.add('expertise'); element.textContent = 'E'; } 
+        else if (element.classList.contains('expertise')) { element.classList.remove('expertise'); element.textContent = ''; } 
+        else { element.classList.add('proficient'); element.textContent = 'P'; }
+        updateAllCalculations();
+    }
+
+    function capitalize(s) { return s && s[0].toUpperCase() + s.slice(1); }
+    function openTab(evt, tabName) {
+        document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active", "glow-effect"));
+        document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active", "glow-effect");
+    }
+    function openModal(modalId, editingId = null) {
+        const modal = document.getElementById(modalId);
+        modal.dataset.editingId = editingId || '';
+        if (modalId !== 'confirm-delete-modal' && modalId !== 'journal-view-modal' && modalId !== 'settings-modal') {
+            modal.querySelectorAll('input, textarea').forEach(el => el.value = '');
+            const previews = modal.querySelectorAll('img[id$="-preview"]');
+            previews.forEach(p => { p.classList.add('hidden'); p.removeAttribute('src'); });
+        }
+        modal.style.display = 'block';
+    }
+    function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+    window.onclick = (event) => { if (event.target.classList.contains('modal')) event.target.style.display = "none"; }
+
+    function toggleTheme() {
+        const themeIcon = document.querySelector('#theme-toggle i');
+        document.documentElement.classList.toggle('dark-mode');
+        if (document.documentElement.classList.contains('dark-mode')) { 
+            themeIcon.classList.replace('fa-moon', 'fa-sun'); 
+            dataStore.characterSheetData.theme = 'dark';
+        } else { 
+            themeIcon.classList.replace('fa-sun', 'fa-moon'); 
+            dataStore.characterSheetData.theme = 'light';
+        }
+        saveToLocalStorage();
+    }
+
+    function applyThemeFromData() {
+        const themeIcon = document.querySelector('#theme-toggle i');
+        if (dataStore.characterSheetData.theme === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            document.documentElement.classList.remove('dark-mode');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+        document.body.style.backgroundImage = dataStore.characterSheetData.images.wallpaper;
+        document.getElementById('char-img-preview').src = dataStore.characterSheetData.images.charImage;
+    }
+
+    function handleFileSelect(callback) {
+        return (event) => {
+            const file = event.target.files[0];
+            if (file) { 
+                const reader = new FileReader(); 
+                reader.onload = callback; 
+                reader.readAsDataURL(file); 
+            }
+        };
+    }
+    function showToast(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+    
+    function vibrate(duration) {
+        if ('vibrate' in navigator) {
+            navigator.vibrate(duration);
+        }
+    }
+    
+    function extractCardData(cardElement) {
+        const data = {};
+        for (const key in cardElement.dataset) {
+            data[key] = cardElement.dataset[key];
+        }
+        return data;
+    }
+
+    function saveData(type) {
+        const modalId = `${type}-modal`;
+        const modal = document.getElementById(modalId);
+        const editingId = modal.dataset.editingId;
+        const data = {};
+        let isValid = true;
+
+        switch (type) {
+            case 'item':
+                data.name = document.getElementById('item-name').value;
+                data.type = document.getElementById('item-type').value;
+                data.bonus = document.getElementById('item-bonus').value;
+                data.rarity = document.getElementById('item-rarity').value;
+                // Guarda a imagem do preview
+                data.img = document.getElementById('item-img-preview').src; 
+                data.id = editingId || crypto.randomUUID();
+                if (!data.name || !data.type || !data.bonus) {
+                    isValid = false;
+                    showToast('Nome, tipo e descrição são obrigatórios.', 'error');
+                }
+                break;
+            case 'journal':
+                data.title = document.getElementById('journal-title').value;
+                data.date = document.getElementById('journal-date').value;
+                data.content = document.getElementById('journal-content').value;
+                data.id = editingId || crypto.randomUUID();
+                if (!data.title || !data.date || !data.content) {
+                    isValid = false;
+                    showToast('Título, data e conteúdo são obrigatórios.', 'error');
+                }
+                break;
+            case 'ability':
+                data.name = document.getElementById('ability-name').value;
+                data.desc = document.getElementById('ability-desc').value;
+                data.uses = document.getElementById('ability-uses').value;
+                data.reset = document.getElementById('ability-reset').value;
+                data.id = editingId || crypto.randomUUID();
+                if (editingId) {
+                    const existingAbilityCard = document.getElementById(editingId);
+                    if (existingAbilityCard) {
+                        const ticks = existingAbilityCard.querySelectorAll('.ability-use-tick');
+                        data.usedStates = Array.from(ticks).map(tick => tick.classList.contains('used'));
+                    }
+                } else {
+                    data.usedStates = [];
+                }
+                if (!data.name || !data.desc) {
+                    isValid = false;
+                    showToast('Nome e descrição são obrigatórios.', 'error');
+                }
+                break;
+            case 'bond':
+                data.name = document.getElementById('bond-name').value;
+                data.relationship = document.getElementById('bond-relationship').value;
+                data.summary = document.getElementById('bond-summary').value;
+                // Guarda a imagem do preview
+                data.img = document.getElementById('bond-img-preview').src;
+                data.id = editingId || crypto.randomUUID();
+                if (!data.name || !data.relationship) {
+                    isValid = false;
+                    showToast('Nome e relação são obrigatórios.', 'error');
+                }
+                break;
+            case 'weapon':
+                data.name = document.getElementById('weapon-name').value;
+                data.damage = document.getElementById('weapon-damage').value;
+                data.type = document.getElementById('weapon-type').value;
+                data.properties = document.getElementById('weapon-properties').value;
+                data.attribute = document.getElementById('weapon-attribute').value;
+                data.id = editingId || crypto.randomUUID();
+                if (!data.name || !data.damage) {
+                    isValid = false;
+                    showToast('Nome e dano da arma são obrigatórios.', 'error');
+                }
+                break;
+        }
+
+        if (!isValid) return;
+
+        let dynamicDataArray = dataStore.characterSheetData.dynamic[type];
+
+        if (editingId) {
+            const index = dynamicDataArray.findIndex(entry => entry.id === editingId);
+            if (index !== -1) {
+                dynamicDataArray[index] = data;
+            }
+        } else {
+            dynamicDataArray.push(data);
+        }
+        
+        renderDynamicList(type, dynamicDataArray);
+        closeModal(modalId);
+        showToast(`${capitalize(type)} salvo com sucesso!`, 'success');
+    }
+
+    function renderDynamicList(type, dataArray) {
+        const listIdMap = {
+            item: 'inventory-list',
+            journal: 'journal-entries',
+            ability: 'abilities-list',
+            bond: 'bonds-list',
+            weapon: 'weapons-list'
+        };
+        const listElement = document.getElementById(listIdMap[type]);
+        if (!listElement) {
+            console.error(`Elemento com ID '${listIdMap[type]}' não encontrado.`);
+            return;
+        }
+        listElement.innerHTML = '';
+
+        dataArray.forEach(data => {
+            const cardHTML = createCardHTML(type, data, data.id);
+            listElement.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        if (type === 'ability') {
+            listElement.querySelectorAll('.ability-use-tick').forEach(tick => {
+                tick.removeEventListener('click', handleGlobalClick); // Prevent duplicates
+                tick.addEventListener('click', handleGlobalClick);
+            });
+        }
+        if (type === 'weapon') {
+            listElement.querySelectorAll('.attack-button, .damage-button').forEach(button => {
+                button.removeEventListener('click', handleGlobalClick); // Prevent duplicates
+                button.addEventListener('click', handleGlobalClick);
+            });
+        }
+    }
+
+    function editItem(id) {
+        const itemData = dataStore.characterSheetData.dynamic.item.find(item => item.id === id);
+        if (!itemData) return;
+
+        openModal('item-modal', id);
+        document.getElementById('item-name').value = itemData.name;
+        document.getElementById('item-rarity').value = itemData.rarity;
+        document.getElementById('item-type').value = itemData.type;
+        document.getElementById('item-bonus').value = itemData.bonus;
+        const preview = document.getElementById('item-img-preview');
+        if (itemData.img && itemData.img.startsWith('data:image')) { preview.src = itemData.img; preview.classList.remove('hidden'); }
+        else { preview.src = ""; preview.classList.add('hidden'); } // Clear if no image data
+    }
+    function editJournal(id) {
+        const journalData = dataStore.characterSheetData.dynamic.journal.find(entry => entry.id === id);
+        if (!journalData) return;
+
+        openModal('journal-modal', id);
+        document.getElementById('journal-title').value = journalData.title;
+        document.getElementById('journal-date').value = journalData.date;
+        document.getElementById('journal-content').value = journalData.content;
+    }
+    function editAbility(id) {
+        const abilityData = dataStore.characterSheetData.dynamic.ability.find(ability => ability.id === id);
+        if (!abilityData) return;
+
+        openModal('ability-modal', id);
+        document.getElementById('ability-name').value = abilityData.name;
+        document.getElementById('ability-desc').value = abilityData.desc;
+        document.getElementById('ability-uses').value = abilityData.uses;
+        document.getElementById('ability-reset').value = abilityData.reset;
+    }
+    function editBond(id) {
+        const bondData = dataStore.characterSheetData.dynamic.bond.find(bond => bond.id === id);
+        if (!bondData) return;
+
+        openModal('bond-modal', id);
+        document.getElementById('bond-name').value = bondData.name;
+        document.getElementById('bond-relationship').value = bondData.relationship;
+        document.getElementById('bond-summary').value = bondData.summary;
+        const preview = document.getElementById('bond-img-preview');
+        if (bondData.img && bondData.img.startsWith('data:image')) { preview.src = bondData.img; preview.classList.remove('hidden'); }
+        else { preview.src = ""; preview.classList.add('hidden'); } // Clear if no image data
+    }
+    function editWeapon(id) {
+        const weaponData = dataStore.characterSheetData.dynamic.weapon.find(weapon => weapon.id === id);
+        if (!weaponData) return;
+
+        openModal('weapon-modal', id);
+        document.getElementById('weapon-name').value = weaponData.name;
+        document.getElementById('weapon-damage').value = weaponData.damage;
+        document.getElementById('weapon-type').value = weaponData.type;
+        document.getElementById('weapon-properties').value = weaponData.properties;
+        document.getElementById('weapon-attribute').value = weaponData.attribute;
+    }
+    
+    function viewJournalEntry(id) {
+        const journalData = dataStore.characterSheetData.dynamic.journal.find(entry => entry.id === id);
+        if (!journalData) return;
+
+        const contentDiv = document.getElementById('journal-view-content');
+        contentDiv.innerHTML = `
+            <div class="flex justify-between items-baseline border-b border-[var(--border-color)] pb-2 mb-4">
+                <h3 class="font-ornate text-3xl">${journalData.title}</h3>
+                <p class="text-sm">${journalData.date}</p>
+            </div>
+            <p class="whitespace-pre-wrap text-lg">${journalData.content}</p>
+        `;
+        document.getElementById('edit-journal-from-view-btn').dataset.editingId = id;
+        openModal('journal-view-modal');
+    }
+
+    function createCardHTML(type, data, id = null) {
+        const cardId = id || crypto.randomUUID();
+        const dataAttributes = Object.entries(data)
+            .filter(([key, value]) => key !== 'usedStates')
+            .map(([key, value]) => `data-${key}="${String(value || '').replace(/"/g, '&quot;')}"`)
+            .join(' ');
+
+        const actionsHTML = `<div class="absolute top-2 right-2 flex space-x-1 opacity-25 hover:opacity-100 transition-opacity"><button class="edit-btn text-sm p-1"><i class="fas fa-pencil-alt"></i></button><button class="delete-btn text-sm p-1"><i class="fas fa-trash-alt"></i></button></div>`;
+        
+        switch (type) {
+            case 'item':
+                return `<div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg relative" data-type="item" ${dataAttributes}><img src="${data.img && data.img.startsWith('data:image') ? data.img : 'https://placehold.co/300x200/c8a06e/4a2c2a?text=Item'}" alt="${data.name}" class="w-full h-32 object-cover rounded mb-2"><h4 class="font-ornate text-xl">${data.name}</h4><p class="text-sm italic">${data.rarity} ${data.type}</p><p class="text-sm mt-1">${data.bonus}</p>${actionsHTML}</div>`;
+            case 'journal':
+                return `<div id="${cardId}" class="dynamic-card journal-card paper-bg p-4 rounded-lg relative cursor-pointer" data-type="journal" ${dataAttributes}><div class="flex justify-between items-baseline pointer-events-none"><h4 class="font-ornate text-xl">${data.title}</h4><p class="text-sm">${data.date}</p></div><p class="text-sm italic opacity-70 truncate pointer-events-none">${data.content}</p>${actionsHTML}</div>`;
+            case 'ability':
+                let usesHTML = '';
+                if (data.uses && data.reset !== 'none') { 
+                    const usedStates = data.usedStates || [];
+                    const ticks = Array.from({length: parseInt(data.uses)}, (_, i) => 
+                        `<div class="ability-use-tick w-4 h-4 border border-gray-400 rounded-sm cursor-pointer ${usedStates[i] ? 'used' : ''}"></div>`
+                    ).join('');
+                    usesHTML = `<div class="mt-2"><p class="text-sm">Usos: ${data.uses} por ${data.reset.replace('-', ' ')}</p><div class="flex space-x-1 mt-1">${ticks}</div></div>`; 
+                }
+                return `<div id="${cardId}" class="dynamic-card paper-bg p-4 rounded-lg relative" data-type="ability" ${dataAttributes}><h4 class="font-ornate text-xl">${data.name}</h4><p class="text-sm mt-1">${data.desc}</p>${usesHTML}${actionsHTML}</div>`;
+            case 'bond':
+                return `<div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg flex items-start space-x-4 relative" data-type="bond" ${dataAttributes}><img src="${data.img && data.img.startsWith('data:image') ? data.img : 'https://placehold.co/100x100/c8a06e/4a2c2a?text=NPC'}" alt="${data.name}" class="w-24 h-24 object-cover rounded-full border-2 border-[var(--border-strong-color)]"><div><h4 class="font-ornate text-2xl">${data.name}</h4><p class="text-md italic">${data.relationship}</p><p class="text-sm mt-2">${data.summary}</p></div>${actionsHTML}</div>`;
+            case 'weapon':
+                return `
+                    <div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg relative" data-type="weapon" ${dataAttributes}>
+                        <h4 class="font-ornate text-xl">${data.name}</h4>
+                        <p class="text-sm">Tipo: ${data.type}</p>
+                        ${data.properties ? `<p class="text-sm">Propriedades: ${data.properties}</p>` : ''}
+                        <p class="text-sm">Atributo: ${data.attribute}</p>
+                        <div class="flex justify-between mt-2">
+                            <button class="action-button py-1 px-3 rounded text-sm attack-button">Atacar</button>
+                            <button class="action-button py-1 px-3 rounded text-sm damage-button">Dano: ${data.damage}</button>
+                        </div>
+                        ${actionsHTML}
+                    </div>
+                `;
+        }
+    }
+
+    // --- Funções de Local Storage ---
+    function debounce(func, delay) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
+
+    // Função única de salvamento para todos os dados da ficha
+    function saveToLocalStorage() {
+        // Salva inputs estáticos
+        document.querySelectorAll('input[id], textarea[id]').forEach(el => {
+            dataStore.characterSheetData.staticInputs[el.id] = el.value;
+        });
+        
+        // Salva estados de toggles
+        document.querySelectorAll('.proficiency-toggle, .advantage-toggle, .death-save, .condition-token, #inspiration-tracker').forEach((el) => {
+            let key = el.id || el.dataset.name || el.title; // Tenta pegar ID, data-name ou title
+            if (el.classList.contains('death-save')) {
+                key = el.parentElement.id + '-' + Array.from(el.parentElement.children).indexOf(el);
+                dataStore.characterSheetData.toggles[key] = el.classList.contains('filled');
+            } else if (el.classList.contains('proficiency-toggle')) {
+                if (el.classList.contains('proficient')) dataStore.characterSheetData.toggles[key] = 'proficient';
+                else if (el.classList.contains('expertise')) dataStore.characterSheetData.toggles[key] = 'expertise';
+                else dataStore.characterSheetData.toggles[key] = '';
+            } else if (el.classList.contains('advantage-toggle') || el.classList.contains('condition-token') || el.id === 'inspiration-tracker') {
+                dataStore.characterSheetData.toggles[key] = el.classList.contains('active');
+            }
+        });
+
+        // O conteúdo dinâmico (items, journal, etc.) já é atualizado diretamente em `dataStore.characterSheetData.dynamic`
+        // nas funções `saveData()` para cada tipo.
+
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(dataStore.characterSheetData));
+            console.log("Ficha salva localmente.");
+        } catch (e) {
+            console.error("Erro ao salvar dados no localStorage:", e);
+            showToast("Erro: Ficha muito grande para salvar. Exporte e limpe para continuar.", "error");
+        }
+    }
+
+    function loadFromLocalStorage() {
+        const savedData = localStorage.getItem(STORAGE_KEY);
+        if (!savedData) {
+            updateAllCalculations(); // Inicializa cálculos se não houver dados
+            return;
+        }
+
+        try {
+            const loadedSheetData = JSON.parse(savedData);
+            Object.assign(dataStore.characterSheetData, loadedSheetData); // Mescla dados salvos com a estrutura padrão
+
+            // Carrega inputs estáticos
+            for (const id in dataStore.characterSheetData.staticInputs) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.value = dataStore.characterSheetData.staticInputs[id];
+                }
+            }
+
+            // Carrega estados de toggles
+            for (const key in dataStore.characterSheetData.toggles) {
+                const el = document.getElementById(key) || document.querySelector(`[data-name="${key}"]`) || document.querySelector(`[title="${key}"]`);
+                if (el) {
+                    if (el.classList.contains('death-save')) {
+                        if (dataStore.characterSheetData.toggles[key]) {
+                            el.classList.add('filled');
+                        } else {
+                            el.classList.remove('filled');
+                        }
+                    } else if (el.classList.contains('proficiency-toggle')) {
+                        el.classList.remove('proficient', 'expertise');
+                        if (dataStore.characterSheetData.toggles[key] === 'proficient') {
+                            el.classList.add('proficient');
+                            el.textContent = 'P';
+                        } else if (dataStore.characterSheetData.toggles[key] === 'expertise') {
+                            el.classList.add('expertise');
+                            el.textContent = 'E';
+                        } else {
+                            el.textContent = '';
+                        }
+                    } else if (el.classList.contains('advantage-toggle') || el.classList.contains('condition-token') || el.id === 'inspiration-tracker') {
+                        if (dataStore.characterSheetData.toggles[key]) {
+                            el.classList.add('active');
+                            if (el.id === 'inspiration-tracker') {
+                                el.querySelector('i').classList.remove('opacity-30');
+                            }
+                        } else {
+                            el.classList.remove('active');
+                            if (el.id === 'inspiration-tracker') {
+                                el.querySelector('i').classList.add('opacity-30');
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Carrega imagens (personagem e wallpaper)
+            document.getElementById('char-img-preview').src = dataStore.characterSheetData.images.charImage;
+            document.body.style.backgroundImage = dataStore.characterSheetData.images.wallpaper;
+
+            // Carrega conteúdo dinâmico
+            const dynamicSections = ['item', 'journal', 'ability', 'bond', 'weapon'];
+            dynamicSections.forEach(type => {
+                if (dataStore.characterSheetData.dynamic[type]) {
+                    renderDynamicList(type, dataStore.characterSheetData.dynamic[type]);
+                }
+            });
+
+            // Aplica o tema (claro/escuro)
+            applyThemeFromData();
+
+            updateAllCalculations();
+            console.log("Ficha carregada do armazenamento local.");
+
+        } catch (e) {
+            console.error("Erro ao carregar ou analisar dados do localStorage. Iniciando ficha nova.", e);
+            showToast("Erro ao carregar a ficha. Reiniciando dados. Detalhes: " + e.message, "error", 5000);
+            localStorage.removeItem(STORAGE_KEY); // Limpa dados corrompidos
+            // Re-inicializa a estrutura de dados para evitar erros futuros
+            dataStore.characterSheetData = { 
+                staticInputs: {}, 
+                toggles: {}, 
+                dynamic: { item: [], journal: [], ability: [], bond: [], weapon: [] }, 
+                images: { charImage: "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon", wallpaper: "url('https://www.transparenttextures.com/patterns/old-wall.png')" },
+                theme: 'light'
+            };
+            updateAllCalculations(); // Atualiza a UI com dados padrão
+        }
+    }
+
+
+    // --- Funções do Rolador de Dados ---
+    function rollDice(sides) {
+        const result = Math.floor(Math.random() * sides) + 1;
+        const diceResultElement = document.getElementById('dice-result');
+        diceResultElement.textContent = `D${sides}: ${result}`;
+        vibrate(100);
+        diceResultElement.classList.add('modifier-flash');
+        diceResultElement.addEventListener('animationend', () => {
+            diceResultElement.classList.remove('modifier-flash');
+        }, { once: true });
+    }
+
+    function rollAttack(weaponId) {
+        const weaponData = dataStore.characterSheetData.dynamic.weapon.find(weapon => weapon.id === weaponId);
+        if (!weaponData) {
+            showToast('Arma não encontrada para rolar ataque.', 'error');
+            return;
+        }
+
+        const profBonus = getProficiencyBonus();
+        const attributeModifier = getAttributeModifier(weaponData.attribute);
+        const attackRoll = Math.floor(Math.random() * 20) + 1;
+        const totalAttackBonus = attackRoll + attributeModifier + profBonus;
+
+        const diceResultElement = document.getElementById('dice-result');
+        diceResultElement.innerHTML = `
+            <p class="text-lg">Ataque com ${weaponData.name}:</p>
+            <p class="text-2xl font-bold">D20 (${attackRoll}) + ${attributeModifier >= 0 ? '+' : ''}${attributeModifier} (Mod. ${weaponData.attribute}) + ${profBonus} (Prof.) = <span class="text-4xl">${totalAttackBonus}</span></p>
+        `;
+        vibrate(150);
+        diceResultElement.classList.add('modifier-flash');
+        diceResultElement.addEventListener('animationend', () => {
+            diceResultElement.classList.remove('modifier-flash');
+        }, { once: true });
+    }
+
+    function rollDamageForWeapon(weaponId) {
+        const weaponData = dataStore.characterSheetData.dynamic.weapon.find(weapon => weapon.id === weaponId);
+        if (!weaponData) {
+            showToast('Arma não encontrada para rolar dano.', 'error');
+            return;
+        }
+
+        const damageString = weaponData.damage;
+        const attributeModifier = getAttributeModifier(weaponData.attribute);
+
+        const damageResult = rollDamage(damageString, attributeModifier);
+
+        const diceResultElement = document.getElementById('dice-result');
+        diceResultElement.innerHTML = `
+            <p class="text-lg">Dano de ${weaponData.name}:</p>
+            <p class="text-2xl font-bold">${damageResult.details} = <span class="text-4xl">${damageResult.total}</span></p>
+        `;
+        vibrate(150);
+        diceResultElement.classList.add('modifier-flash');
+        diceResultElement.addEventListener('animationend', () => {
+            diceResultElement.classList.remove('modifier-flash');
+        }, { once: true });
+    }
+
+    function rollDamage(damageString, modifier = 0) {
+        let totalDamage = 0;
+        let details = [];
+        
+        const cleanedDamageString = damageString.toLowerCase().replace(/\s/g, '');
+
+        const regex = /(\d+d\d+)|([+-]?\d+)/g;
+        let match;
+
+        while ((match = regex.exec(cleanedDamageString)) !== null) {
+            if (match[1]) {
+                const [numDice, sides] = match[1].split('d').map(Number);
+                let diceRolls = [];
+                let currentDiceTotal = 0;
+                for (let i = 0; i < numDice; i++) {
+                    const roll = Math.floor(Math.random() * sides) + 1;
+                    diceRolls.push(roll);
+                    currentDiceTotal += roll;
+                }
+                totalDamage += currentDiceTotal;
+                details.push(`${match[1]} (${diceRolls.join('+')})`);
+            } else if (match[2]) {
+                const flatValue = parseInt(match[2]);
+                totalDamage += flatValue;
+                details.push(`${flatValue >= 0 ? '+' : ''}${flatValue}`);
+            }
+        }
+
+        totalDamage += modifier;
+        if (modifier !== 0) {
+            details.push(`${modifier >= 0 ? '+' : ''}${modifier} (Mod. de Atributo)`);
+        }
+
+        return {
+            total: totalDamage,
+            details: details.join(' ')
+        };
+    }
+
+    // --- Funções de Exportação e Importação ---
+    function exportCharacterSheet() {
+        try {
+            const dataStr = JSON.stringify(dataStore.characterSheetData, null, 2);
+            const blob = new Blob([dataStr], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            
+            const now = new Date();
+            const dateString = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+            const charName = document.getElementById('char-name').value.replace(/\s/g, '_') || 'personagem';
+            const filename = `ficha_${charName}_${dateString}.json`;
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast("Ficha exportada com sucesso!", "success");
+        } catch (e) {
+            console.error("Erro ao exportar ficha:", e);
+            showToast("Erro ao exportar a ficha. Verifique o console.", "error");
+        }
+    }
+
+    function importCharacterSheet(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const importedData = JSON.parse(e.target.result);
+                if (importedData && importedData.staticInputs && importedData.dynamic && importedData.images) {
+                    if (confirm('Importar esta ficha irá substituir todos os dados atuais. Deseja continuar?')) {
+                        localStorage.setItem(STORAGE_KEY, e.target.result); // Salva o novo JSON no localStorage
+                        showToast("Ficha importada com sucesso! Recarregando...", "success");
+                        setTimeout(() => location.reload(), 1000); // Recarrega a página para aplicar
+                    }
+                } else {
+                    showToast("Arquivo JSON inválido. Não é um formato de ficha.", "error");
+                }
+            } catch (error) {
+                console.error("Erro ao analisar o arquivo de importação:", error);
+                showToast("Erro ao ler o arquivo. Certifique-se de que é um JSON válido.", "error");
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    function resetCharacterSheetConfirm() {
+        if (confirm('Tem certeza que deseja REDEFINIR a ficha? Todos os dados serão PERDIDOS permanentemente.')) {
+            localStorage.removeItem(STORAGE_KEY);
+            showToast("Ficha redefinida! Recarregando...", "success");
+            setTimeout(() => location.reload(), 1000);
+        }
+    }
+</script>
+
+</body>
+</html>
