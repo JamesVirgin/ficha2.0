@@ -9,40 +9,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Mate+SC&family=MedievalSharp&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
     <style>
-        /* --- Configuração Base e Modo Claro --- */
+        /* --- Configuração Base e Modo Claro (Papiro Aprimorado) --- */
         :root {
-            --bg-color: #f3e9d2;
-            --text-color: #4a2c2a;
-            --border-color: #c8a06e;
-            --border-strong-color: #8a6c4a;
-            --card-bg-color: rgba(243, 233, 210, 0.75);
-            --accent-color: #4a2c2a;
-            --accent-text-color: #f3e9d2;
-            --tab-active-bg: rgba(200, 160, 110, 0.7);
-            --danger-color: #991b1b;
-            --danger-text-color: #fecaca;
-            --glow-color: rgba(138, 108, 74, 0.7);
-            --success-color: #15803d;
-            --success-bg-color: rgba(74, 222, 128, 0.8);
+            --bg-color: #f8f0e3; /* Mais claro, tom de papiro base */
+            --text-color: #5a403a; /* Marrom escuro para texto, alta legibilidade */
+            --border-color: #d4a778; /* Tom médio de papiro para bordas suaves */
+            --border-strong-color: #a37c59; /* Marrom papiro mais forte para bordas principais */
+            --card-bg-color: rgba(255, 255, 255, 0.7); /* Fundo dos cards quase branco com transparência */
+            --accent-color: #8c5d3f; /* Marrom acentuado para botões, destaques */
+            --accent-text-color: #fcf8f0; /* Texto claro para acentos escuros */
+            --tab-active-bg: rgba(212, 167, 120, 0.6); /* Cor de aba ativa com transparência */
+            --danger-color: #b33939; /* Vermelho queimado para perigo */
+            --danger-text-color: #fcf8f0;
+            --glow-color: rgba(175, 130, 90, 0.5); /* Brilho suave em tons de papiro */
+            --success-color: #2b7a4b; /* Verde escuro para sucesso */
+            --success-bg-color: rgba(144, 238, 144, 0.8); /* Verde claro para fundo de sucesso */
         }
 
-        /* --- Modo Noturno (Preto e Lilás) --- */
+        /* --- Modo Noturno (Preto e Lilás Refinado) --- */
         .dark-mode {
-            --bg-color: #1a1a2e;
-            --text-color: #e0e0e0;
-            --border-color: #a78bfa; /* Lilás */
-            --border-strong-color: #c4b5fd; /* Lilás mais claro */
-            --card-bg-color: rgba(26, 26, 46, 0.7);
-            --accent-color: #c4b5fd;
-            --accent-text-color: #1a1a2e;
-            --tab-active-bg: rgba(167, 139, 250, 0.5);
-            --danger-color: #f87171;
-            --danger-text-color: #1a1a2e;
-            --glow-color: rgba(196, 181, 253, 0.6);
-            --success-color: #a7f3d0;
-            --success-bg-color: rgba(22, 163, 74, 0.8);
+            --bg-color: #1c1824; /* Fundo muito escuro, quase preto com tom de lilás */
+            --text-color: #e6e0f0; /* Texto muito claro para alto contraste */
+            --border-color: #9370db; /* Lilás vibrante para bordas suaves */
+            --border-strong-color: #b08fe6; /* Lilás mais claro e forte para bordas principais */
+            --card-bg-color: rgba(28, 24, 36, 0.75); /* Fundo dos cards escuro com transparência */
+            --accent-color: #b08fe6; /* Lilás principal para acento */
+            --accent-text-color: #1c1824; /* Texto escuro para acentos claros */
+            --tab-active-bg: rgba(147, 112, 219, 0.5); /* Lilás de aba ativa com transparência */
+            --danger-color: #e06c75; /* Tom de vermelho que contrasta bem com lilás */
+            --danger-text-color: #1c1824;
+            --glow-color: rgba(176, 143, 230, 0.4); /* Brilho lilás suave */
+            --success-color: #60c790; /* Verde menta para sucesso, mais visível no escuro */
+            --success-bg-color: rgba(96, 199, 144, 0.3); /* Fundo verde transparente */
         }
 
         body {
@@ -61,11 +63,14 @@
         .parchment-container {
             border-style: solid;
             border-width: 25px;
-            border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cpath d='M0 0 H 25 V 10 H 10 V 25 H 0 Z' fill='%23c8a06e'/%3E%3Cpath d='M25 0 H 50 V 25 H 40 V 15 H 30 V 25 H 25 Z' fill='%23c8a06e'/%3E%3Cpath d='M50 0 H 75 V 25 H 60 V 5 H 50 Z' fill='%23c8a06e'/%3E%3Cpath d='M0 25 H 15 V 35 H 5 V 50 H 0 Z' fill='%23c8a06e'/%3E%3Cpath d='M25 25 H 50 V 50 H 35 V 40 H 45 V 30 H 25 Z' fill='%23c8a06e'/%3E%3Cpath d='M50 25 H 75 V 40 H 60 V 50 H 50 Z' fill='%23c8a06e'/%3E%3Cpath d='M0 50 H 25 V 60 H 10 V 75 H 0 Z' fill='%23c8a06e'/%3E%3Cpath d='M25 50 H 50 V 75 H 40 V 65 H 30 V 75 H 25 Z' fill='%23c8a06e'/%3E%3Cpath d='M50 50 H 75 V 75 H 65 V 60 H 50 Z' fill='%23c8a06e'/%3E%3C/svg%3E") 25;
+            /* SVG de papiro para tema claro */
+            border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cpath d='M0 0 H 25 V 10 H 10 V 25 H 0 Z' fill='%23a37c59'/%3E%3Cpath d='M25 0 H 50 V 25 H 40 V 15 H 30 V 25 H 25 Z' fill='%23a37c59'/%3E%3Cpath d='M50 0 H 75 V 25 H 60 V 5 H 50 Z' fill='%23a37c59'/%3E%3Cpath d='M0 25 H 15 V 35 H 5 V 50 H 0 Z' fill='%23a37c59'/%3E%3Cpath d='M25 25 H 50 V 50 H 35 V 40 H 45 V 30 H 25 Z' fill='%23a37c59'/%3E%3Cpath d='M50 25 H 75 V 40 H 60 V 50 H 50 Z' fill='%23a37c59'/%3E%3Cpath d='M0 50 H 25 V 60 H 10 V 75 H 0 Z' fill='%23a37c59'/%3E%3Cpath d='M25 50 H 50 V 75 H 40 V 65 H 30 V 75 H 25 Z' fill='%23a37c59'/%3E%3Cpath d='M50 50 H 75 V 75 H 65 V 60 H 50 Z' fill='%23a37c59'/%3E%3C/svg%3E") 25;
             border-image-outset: 5px;
         }
         .dark-mode .parchment-container {
-            border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cpath d='M0 0 H 25 V 10 H 10 V 25 H 0 Z' fill='%23a78bfa'/%3E%3Cpath d='M25 0 H 50 V 25 H 40 V 15 H 30 V 25 H 25 Z' fill='%23a78bfa'/%3E%3Cpath d='M50 0 H 75 V 25 H 60 V 5 H 50 Z' fill='%23a78bfa'/%3E%3Cpath d='M0 25 H 15 V 35 H 5 V 50 H 0 Z' fill='%23a78bfa'/%3E%3Cpath d='M25 25 H 50 V 50 H 35 V 40 H 45 V 30 H 25 Z' fill='%23a78bfa'/%3E%3Cpath d='M50 25 H 75 V 40 H 60 V 50 H 50 Z' fill='%23a78bfa'/%3E%3Cpath d='M0 50 H 25 V 60 H 10 V 75 H 0 Z' fill='%23a78bfa'/%3E%3Cpath d='M25 50 H 50 V 75 H 40 V 65 H 30 V 75 H 25 Z' fill='%23a78bfa'/%3E%3Cpath d='M50 50 H 75 V 75 H 65 V 60 H 50 Z' fill='%23a78bfa'/%3E%3C/svg%3E") 25;
+            /* SVG de papiro para tema escuro */
+            border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cpath d='M0 0 H 25 V 10 H 10 V 25 H 0 Z' fill='%23b08fe6'/%3E%3Cpath d='M25 0 H 50 V 25 H 40 V 15 H 30 V 25 H 25 Z' fill='%23b08fe6'/%3E%3Cpath d='M50 0 H 75 V 25 H 60 V 5 H 50 Z' fill='%23b08fe6'/%3E%3Cpath d='M0 25 H 15 V 35 H 5 V 50 H 0 Z' fill='%23b08fe6'/%3E%3Cpath d='M25 25 H 50 V 50 H 35 V 40 H 45 V 30 H 25 Z' fill='%23b08fe6'/%3E%3Cpath d='M50 25 H 75 V 40 H 60 V 50 H 50 Z' fill='%23b08fe6'/%3E%3Cpath d='M0 50 H 25 V 60 H 10 V 75 H 0 Z' fill='%23b08fe6'/%3E%3Cpath d='M25 50 H 50 V 75 H 40 V 65 H 30 V 75 H 25 Z' fill='%23b08fe6'/%3E%3Cpath d='M50 50 H 75 V 75 H 65 V 60 H 50 Z' fill='%23b08fe6'/%3E%3C/svg%3E") 25;
+            border-image-outset: 5px;
         }
 
         /* --- Efeito de Brilho --- */
@@ -86,9 +91,63 @@
         .tab-content.active { display: block; }
         .paper-bg { background-color: var(--card-bg-color); border: 1px solid var(--border-color); box-shadow: 0 0 15px rgba(0,0,0,0.3); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: background-color 0.5s, border-color 0.5s; }
         
-        .input-base { background-color: transparent; border: none; border-bottom: 1px solid var(--border-strong-color); text-align: center; width: 100%; color: var(--text-color); }
-        input:focus, textarea:focus { outline: none; border-bottom: 1px solid var(--accent-color); }
-        textarea.input-base { text-align: left; padding: 4px; border: 1px solid var(--border-strong-color); border-radius: 4px; }
+        /* --- Correção do Cursor de Digitação e Outline --- */
+        /* Remove outline e caret-color de TODOS os elementos por padrão */
+        *:focus {
+            outline: none !important; /* Usar !important para garantir sobreposição em casos de especificidade */
+            caret-color: transparent !important; /* Torna a barra de digitação invisível por padrão */
+        }
+
+        /* Impede a seleção de texto e cursor em elementos não-interativos */
+        h1, h2, h3, h4, h5, h6,
+        p, span, div:not([contenteditable="true"]),
+        label, .dice-button, .num-input-control,
+        .proficiency-toggle, .advantage-toggle, .death-save,
+        .condition-token, #inspiration-tracker,
+        .tab-button, .action-button, .danger-button,
+        .equipped-slot, .item-select-card,
+        .spell-level-header, .spell-slot-tick, .spell-card {
+            user-select: none; /* Impede a seleção de texto */
+            -webkit-user-select: none; /* Para compatibilidade com navegadores WebKit */
+            -moz-user-select: none; /* Para compatibilidade com Firefox */
+            -ms-user-select: none; /* Para compatibilidade com IE/Edge */
+            cursor: default; /* Define o cursor padrão para evitar o cursor de texto */
+            caret-color: transparent !important; /* Garante que o cursor não apareça */
+        }
+
+        /* Restaura o cursor de texto e outline APENAS para inputs e textareas editáveis */
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            outline: 1px solid var(--accent-color) !important; /* Mantém seu estilo de outline */
+            outline-offset: 1px;
+            border-radius: 4px;
+            caret-color: var(--text-color) !important; /* Restaura a cor da barra de digitação */
+            cursor: text !important; /* Define o cursor como texto para campos editáveis */
+        }
+
+        /* Estilos base para inputs */
+        .input-base { 
+            background-color: transparent; 
+            border: none; 
+            border-bottom: 1px solid var(--border-strong-color); 
+            text-align: center; 
+            width: 100%; 
+            color: var(--text-color); 
+        }
+        
+        /* Override para textareas que devem ter borda completa */
+        textarea.input-base { 
+            text-align: left; 
+            padding: 4px; 
+            border: 1px solid var(--border-strong-color); 
+            border-radius: 4px; 
+        }
+        textarea.input-base:focus {
+            border: 1px solid var(--accent-color);
+            /* O outline e caret-color já são tratados pela regra geral de input/textarea:focus */
+        }
+
         input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
 
@@ -99,7 +158,13 @@
         .proficiency-toggle.proficient { background-color: var(--accent-color); color: var(--accent-text-color); }
         .proficiency-toggle.expertise { background-color: var(--border-color); color: var(--accent-color); border-color: var(--accent-color); }
         .dark-mode .proficiency-toggle.expertise { color: var(--accent-text-color); }
+        /* Advantage Toggle - Change 'A' to 'V' */
+        .advantage-toggle { content: "V"; } /* Initial content for "Vantagem" */
         .advantage-toggle.active { background-color: var(--accent-color); color: var(--accent-text-color); }
+        /* Add :before pseudo-element for the 'V' character if not already done */
+        .advantage-toggle:not(.active):before { content: "V"; color: var(--text-color); opacity: 0.4; }
+        .advantage-toggle.active:before { content: "V"; color: var(--accent-text-color); }
+
 
         .death-save { width: 20px; height: 20px; border: 1px solid var(--border-strong-color); border-radius: 50%; cursor: pointer; }
         .death-save.filled { background-color: var(--accent-color); }
@@ -213,6 +278,300 @@
             font-size: 0.9rem;
             opacity: 0.8;
         }
+
+        /* Estilos para os botões de filtro de habilidade */
+        .ability-filter-button {
+            background-color: var(--border-color);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, transform 0.1s ease-out; /* Add transform for bounce */
+            font-weight: bold;
+        }
+        .ability-filter-button.active {
+            background-color: var(--accent-color);
+            color: var(--accent-text-color);
+            box-shadow: 0 0 8px 2px var(--glow-color); /* Add glow effect to active button */
+            transform: scale(1.05); /* Slight bounce on active */
+        }
+        .ability-filter-button:hover:not(.active) { /* Only hover if not active */
+            background-color: var(--accent-color);
+            color: var(--accent-text-color);
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+
+        /* Estilos para truncar texto no cartão de habilidade */
+        .ability-card-description {
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Limita a 3 linhas */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: pre-wrap; /* Mantém quebras de linha mas trunca */
+        }
+        /* Ajustes para o modal de visualização de habilidade */
+        #ability-view-modal .modal-content {
+            max-width: 800px; /* Um pouco mais largo para texto */
+        }
+        #ability-view-modal .modal-header {
+            border-bottom: 2px solid var(--border-strong-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        #ability-view-modal .modal-body {
+            max-height: 70vh; /* Altura máxima para rolagem */
+            overflow-y: auto;
+            word-wrap: break-word; /* Quebra palavras longas para evitar overflow */
+            overflow-wrap: break-word; /* Compatibilidade extra */
+            white-space: pre-wrap; /* Mantém as quebras de linha do input */
+            /* Removed padding-right: 1rem; as it adds an unnecessary space when no scrollbar is present */
+        }
+        #ability-view-modal .modal-body p {
+            margin-bottom: 0.75rem; /* Espaçamento entre parágrafos no modal */
+        }
+        #ability-view-modal .modal-title {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+        #ability-view-modal .modal-category {
+            font-size: 1.1rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+        }
+
+        /* Quill Editor specific styles */
+        .quill-editor-container {
+            border: 1px solid var(--border-strong-color);
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            background-color: var(--card-bg-color); /* Matches paper-bg */
+        }
+        .quill-editor-container .ql-editor {
+            min-height: 100px; /* Default height */
+            color: var(--text-color); /* Inherit text color */
+            caret-color: var(--text-color) !important; /* Adicionado: Garante que o caret-color seja visível no editor Quill */
+            user-select: text !important; /* Permite seleção de texto no editor */
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            cursor: text !important;
+        }
+        .quill-editor-container .ql-toolbar {
+            border-bottom: 1px solid var(--border-strong-color);
+            background-color: var(--tab-active-bg); /* Matches tab-active-bg */
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            user-select: none !important; /* Impede seleção na barra de ferramentas do Quill */
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            cursor: default !important;
+        }
+        .quill-editor-container .ql-container {
+            border: none;
+        }
+        .quill-editor-container.h-24 .ql-editor {
+            min-height: 96px; /* h-24 equivalent */
+            max-height: 96px;
+            overflow-y: auto;
+        }
+        .quill-editor-container.min-h-\[400px\] .ql-editor {
+            min-height: 396px; /* min-h-[400px] equivalent */
+            max-height: 396px;
+            overflow-y: auto;
+        }
+        .quill-editor-container.min-h-\[160px\] .ql-editor {
+            min-height: 156px; /* min-h-[160px] equivalent */
+            max-height: 156px;
+            overflow-y: auto;
+        }
+
+        /* Ensure Quill's focus outline matches custom focus style */
+        /* Use :focus-within for the parent container of Quill to apply outline */
+        .quill-editor-container:focus-within {
+            border-color: var(--accent-color);
+            outline: 1px solid var(--accent-color) !important;
+            outline-offset: 1px;
+            border-radius: 4px;
+        }
+        .quill-editor-container {
+             border: 1px solid var(--border-strong-color); /* Start with defined border */
+        }
+        
+        /* Override Quill's default colors for better dark mode contrast */
+        .dark-mode .ql-snow .ql-stroke {
+            stroke: var(--text-color); /* For icons */
+        }
+        .dark-mode .ql-snow .ql-fill {
+            fill: var(--text-color); /* For some icons */
+        }
+        .dark-mode .ql-snow .ql-picker {
+            color: var(--text-color); /* For text in pickers */
+        }
+        .dark-mode .ql-snow .ql-picker-options { /* Corrected selector for dropdown options */
+            background-color: var(--card-bg-color); /* Background for dropdown options */
+            border: 1px solid var(--border-strong-color); /* Border for dropdown options */
+        }
+        .dark-mode .ql-snow .ql-picker-item:hover, /* Hover state for dropdown items */
+        .dark-mode .ql-snow .ql-picker-item.ql-selected { /* Selected state for dropdown items */
+            background-color: var(--tab-active-bg);
+            color: var(--accent-text-color);
+        }
+        .dark-mode .ql-snow .ql-picker-label { /* Text/label of the picker */
+            color: var(--text-color);
+        }
+        .dark-mode .ql-snow .ql-picker-label:hover {
+            background-color: rgba(255,255,255,0.1); /* Subtle hover for labels */
+        }
+        .dark-mode .ql-snow .ql-active { /* Active button state */
+            background-color: var(--accent-color);
+            color: var(--accent-text-color);
+        }
+        /* Adjust active state stroke/fill */
+        .dark-mode .ql-snow .ql-active .ql-fill {
+            fill: var(--accent-text-color); 
+        }
+        .dark-mode .ql-snow .ql-active .ql-stroke {
+            stroke: var(--accent-text-color);
+        }
+        /* Placeholder color for Quill Editor */
+        .quill-editor-container .ql-editor.ql-blank::before {
+            color: var(--text-color); /* Default placeholder color */
+            opacity: 0.6; /* Semi-transparent */
+        }
+        .dark-mode .quill-editor-container .ql-editor.ql-blank::before {
+            color: var(--text-color); /* Brighter for dark mode */
+            opacity: 0.4; /* Slightly more transparent in dark mode */
+        }
+
+
+        /* Tailwind typography plugin classes for rendering rich text content */
+        /* To make Quill content render nicely within other elements, add 'prose' or 'prose-sm' to the parent */
+        .prose-sm :where(p):not(:where([class~="not-prose"] *)),
+        .prose-sm :where(li):not(:where([class~="not-prose"] *)) {
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+        .prose-sm :where(ul):not(:where([class~="not-prose"] *)),
+        .prose-sm :where(ol):not(:where([class~="not-prose"] *)) {
+            margin-top: 0.75em;
+            margin-bottom: 0.75em;
+            padding-left: 1.2em;
+        }
+        /* Style for Equipped Item Slot */
+        .equipped-slot {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            min-height: 100px; /* Ensure consistent height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .equipped-slot:hover {
+            box-shadow: 0 0 8px 1px var(--glow-color);
+        }
+        .equipped-slot .slot-label {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .equipped-slot .slot-name {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-top: 0.25rem;
+            min-height: 1.5rem; /* Reserve space for name */
+        }
+        .equipped-slot .clear-button {
+            font-size: 0.8rem;
+            color: var(--danger-color);
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .equipped-slot:hover .clear-button {
+            opacity: 1;
+        }
+        .equipped-slot.empty .slot-name {
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+
+        /* Style for Coin Section */
+        .coin-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .coin-display:last-child {
+            border-bottom: none;
+        }
+        .coin-display i {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+        .coin-display input {
+            text-align: right;
+            border: none;
+            background-color: transparent;
+            font-size: 1.1rem;
+            padding: 0 0.25rem;
+            color: var(--text-color);
+            width: 80px; /* Fixed width for coin input */
+        }
+        .coin-display input:focus {
+            border-bottom: 1px solid var(--accent-color);
+            outline: none;
+        }
+
+        /* Style for item selection modal */
+        .item-select-list {
+            max-height: 50vh;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            background-color: var(--tab-active-bg);
+        }
+        .item-select-card {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .item-select-card:last-child {
+            border-bottom: none;
+        }
+        .item-select-card:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+        .item-select-card img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 0.25rem;
+            margin-right: 0.75rem;
+            border: 1px solid var(--border-strong-color);
+        }
+        .item-select-card .item-select-name {
+            font-weight: bold;
+        }
+        .item-select-card .item-select-type {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -259,19 +618,19 @@
         </div>
 
         <main>
-            <div id="main-stats" class="tab-content active"><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="space-y-6"><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Atributos</h2><div id="attributes-container" class="grid grid-cols-2 gap-4"></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Salvaguardas</h2><div id="saving-throws-container" class="space-y-2"></div></div></div><div class="space-y-6"><div class="grid grid-cols-3 gap-4 text-center"><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Classe de Armadura</label><input type="number" id="ac" class="input-base text-3xl" value="10"></div><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Iniciativa</label><div id="initiative-bonus" class="text-3xl font-bold">+0</div></div><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Deslocamento</label><input type="text" id="speed" class="input-base text-3xl" value="30ft"></div></div><div class="paper-bg p-4 rounded-lg text-center"><h2 class="font-ornate text-2xl mb-2">Pontos de Vida</h2><div class="flex items-center justify-center space-x-2"><input type="number" id="hp-current" placeholder="Atuais" class="input-base w-20 text-2xl"><span class="text-2xl">/</span><input type="number" id="hp-max" placeholder="Max" class="input-base w-20 text-2xl"></div><div class="hp-bar-container mt-3"><div id="hp-bar" class="hp-bar-fill"></div></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Condições</h2><div id="conditions-container" class="flex flex-wrap justify-center gap-2 mt-2"></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Testes Contra a Morte</h2><div class="flex justify-around"><div><h3 class="font-bold">Sucessos</h3><div id="death-saves-success" class="flex space-x-2 mt-2"><div class="death-save"></div><div class="death-save"></div><div class="death-save"></div></div></div><div><h3 class="font-bold">Falhas</h3><div id="death-saves-failure" class="flex space-x-2 mt-2"><div class="death-save"></div><div class="death-save"></div><div class="death-save"></div></div></div></div></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Perícias</h2><div id="skills-container" class="space-y-1"></div></div></div></div>
+            <div id="main-stats" class="tab-content active"><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="space-y-6"><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Atributos</h2><div id="attributes-container" class="grid grid-cols-2 gap-4"></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Salvaguardas</h2><div id="saving-throws-container" class="space-y-2"></div></div></div><div class="space-y-6"><div class="grid grid-cols-3 gap-4 text-center"><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Classe de Armadura</label><input type="number" id="ac" class="input-base text-3xl" value="10"></div><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Iniciativa</label><div id="initiative-bonus" class="text-3xl font-bold">+0</div></div><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Deslocamento</label><input type="text" id="speed" class="input-base text-3xl" value="30ft"></div></div><div class="paper-bg p-4 rounded-lg text-center"><h2 class="font-ornate text-2xl mb-2">Pontos de Vida</h2><div class="flex items-center justify-center space-x-2"><input type="number" id="hp-current" placeholder="Atuais" class="input-base w-20 text-2xl"><span class="text-2xl">/</span><input type="number" id="hp-max" placeholder="Max" class="input-base w-20 text-2xl"></div><div class="hp-bar-container mt-3"><div id="hp-bar" class="hp-bar-fill"></div></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Condições</h2><div id="conditions-container" class="flex flex-wrap justify-center gap-2 mt-2"></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Testes Contra a Morte</h2><div class="flex justify-around"><div><h3 class="font-bold">Sucessos</h3><div id="death-saves-success" class="flex space-x-2 mt-2"><div class="death-save"></div><div class="death-save"></div><div class="death-save"></div></div></div><div><h3 class="font-bold">Falhas</h3><div id="death-saves-failure" class="flex space-x-2 mt-2"><div class="death-save"></div><div class="death-save"></div><div class="death-save"></div></div></div></div></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Perícias</h2><div id="skills-container" class="space-y-2"></div></div></div></div>
             <div id="character" class="tab-content p-4">
                 <h2 class="font-ornate text-3xl mb-4 text-center">Aparência e História</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-4">
-                        <div><label class="font-ornate text-xl">Traços de Personalidade</label><textarea id="personality-traits" class="input-base w-full h-24"></textarea></div>
-                        <div><label class="font-ornate text-xl">Ideais</label><textarea id="ideals" class="input-base w-full h-24"></textarea></div>
-                        <div><label class="font-ornate text-xl">Vínculos (Backstory)</label><textarea id="bonds-backstory" class="input-base w-full h-24"></textarea></div>
-                        <div><label class="font-ornate text-xl">Defeitos</label><textarea id="flaws" class="input-base w-full h-24"></textarea></div>
+                        <div><label class="font-ornate text-xl">Traços de Personalidade</label><div id="editor-personality-traits" class="quill-editor-container h-24"></div></div>
+                        <div><label class="font-ornate text-xl">Ideais</label><div id="editor-ideals" class="quill-editor-container h-24"></div></div>
+                        <div><label class="font-ornate text-xl">Vínculos (Backstory)</label><div id="editor-bonds-backstory" class="quill-editor-container h-24"></div></div>
+                        <div><label class="font-ornate text-xl">Defeitos</label><div id="editor-flaws" class="quill-editor-container h-24"></div></div>
                     </div>
                     <div>
                         <label class="font-ornate text-xl">História do Personagem</label>
-                        <textarea id="backstory" class="input-base w-full h-full min-h-[400px]"></textarea>
+                        <div id="editor-backstory" class="quill-editor-container min-h-[400px]"></div>
                     </div>
                 </div>
             </div>
@@ -280,19 +639,60 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <h3 class="font-ornate text-2xl text-center mb-4">Itens Equipados</h3>
-                            <div class="space-y-2">
-                                <div><label class="text-sm font-bold">Arma</label><input type="text" id="equipped-weapon" class="input-base w-full text-left pl-2"></div>
-                                <div><label class="text-sm font-bold">Escudo</label><input type="text" id="equipped-shield" class="input-base w-full text-left pl-2"></div>
-                                <div><label class="text-sm font-bold">Armadura</label><input type="text" id="equipped-armor" class="input-base w-full text-left pl-2"></div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div id="equipped-slot-main-weapon" class="equipped-slot" data-slot="main-weapon">
+                                    <span class="slot-label">Arma Principal</span>
+                                    <span class="slot-name">Nenhum</span>
+                                    <button class="clear-button hidden" data-clear-slot="main-weapon">Limpar</button>
+                                </div>
+                                <div id="equipped-slot-offhand" class="equipped-slot" data-slot="offhand">
+                                    <span class="slot-label">Mão Secundária</span>
+                                    <span class="slot-name">Nenhum</span>
+                                    <button class="clear-button hidden" data-clear-slot="offhand">Limpar</button>
+                                </div>
+                                <div id="equipped-slot-armor" class="equipped-slot" data-slot="armor">
+                                    <span class="slot-label">Armadura</span>
+                                    <span class="slot-name">Nenhum</span>
+                                    <button class="clear-button hidden" data-clear-slot="armor">Limpar</button>
+                                </div>
+                                <div id="equipped-slot-other" class="equipped-slot" data-slot="other">
+                                    <span class="slot-label">Outro Item</span>
+                                    <span class="slot-name">Nenhum</span>
+                                    <button class="clear-button hidden" data-clear-slot="other">Limpar</button>
+                                </div>
                             </div>
                         </div>
                         <div>
                             <h3 class="font-ornate text-2xl text-center mb-4">Moedas</h3>
-                            <div class="grid grid-cols-2 gap-x-4 gap-y-2">
-                                <div class="text-center"><label class="text-sm font-bold">Cobre (PC)</label><input type="number" id="coins-cp" class="input-base w-full" value="0"></div>
-                                <div class="text-center"><label class="text-sm font-bold">Prata (PP)</label><input type="number" id="coins-sp" class="input-base w-full" value="0"></div>
-                                <div class="text-center"><label class="text-sm font-bold">Ouro (PO)</label><input type="number" id="coins-gp" class="input-base w-full" value="0"></div>
-                                <div class="text-center"><label class="text-sm font-bold">Platina (PL)</label><input type="number" id="coins-pp" class="input-base w-full" value="0"></div>
+                            <div class="paper-bg p-3 rounded-lg">
+                                <div class="coin-display">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-coins text-yellow-600"></i>
+                                        <label class="font-bold">Cobre (PC)</label>
+                                    </div>
+                                    <input type="number" id="coins-cp" class="input-base text-right" value="0">
+                                </div>
+                                <div class="coin-display">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-coins text-gray-400"></i>
+                                        <label class="font-bold">Prata (PP)</label>
+                                    </div>
+                                    <input type="number" id="coins-sp" class="input-base text-right" value="0">
+                                </div>
+                                <div class="coin-display">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-coins text-yellow-500"></i>
+                                        <label class="font-bold">Ouro (PO)</label>
+                                    </div>
+                                    <input type="number" id="coins-gp" class="input-base text-right" value="0">
+                                </div>
+                                <div class="coin-display">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-coins text-blue-300"></i>
+                                        <label class="font-bold">Platina (PL)</label>
+                                    </div>
+                                    <input type="number" id="coins-pp" class="input-base text-right" value="0">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -302,7 +702,26 @@
                 <div id="inventory-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </div>
             <div id="journal" class="tab-content p-4"><h2 class="font-ornate text-3xl mb-4">Diário</h2><button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('journal-modal')">Adicionar Entrada</button><div id="journal-entries" class="space-y-4"></div></div>
-            <div id="abilities" class="tab-content p-4"><h2 class="font-ornate text-3xl mb-4">Traços e Habilidades</h2><button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('ability-modal')">Adicionar Traço/Habilidade</button><div id="abilities-list" class="space-y-4"></div></div>
+            <div id="abilities" class="tab-content p-4">
+                <h2 class="font-ornate text-3xl mb-4">Traços e Habilidades</h2>
+                <button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('ability-modal')">Adicionar Traço/Habilidade</button>
+
+                <div class="mb-4 flex flex-wrap gap-2 items-center justify-between">
+                    <div id="ability-filters" class="flex flex-wrap gap-2">
+                        <button class="ability-filter-button active" data-filter="All">Todas</button>
+                        <button class="ability-filter-button" data-filter="Racial">Racial</button>
+                        <button class="ability-filter-button" data-filter="Classe">Classe</button>
+                        <button class="ability-filter-button" data-filter="Feito">Feito</button>
+                        <button class="ability-filter-button" data-filter="Magia">Magia</button>
+                        <button class="ability-filter-button" data-filter="Equipamento">Equipamento</button>
+                        <button class="ability-filter-button" data-filter="Geral">Geral</button>
+                    </div>
+                    <input type="text" id="ability-search" class="input-base flex-grow max-w-xs md:max-w-none text-left pl-2" placeholder="Buscar habilidade...">
+                </div>
+
+                <div id="abilities-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    </div>
+            </div>
             <div id="bonds" class="tab-content p-4"><h2 class="font-ornate text-3xl mb-4">Vínculos Sociais</h2><button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('bond-modal')">Adicionar Vínculo</button><div id="bonds-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div></div>
             
             <div id="weapons" class="tab-content p-4">
@@ -331,12 +750,22 @@
 
     <input type="file" id="import-file-input" class="hidden" accept="application/json">
 
-    <div id="item-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('item-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Item</h3><input type="text" id="item-name" class="input-base w-full mb-2" placeholder="Nome do Item"><label for="item-img-input" class="block text-center cursor-pointer p-2 border border-dashed border-[var(--border-strong-color)] rounded-md my-2 hover:bg-[var(--tab-active-bg)]">Carregar Imagem</label><input type="file" id="item-img-input" class="hidden" accept="image/*"><img id="item-img-preview" class="hidden w-full h-32 object-cover rounded mb-2"><input type="text" id="item-rarity" class="input-base w-full mb-2" placeholder="Raridade (ex: Comum, Lendário)"><input type="text" id="item-type" class="input-base w-full mb-2" placeholder="Tipo (ex: Arma, Armadura)"><textarea id="item-bonus" class="input-base w-full h-24" placeholder="Descrição e Bônus"></textarea><button id="save-item-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Item</button></div></div>
-    <div id="journal-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('journal-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Entrada no Diário</h3><input type="text" id="journal-title" class="input-base w-full mb-2" placeholder="Título"><input type="date" id="journal-date" class="input-base w-full mb-2"><textarea id="journal-content" class="input-base w-full h-40" placeholder="Escreva sua entrada..."></textarea><button id="save-journal-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Entrada</button></div></div>
-    <div id="ability-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('ability-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Traço ou Habilidade</h3><input type="text" id="ability-name" class="input-base w-full mb-2" placeholder="Nome"><textarea id="ability-desc" class="input-base w-full h-24 mb-2" placeholder="Descrição"></textarea><div class="flex items-center space-x-2"><input type="number" id="ability-uses" class="input-base w-16" placeholder="Usos"><select id="ability-reset" class="input-base bg-[var(--bg-color)]"><option value="none">N/A</option><option value="short-rest">por Descanso Curto</option><option value="long-rest">por Descanso Longo</option></select></div><button id="save-ability-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar</button></div></div>
-    <div id="bond-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('bond-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Vínculo Social</h3><input type="text" id="bond-name" class="input-base w-full mb-2" placeholder="Nome"><label for="bond-img-input" class="block text-center cursor-pointer p-2 border border-dashed border-[var(--border-strong-color)] rounded-md my-2 hover:bg-[var(--tab-active-bg)]">Carregar Imagem</label><input type="file" id="bond-img-input" class="hidden" accept="image/*"><img id="bond-img-preview" class="hidden w-24 h-24 object-cover rounded-full mx-auto mb-2"><input type="text" id="bond-relationship" class="input-base w-full mb-2" placeholder="Relação (ex: Aliado, Rival)"><textarea id="bond-summary" class="input-base w-full h-24" placeholder="Resumo da Relação"></textarea><button id="save-bond-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Vínculo</button></div></div>
+    <div id="item-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('item-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Item</h3><input type="text" id="item-name" class="input-base w-full mb-2" placeholder="Nome do Item"><label for="item-img-input" class="block text-center cursor-pointer p-2 border border-dashed border-[var(--border-strong-color)] rounded-md my-2 hover:bg-[var(--tab-active-bg)]">Carregar Imagem</label><input type="file" id="item-img-input" class="hidden" accept="image/*"><img id="item-img-preview" class="hidden w-full h-32 object-cover rounded mb-2"><input type="text" id="item-rarity" class="input-base w-full mb-2" placeholder="Raridade (ex: Comum, Lendário)"><input type="text" id="item-type" class="input-base w-full mb-2" placeholder="Tipo (ex: Arma, Armadura)"><div id="editor-item-bonus" class="quill-editor-container h-24"></div><button id="save-item-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Item</button></div></div>
+    <div id="journal-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('journal-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Entrada no Diário</h3><input type="text" id="journal-title" class="input-base w-full mb-2" placeholder="Título"><input type="date" id="journal-date" class="input-base w-full mb-2"><div id="editor-journal-content" class="quill-editor-container min-h-[160px]"></div><button id="save-journal-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Entrada</button></div></div>
+    <div id="ability-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('ability-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Traço ou Habilidade</h3><input type="text" id="ability-name" class="input-base w-full mb-2" placeholder="Nome"><div id="editor-ability-desc" class="quill-editor-container h-24 mb-2"></div><div class="flex items-center space-x-2"><input type="number" id="ability-uses" class="input-base w-16" placeholder="Usos"><select id="ability-reset" class="input-base bg-[var(--bg-color)]"><option value="none">N/A</option><option value="short-rest">por Descanso Curto</option><option value="long-rest">por Descanso Longo</option></select></div>
+    <label for="ability-category" class="block text-sm font-bold mt-4 mb-1">Categoria:</label>
+    <select id="ability-category" class="input-base bg-[var(--bg-color)] w-full mb-4">
+        <option value="Geral">Geral</option>
+        <option value="Racial">Racial</option>
+        <option value="Classe">Classe</option>
+        <option value="Feito">Feito</option>
+        <option value="Magia">Magia</option>
+        <option value="Equipamento">Equipamento</option>
+    </select>
+    <button id="save-ability-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar</button></div></div>
+    <div id="bond-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('bond-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Vínculo Social</h3><input type="text" id="bond-name" class="input-base w-full mb-2" placeholder="Nome"><label for="bond-img-input" class="block text-center cursor-pointer p-2 border border-dashed border-[var(--border-strong-color)] rounded-md my-2 hover:bg-[var(--tab-active-bg)]">Carregar Imagem</label><input type="file" id="bond-img-input" class="hidden" accept="image/*"><img id="bond-img-preview" class="hidden w-24 h-24 object-cover rounded-full mx-auto mb-2"><input type="text" id="bond-relationship" class="input-base w-full mb-2" placeholder="Relação (ex: Aliado, Rival)"><div id="editor-bond-summary" class="quill-editor-container h-24"></div><button id="save-bond-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Vínculo</button></div></div>
     
-    <div id="weapon-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('weapon-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Arma</h3><input type="text" id="weapon-name" class="input-base w-full mb-2" placeholder="Nome da Arma"><input type="text" id="weapon-damage" class="input-base w-full mb-2" placeholder="Dano (ex: 1d8 perfurante)"><input type="text" id="weapon-type" class="input-base w-full mb-2" placeholder="Tipo (ex: Simples, Corpo a Corpo)"><textarea id="weapon-properties" class="input-base w-full h-24 mb-2" placeholder="Propriedades (ex: Acuidade, Leve)"></textarea><label for="weapon-attribute" class="block text-sm font-bold mb-1">Atributo de Ataque:</label><select id="weapon-attribute" class="input-base bg-[var(--bg-color)] w-full mb-4"><option value="STR">Força (STR)</option><option value="DEX">Destreza (DEX)</option></select><button id="save-weapon-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Arma</button></div></div>
+    <div id="weapon-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('weapon-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Arma</h3><input type="text" id="weapon-name" class="input-base w-full mb-2" placeholder="Nome da Arma"><input type="text" id="weapon-damage" class="input-base w-full mb-2" placeholder="Dano (ex: 1d8 perfurante)"><input type="text" id="weapon-type" class="input-base w-full mb-2" placeholder="Tipo (ex: Simples, Corpo a Corpo)"><div id="editor-weapon-properties" class="quill-editor-container h-24 mb-2"></div><label for="weapon-attribute" class="block text-sm font-bold mb-1">Atributo de Ataque:</label><select id="weapon-attribute" class="input-base bg-[var(--bg-color)] w-full mb-4"><option value="STR">Força (STR)</option><option value="DEX">Destreza (DEX)</option></select><label for="weapon-img-input" class="block text-center cursor-pointer p-2 border border-dashed border-[var(--border-strong-color)] rounded-md my-2 hover:bg-[var(--tab-active-bg)]">Carregar Imagem</label><input type="file" id="weapon-img-input" class="hidden" accept="image/*"><img id="weapon-img-preview" class="hidden w-full h-32 object-cover rounded mb-2"><button id="save-weapon-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Arma</button></div></div>
 
     <div id="journal-view-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('journal-view-modal')">&times;</span><div id="journal-view-content" class="max-h-[70vh] overflow-y-auto pr-4"></div><div class="text-right mt-4"><button id="edit-journal-from-view-btn" class="action-button font-bold py-2 px-6 rounded">Editar</button></div></div></div>
     
@@ -356,6 +785,37 @@
                 <button class="danger-button font-bold py-2 px-4 rounded w-full" onclick="resetCharacterSheetConfirm()">Redefinir Ficha (Limpar Tudo)</button>
                 <p class="text-sm opacity-80 text-center text-red-700">Esta ação não pode ser desfeita!</p>
             </div>
+        </div>
+    </div>
+
+    <div id="ability-view-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('ability-view-modal')">&times;</span>
+            <div class="modal-header">
+                <h3 id="ability-view-title" class="modal-title"></h3>
+                <p id="ability-view-category" class="modal-category"></p>
+            </div>
+            <div id="ability-view-full-desc" class="modal-body">
+                </div>
+            <div class="flex justify-between items-center mt-4">
+                <div id="ability-view-uses-info" class="text-sm opacity-80"></div>
+                <button id="edit-ability-from-view-btn" class="action-button font-bold py-2 px-6 rounded">Editar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="select-item-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('select-item-modal')">&times;</span>
+            <h3 class="font-ornate text-2xl mb-4">Selecionar Item/Arma</h3>
+            <input type="text" id="select-item-search" class="input-base w-full mb-4 pl-2 text-left" placeholder="Buscar item/arma...">
+            <div class="flex gap-2 mb-4">
+                <button class="action-button py-1 px-3 rounded text-sm select-item-filter active" data-filter-type="all">Todos</button>
+                <button class="action-button py-1 px-3 rounded text-sm select-item-filter" data-filter-type="item">Itens</button>
+                <button class="action-button py-1 px-3 rounded text-sm select-item-filter" data-filter-type="weapon">Armas</button>
+            </div>
+            <div id="item-select-list" class="item-select-list">
+                </div>
         </div>
     </div>
 
@@ -386,13 +846,18 @@
                 "char-name": "", "char-race": "", "char-origin": "",
                 "char-level": "1", "ac": "10", "speed": "30ft",
                 "hp-current": "0", "hp-max": "1",
-                "equipped-weapon": "", "equipped-shield": "", "equipped-armor": "",
                 "coins-cp": "0", "coins-sp": "0", "coins-gp": "0", "coins-pp": "0",
                 "personality-traits": "", "ideals": "", "bonds-backstory": "", "flaws": "", "backstory": "",
                 "journal-title": "", "journal-date": "", "journal-content": "",
-                "ability-name": "", "ability-desc": "", "ability-uses": "", "ability-reset": "none",
+                "ability-name": "", "ability-desc": "", "ability-uses": "", "ability-reset": "none", "ability-category": "Geral",
                 "bond-name": "", "bond-relationship": "", "bond-summary": "",
                 "weapon-name": "", "weapon-damage": "", "weapon-type": "", "weapon-properties": "", "weapon-attribute": "STR"
+            },
+            equippedItems: { // NEW: Store equipped item IDs
+                "main-weapon": null,
+                "offhand": null,
+                "armor": null,
+                "other": null
             },
             toggles: {},
             dynamic: {
@@ -406,22 +871,197 @@
                 charImage: "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon",
                 wallpaper: "url('https://www.transparenttextures.com/patterns/old-wall.png')",
             },
-            theme: 'light'
+            theme: 'light',
         }
     };
     let elementToDelete = null;
     let lastHpValue = 0;
+    let currentAbilityFilter = 'All'; // Starts showing all
+    let currentEquipSlot = null; // To track which slot is being edited
+
+    // Quill instances for rich text editors
+    let quillEditors = {};
 
     document.addEventListener('DOMContentLoaded', () => {
         populateAttributes();
         populateSavingThrows();
         populateSkills();
         populateConditions();
+        setupQuillEditors(); // Initialize Quill editors
         setupEventListeners();
         loadFromLocalStorage(); 
         applyThemeFromData();
         document.querySelectorAll('.tab-button.active').forEach(b => b.classList.add('glow-effect'));
+        updateEquippedItemsUI(); // Update equipped items on load
     });
+
+    // --- Functions for Quill.js ---
+    function setupQuillEditors() {
+        const toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],         // toggled buttons
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'align': [] }],
+            ['clean']                                         // remove formatting button
+        ];
+
+        // Character tab editors
+        quillEditors['personality-traits'] = new Quill('#editor-personality-traits', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'Traços de personalidade...'
+        });
+        quillEditors['ideals'] = new Quill('#editor-ideals', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'Ideais...'
+        });
+        quillEditors['bonds-backstory'] = new Quill('#editor-bonds-backstory', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'Vínculos (Backstory)...'
+        });
+        quillEditors['flaws'] = new Quill('#editor-flaws', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'Defeitos...'
+        });
+        quillEditors['backstory'] = new Quill('#editor-backstory', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'História do Personagem...'
+        });
+
+        // Item modal editor
+        quillEditors['item-bonus'] = new Quill('#editor-item-bonus', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'Descrição e Bônus...'
+        });
+
+        // Journal modal editor
+        quillEditors['journal-content'] = new Quill('#editor-journal-content', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'Escreva sua entrada...'
+        });
+
+        // Ability modal editor
+        quillEditors['ability-desc'] = new Quill('#editor-ability-desc', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'Descrição da habilidade...'
+        });
+
+        // Bond modal editor
+        quillEditors['bond-summary'] = new Quill('#editor-bond-summary', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'Resumo da Relação...'
+        });
+
+        // Weapon modal editor
+        quillEditors['weapon-properties'] = new Quill('#editor-weapon-properties', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'Propriedades (ex: Acuidade, Leve)...'
+        });
+
+        // Add event listeners to Quill editors to save data
+        for (const editorId in quillEditors) {
+            quillEditors[editorId].on('text-change', debounce(() => {
+                const htmlContent = quillEditors[editorId].root.innerHTML;
+                const targetId = editorId.replace('editor-', ''); // Get original ID (e.g., personality-traits)
+                dataStore.characterSheetData.staticInputs[targetId] = htmlContent;
+                saveToLocalStorage();
+            }, 500));
+        }
+    }
+
+    function setQuillEditorContent(editorId, content) {
+        if (quillEditors[editorId]) {
+            quillEditors[editorId].root.innerHTML = content;
+        }
+    }
+
+    function getQuillEditorContent(editorId) {
+        if (quillEditors[editorId]) {
+            return quillEditors[editorId].root.innerHTML;
+        }
+        return '';
+    }
+
+    // --- End Functions for Quill.js ---
+
+
+    // --- Funções de Cálculo e Atualização Globais ---
+    function getProficiencyBonus() { return Math.floor(((parseInt(document.getElementById('char-level').value) || 1) - 1) / 4) + 2; }
+    // CORREÇÃO: Passar 'attrShort' corretamente para a função
+    function getAttributeModifier(attrShort) { return Math.floor(((parseInt(document.getElementById(`attr-${attrShort}`).value) || 10) - 10) / 2); }
+
+    function updateAllCalculations() {
+        const profBonus = getProficiencyBonus();
+        document.getElementById('proficiency-bonus').textContent = `+${profBonus}`;
+        dataStore.attributes.forEach(attr => {
+            const modEl = document.getElementById(`mod-${attr.short}`);
+            const oldMod = modEl.textContent;
+            // CORREÇÃO AQUI: Chamar getAttributeModifier com attr.short
+            const newModVal = getAttributeModifier(attr.short); 
+            const newModText = newModVal >= 0 ? `+${newModVal}` : newModVal;
+            
+            if (oldMod !== newModText) {
+                modEl.textContent = newModText;
+                modEl.classList.add('modifier-flash');
+                modEl.addEventListener('animationend', () => modEl.classList.remove('modifier-flash'), { once: true });
+            }
+        });
+        const dexMod = getAttributeModifier('DEX');
+        document.getElementById('initiative-bonus').textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
+        dataStore.attributes.forEach(attr => {
+            const modifier = getAttributeModifier(attr.short);
+            const profToggle = document.querySelector(`.proficiency-toggle[data-type="save"][data-name="${attr.short}"]`);
+            let totalBonus = modifier;
+            // Check if profToggle exists before accessing its classList
+            if (profToggle) {
+                if (profToggle.classList.contains('proficient')) totalBonus += profBonus;
+                else if (profToggle.classList.contains('expertise')) totalBonus += (profBonus * 2);
+            }
+            document.getElementById(`save-bonus-${attr.short}`).textContent = totalBonus >= 0 ? `+${totalBonus}` : totalBonus;
+        });
+        dataStore.skills.forEach(skill => {
+            const modifier = getAttributeModifier(skill.attr);
+            const profToggle = document.querySelector(`.proficiency-toggle[data-type="skill"][data-name="${skill.name}"]`);
+            let totalBonus = modifier;
+            // Check if profToggle exists before accessing its classList
+            if (profToggle) {
+                if (profToggle.classList.contains('proficient')) totalBonus += profBonus;
+                else if (profToggle.classList.contains('expertise')) totalBonus += (profBonus * 2);
+            }
+            document.getElementById(`skill-bonus-${skill.name.replace(/\s+/g, '')}`).textContent = totalBonus >= 0 ? `+${totalBonus}` : totalBonus;
+        });
+        updateHpBar();
+    }
+
+    function updateHpBar() {
+        const currentHp = parseInt(document.getElementById('hp-current').value) || 0;
+        const maxHp = parseInt(document.getElementById('hp-max').value) || 1;
+        const hpPercentage = Math.max(0, Math.min(100, (currentHp / maxHp) * 100));
+        
+        const hpBar = document.getElementById('hp-bar');
+        hpBar.style.width = `${hpPercentage}%`;
+
+        // Cores de barra de HP baseadas nos novos temas
+        if (hpPercentage > 50) { 
+            hpBar.style.backgroundColor = document.documentElement.classList.contains('dark-mode') ? '#60c790' : '#2b7a4b'; 
+        }
+        else if (hpPercentage > 25) { 
+            hpBar.style.backgroundColor = document.documentElement.classList.contains('dark-mode') ? '#e06c75' : '#d4a778'; 
+        }
+        else { 
+            hpBar.style.backgroundColor = document.documentElement.classList.contains('dark-mode') ? '#e06c75' : '#b33939'; 
+        }
+    }
+    // --- Fim das Funções de Cálculo e Atualização Globais ---
+
 
     function populateAttributes() {
         const container = document.getElementById('attributes-container');
@@ -434,14 +1074,15 @@
         const container = document.getElementById('saving-throws-container');
         container.innerHTML = '';
         dataStore.attributes.forEach(attr => {
-            container.innerHTML += `<div class="flex items-center justify-between"><div class="flex items-center space-x-2"><span class="advantage-toggle" title="Vantagem">A</span><span class="proficiency-toggle" data-type="save" data-name="${attr.short}" title="Proficiência/Especialização"></span><span>${attr.name}</span></div><div id="save-bonus-${attr.short}" class="font-bold">+0</div></div>`;
+            container.innerHTML += `<div class="flex items-center justify-between"><div class="flex items-center space-x-2"><span class="advantage-toggle" title="Vantagem">V</span><span class="proficiency-toggle" data-type="save" data-name="${attr.short}" title="Proficiência/Especialização"></span><span>${attr.name}</span></div><div id="save-bonus-${attr.short}" class="font-bold">+0</div></div>`;
         });
     }
     function populateSkills() {
         const container = document.getElementById('skills-container');
         container.innerHTML = '';
+        // Changed from space-y-1 to space-y-2 in HTML for more spacing
         dataStore.skills.forEach(skill => {
-            container.innerHTML += `<div class="flex items-center justify-between text-sm"><div class="flex items-center space-x-2"><span class="advantage-toggle" title="Vantagem">A</span><span class="proficiency-toggle" data-type="skill" data-name="${skill.name}" title="Proficiência/Especialização"></span><span>${skill.name} <span class="text-xs opacity-70">(${skill.attr})</span></span></div><div id="skill-bonus-${skill.name.replace(/\s+/g, '')}" class="font-bold">+0</div></div>`;
+            container.innerHTML += `<div class="flex items-center justify-between text-sm"><div class="flex items-center space-x-2"><span class="advantage-toggle" title="Vantagem">V</span><span class="proficiency-toggle" data-type="skill" data-name="${skill.name}" title="Proficiência/Especialização"></span><span>${skill.name} <span class="text-xs opacity-70">(${skill.attr})</span></span></div><div id="skill-bonus-${skill.name.replace(/\s+/g, '')}" class="font-bold">+0</div></div>`;
         });
     }
     function populateConditions() {
@@ -456,15 +1097,131 @@
         const debouncedSave = debounce(saveToLocalStorage, 500);
         const sheetContainer = document.getElementById('sheet-container');
         
-        sheetContainer.addEventListener('input', handleStatChange);
-        sheetContainer.addEventListener('input', debouncedSave);
-        sheetContainer.addEventListener('click', (e) => {
-            if (e.target.matches('.proficiency-toggle, .advantage-toggle, .death-save, .ability-use-tick, .condition-token, .condition-token i, #inspiration-tracker, #inspiration-tracker *')) {
-                debouncedSave();
+        // Listen for input changes on static elements
+        document.querySelectorAll('input[id], select[id]').forEach(el => {
+            if (el.type !== 'file' && !el.id.startsWith('editor-')) { // Exclude Quill's hidden inputs
+                el.addEventListener('input', handleStatChange);
+                el.addEventListener('input', debouncedSave);
             }
         });
         
-        document.body.addEventListener('click', handleGlobalClick);
+        // Global click listener for toggles and dynamic elements
+        sheetContainer.addEventListener('click', (e) => {
+            const target = e.target;
+            const control = target.closest('.num-input-control');
+            const deleteBtn = target.closest('.delete-btn');
+            const editBtn = target.closest('.edit-btn');
+            const journalCard = target.closest('.journal-card');
+            const abilityUseTick = target.closest('.ability-use-tick');
+            const conditionToken = target.closest('.condition-token');
+            const inspirationTracker = target.closest('#inspiration-tracker');
+            const attackButton = target.closest('.attack-button');
+            const damageButton = target.closest('.damage-button');
+            const abilityCard = target.closest('.dynamic-card[data-type="ability"]');
+            const proficiencyToggle = target.closest('.proficiency-toggle');
+            const advantageToggle = target.closest('.advantage-toggle'); // Get specific advantage toggle
+            const equippedSlot = target.closest('.equipped-slot');
+            const clearEquipButton = target.closest('.clear-button[data-clear-slot]');
+
+
+            if (deleteBtn) {
+                elementToDelete = deleteBtn.closest('.dynamic-card');
+                openModal('confirm-delete-modal');
+                return;
+            }
+            if (editBtn) {
+                const card = editBtn.closest('.dynamic-card');
+                const type = card.dataset.type;
+                const id = card.id;
+                if (type === 'weapon') {
+                    editWeapon(id);
+                } else {
+                    if (type === 'ability') {
+                        editAbility(id);
+                    } else {
+                        window[`edit${capitalize(type)}`](id);
+                    }
+                }
+                return;
+            }
+            if (attackButton) {
+                const weaponId = attackButton.closest('.dynamic-card').id;
+                rollAttack(weaponId);
+                return;
+            }
+            if (damageButton) {
+                const weaponId = damageButton.closest('.dynamic-card').id;
+                rollDamageForWeapon(weaponId);
+                return;
+            }
+
+            if (control) {
+                const targetId = control.dataset.target;
+                const step = parseInt(control.dataset.step);
+                const input = document.getElementById(targetId);
+                if (input) {
+                    input.value = parseInt(input.value) + step;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                    vibrate(20);
+                }
+            }
+            if (proficiencyToggle) {
+                toggleProficiency(proficiencyToggle);
+                vibrate(30);
+                debouncedSave(); // Save after proficiency toggle
+            }
+            if (advantageToggle) { // Use advantageToggle here
+                advantageToggle.classList.toggle('active');
+                vibrate(30);
+                debouncedSave(); // Save after advantage toggle
+            }
+            if (target.classList.contains('death-save')) {
+                target.classList.toggle('filled');
+                vibrate(30);
+                debouncedSave(); // Save after death save toggle
+            }
+            if (journalCard) {
+                viewJournalEntry(journalCard.id);
+            }
+            if (abilityUseTick) {
+                abilityUseTick.classList.toggle('used');
+                vibrate(50);
+                debouncedSave(); // Save after ability use toggle
+            }
+            if (conditionToken || target.closest('.condition-token')) {
+                const actualToken = conditionToken || target.closest('.condition-token');
+                actualToken.classList.toggle('active');
+                vibrate(30);
+                debouncedSave(); // Save after condition toggle
+            }
+            if (inspirationTracker) {
+                inspirationTracker.classList.toggle('active');
+                vibrate(40);
+                debouncedSave(); // Save after inspiration toggle
+            }
+
+            // If the click was on an ability card, but NOT on its internal action buttons (edit/delete/uses),
+            // and NOT on one of the ability filter buttons.
+            if (abilityCard && 
+                !target.closest('.edit-btn') && 
+                !target.closest('.delete-btn') && 
+                !target.closest('.ability-use-tick') &&
+                !target.closest('.ability-filter-button'))
+            {
+                viewAbilityDetails(abilityCard.id);
+            }
+
+            if (equippedSlot) {
+                currentEquipSlot = equippedSlot.dataset.slot; // Store which slot was clicked
+                openSelectItemModal();
+            }
+
+            if (clearEquipButton) {
+                const slotToClear = clearEquipButton.dataset.clearSlot;
+                clearEquippedSlot(slotToClear);
+                debouncedSave();
+            }
+        });
         
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
         document.getElementById('wallpaper-btn').addEventListener('click', () => document.getElementById('wallpaper-input').click());
@@ -493,6 +1250,13 @@
             preview.classList.remove('hidden');
             // A imagem do vínculo será salva com o objeto do vínculo na função saveData
         }));
+        // NEW: Weapon Image Input Listener
+        document.getElementById('weapon-img-input').addEventListener('change', handleFileSelect(e => {
+            const preview = document.getElementById('weapon-img-preview');
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        }));
+
 
         document.getElementById('save-item-btn').addEventListener('click', () => { saveData('item'); debouncedSave(); });
         document.getElementById('save-journal-btn').addEventListener('click', () => { saveData('journal'); debouncedSave(); });
@@ -503,13 +1267,30 @@
         document.getElementById('cancel-delete-btn').addEventListener('click', () => closeModal('confirm-delete-modal'));
         document.getElementById('confirm-delete-btn').addEventListener('click', () => {
             if (elementToDelete) {
+                // Remove from the DOM
                 elementToDelete.remove();
+
+                // Remove from dataStore
+                const type = elementToDelete.dataset.type;
+                const id = elementToDelete.id;
+                dataStore.characterSheetData.dynamic[type] = dataStore.characterSheetData.dynamic[type].filter(item => item.id !== id);
+
+                // If a deleted item was equipped, unequip it
+                for (const slot in dataStore.characterSheetData.equippedItems) {
+                    if (dataStore.characterSheetData.equippedItems[slot] && dataStore.characterSheetData.equippedItems[slot].id === id) {
+                        dataStore.characterSheetData.equippedItems[slot] = null;
+                        updateEquippedItemsUI(); // Update UI
+                        break; // Only one slot can hold this item
+                    }
+                    }
+
                 showToast('Excluído com sucesso.', 'success');
                 elementToDelete = null;
                 debouncedSave();
             }
             closeModal('confirm-delete-modal');
         });
+
         document.getElementById('edit-journal-from-view-btn').addEventListener('click', (e) => {
             const id = e.target.dataset.editingId;
             if (id) {
@@ -517,6 +1298,15 @@
                 editJournal(id);
             }
         });
+        // New listener for the ability edit button in the view modal
+        document.getElementById('edit-ability-from-view-btn').addEventListener('click', (e) => {
+            const id = e.target.dataset.editingId;
+            if (id) {
+                closeModal('ability-view-modal');
+                editAbility(id);
+            }
+        });
+
 
         document.querySelectorAll('.dice-button').forEach(button => {
             button.addEventListener('click', (e) => {
@@ -525,92 +1315,53 @@
             });
         });
 
-        // Configurações da ficha
+        // Event listeners for new ability filters and search
+        document.getElementById('ability-filters').addEventListener('click', (e) => {
+            if (e.target.classList.contains('ability-filter-button')) {
+                // Remove 'active' class from all filter buttons
+                document.querySelectorAll('.ability-filter-button').forEach(btn => btn.classList.remove('active'));
+                // Add 'active' to the clicked button
+                e.target.classList.add('active');
+                currentAbilityFilter = e.target.dataset.filter;
+                renderDynamicList('ability', dataStore.characterSheetData.dynamic.ability); // Re-render with new filter
+                debouncedSave(); // Save filter state
+            }
+        });
+
+        document.getElementById('ability-search').addEventListener('input', debounce(() => {
+            renderDynamicList('ability', dataStore.characterSheetData.dynamic.ability); // Re-render with search
+            debouncedSave(); // Save search term
+        }, 300)); // Debounce to avoid re-rendering on every keystroke
+
+        // Sheet settings
         document.getElementById('settings-btn').addEventListener('click', () => openModal('settings-modal'));
         document.getElementById('import-file-input').addEventListener('change', importCharacterSheet);
+
+        // Item Select Modal Listeners
+        document.getElementById('select-item-search').addEventListener('input', debounce(() => {
+            populateSelectItemModal(); // Re-populate with search
+        }, 300));
+
+        document.querySelectorAll('.select-item-filter').forEach(button => {
+            button.addEventListener('click', (e) => {
+                document.querySelectorAll('.select-item-filter').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                populateSelectItemModal(e.target.dataset.filterType);
+            });
+        });
+
+        document.getElementById('item-select-list').addEventListener('click', (e) => {
+            const selectedCard = e.target.closest('.item-select-card');
+            if (selectedCard) {
+                const type = selectedCard.dataset.type;
+                const id = selectedCard.dataset.id;
+                equipItemToSlot(currentEquipSlot, type, id);
+                closeModal('select-item-modal');
+                debouncedSave();
+            }
+        });
     }
     
-    function handleGlobalClick(e) {
-        const target = e.target;
-        const control = target.closest('.num-input-control');
-        const deleteBtn = target.closest('.delete-btn');
-        const editBtn = target.closest('.edit-btn');
-        const journalCard = target.closest('.journal-card');
-        const abilityUseTick = target.closest('.ability-use-tick');
-        const conditionToken = target.closest('.condition-token');
-        const inspirationTracker = target.closest('#inspiration-tracker');
-        const attackButton = target.closest('.attack-button');
-        const damageButton = target.closest('.damage-button');
-
-        if (deleteBtn) {
-            elementToDelete = deleteBtn.closest('.dynamic-card');
-            openModal('confirm-delete-modal');
-            return;
-        }
-        if (editBtn) {
-            const card = editBtn.closest('.dynamic-card');
-            const type = card.dataset.type;
-            const id = card.id;
-            if (type === 'weapon') {
-                editWeapon(id);
-            } else {
-                window[`edit${capitalize(type)}`](id);
-            }
-            return;
-        }
-        if (attackButton) {
-            const weaponId = attackButton.closest('.dynamic-card').id;
-            rollAttack(weaponId);
-            return;
-        }
-        if (damageButton) {
-            const weaponId = damageButton.closest('.dynamic-card').id;
-            rollDamageForWeapon(weaponId);
-            return;
-        }
-
-        if (control) {
-            const targetId = control.dataset.target;
-            const step = parseInt(control.dataset.step);
-            const input = document.getElementById(targetId);
-            if (input) {
-                input.value = parseInt(input.value) + step;
-                input.dispatchEvent(new Event('input', { bubbles: true }));
-                vibrate(20);
-            }
-        }
-        if (target.classList.contains('proficiency-toggle')) {
-            toggleProficiency(target);
-            vibrate(30);
-        }
-        if (target.classList.contains('advantage-toggle')) {
-            target.classList.toggle('active');
-            vibrate(30);
-        }
-        if (target.classList.contains('death-save')) {
-            target.classList.toggle('filled');
-            vibrate(30);
-        }
-        if (journalCard) {
-            viewJournalEntry(journalCard.id);
-        }
-        if (abilityUseTick) {
-            abilityUseTick.classList.toggle('used');
-            vibrate(50);
-        }
-        if (conditionToken || target.closest('.condition-token')) {
-            const actualToken = conditionToken || target.closest('.condition-token');
-            actualToken.classList.toggle('active');
-            vibrate(30);
-        }
-        if (inspirationTracker) {
-            inspirationTracker.classList.toggle('active');
-            const icon = inspirationTracker.querySelector('i');
-            icon.classList.toggle('opacity-30');
-            vibrate(40);
-        }
-    }
-
     function handleStatChange(e) {
         if (e.target.classList.contains('attribute-score') || e.target.id === 'char-level') {
             updateAllCalculations();
@@ -626,62 +1377,18 @@
         }
     }
 
-    function getProficiencyBonus() { return Math.floor(((parseInt(document.getElementById('char-level').value) || 1) - 1) / 4) + 2; }
-    function getAttributeModifier(attrShort) { return Math.floor(((parseInt(document.getElementById(`attr-${attrShort}`).value) || 10) - 10) / 2); }
-
-    function updateAllCalculations() {
-        const profBonus = getProficiencyBonus();
-        document.getElementById('proficiency-bonus').textContent = `+${profBonus}`;
-        dataStore.attributes.forEach(attr => {
-            const modEl = document.getElementById(`mod-${attr.short}`);
-            const oldMod = modEl.textContent;
-            const newModVal = getAttributeModifier(attr.short);
-            const newModText = newModVal >= 0 ? `+${newModVal}` : newModVal;
-            
-            if (oldMod !== newModText) {
-                modEl.textContent = newModText;
-                modEl.classList.add('modifier-flash');
-                modEl.addEventListener('animationend', () => modEl.classList.remove('modifier-flash'), { once: true });
-            }
-        });
-        const dexMod = getAttributeModifier('DEX');
-        document.getElementById('initiative-bonus').textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
-        dataStore.attributes.forEach(attr => {
-            const modifier = getAttributeModifier(attr.short);
-            const profToggle = document.querySelector(`.proficiency-toggle[data-type="save"][data-name="${attr.short}"]`);
-            let totalBonus = modifier;
-            if (profToggle.classList.contains('proficient')) totalBonus += profBonus;
-            else if (profToggle.classList.contains('expertise')) totalBonus += (profBonus * 2);
-            document.getElementById(`save-bonus-${attr.short}`).textContent = totalBonus >= 0 ? `+${totalBonus}` : totalBonus;
-        });
-        dataStore.skills.forEach(skill => {
-            const modifier = getAttributeModifier(skill.attr);
-            const profToggle = document.querySelector(`.proficiency-toggle[data-type="skill"][data-name="${skill.name}"]`);
-            let totalBonus = modifier;
-            if (profToggle.classList.contains('proficient')) totalBonus += profBonus;
-            else if (profToggle.classList.contains('expertise')) totalBonus += (profBonus * 2);
-            document.getElementById(`skill-bonus-${skill.name.replace(/\s+/g, '')}`).textContent = totalBonus >= 0 ? `+${totalBonus}` : totalBonus;
-        });
-        updateHpBar();
-    }
-
-    function updateHpBar() {
-        const currentHp = parseInt(document.getElementById('hp-current').value) || 0;
-        const maxHp = parseInt(document.getElementById('hp-max').value) || 1;
-        const hpPercentage = Math.max(0, Math.min(100, (currentHp / maxHp) * 100));
-        
-        const hpBar = document.getElementById('hp-bar');
-        hpBar.style.width = `${hpPercentage}%`;
-
-        if (hpPercentage > 50) { hpBar.style.backgroundColor = '#16a34a'; }
-        else if (hpPercentage > 25) { hpBar.style.backgroundColor = '#facc15'; }
-        else { hpBar.style.backgroundColor = '#dc2626'; }
-    }
-
     function toggleProficiency(element) {
-        if (element.classList.contains('proficient')) { element.classList.remove('proficient'); element.classList.add('expertise'); element.textContent = 'E'; } 
-        else if (element.classList.contains('expertise')) { element.classList.remove('expertise'); element.textContent = ''; } 
-        else { element.classList.add('proficient'); element.textContent = 'P'; }
+        if (element.classList.contains('proficient')) { 
+            element.classList.remove('proficient'); 
+            element.classList.add('expertise'); 
+            element.textContent = 'E'; 
+        } else if (element.classList.contains('expertise')) { 
+            element.classList.remove('expertise'); 
+            element.textContent = ''; 
+        } else { 
+            element.classList.add('proficient'); 
+            element.textContent = 'P'; 
+        }
         updateAllCalculations();
     }
 
@@ -691,28 +1398,65 @@
         document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.classList.add("active", "glow-effect");
+
+        // When abilities tab is opened, re-render to apply saved filters/search
+        if (tabName === 'abilities') {
+            // Update 'active' class for the saved filter button
+            document.querySelectorAll('.ability-filter-button').forEach(btn => {
+                if (btn.dataset.filter === currentAbilityFilter) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            renderDynamicList('ability', dataStore.characterSheetData.dynamic.ability);
+        }
     }
     function openModal(modalId, editingId = null) {
         const modal = document.getElementById(modalId);
         modal.dataset.editingId = editingId || '';
-        if (modalId !== 'confirm-delete-modal' && modalId !== 'journal-view-modal' && modalId !== 'settings-modal') {
-            modal.querySelectorAll('input, textarea').forEach(el => {
-                // Não tente definir o valor de inputs type="file"
-                if (el.type !== 'file') {
-                    el.value = '';
-                }
+        // Clear inputs APENAS if it's not a view modal and not a confirmation/settings modal
+        if (modalId !== 'confirm-delete-modal' && modalId !== 'journal-view-modal' && modalId !== 'settings-modal' && modalId !== 'ability-view-modal' && modalId !== 'select-item-modal') {
+            modal.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], select').forEach(el => {
+                el.value = '';
             });
+            // Clear Quill editor content
+            for (const editorId in quillEditors) {
+                if (modal.querySelector(`#editor-${editorId}`)) { // Check if the editor belongs to this modal
+                    quillEditors[editorId].setContents([]); // Clear Quill editor
+                }
+            }
+            
+            if (modalId === 'ability-modal') {
+                document.getElementById('ability-category').value = 'Geral';
+            }
             const previews = modal.querySelectorAll('img[id$="-preview"]');
             previews.forEach(p => { p.classList.add('hidden'); p.removeAttribute('src'); });
         }
         modal.style.display = 'block';
     }
-    function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+    function closeModal(modalId) { 
+        document.getElementById(modalId).style.display = 'none'; 
+    }
     window.onclick = (event) => { if (event.target.classList.contains('modal')) event.target.style.display = "none"; }
 
     function toggleTheme() {
         const themeIcon = document.querySelector('#theme-toggle i');
         document.documentElement.classList.toggle('dark-mode');
+        // Re-applies HP bar color for the correct theme
+        updateHpBar(); 
+
+        // Update Quill editor theme
+        for (const editorId in quillEditors) {
+            const editorContainer = quillEditors[editorId].container;
+            if (document.documentElement.classList.contains('dark-mode')) {
+                editorContainer.classList.add('dark-mode');
+            } else {
+                editorContainer.classList.remove('dark-mode');
+            }
+        }
+
+
         if (document.documentElement.classList.contains('dark-mode')) { 
             themeIcon.classList.replace('fa-moon', 'fa-sun'); 
             dataStore.characterSheetData.theme = 'dark';
@@ -732,9 +1476,19 @@
             document.documentElement.classList.remove('dark-mode');
             themeIcon.classList.replace('fa-sun', 'fa-moon');
         }
-        // Aplicar a imagem do personagem e o wallpaper
-        document.getElementById('char-img-preview').src = dataStore.characterSheetData.images.charImage;
-        document.body.style.backgroundImage = dataStore.characterSheetData.images.wallpaper;
+        // Apply character image and wallpaper
+        document.getElementById('char-img-preview').src = dataStore.characterSheetData.images.charImage || "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon";
+        document.body.style.backgroundImage = dataStore.characterSheetData.images.wallpaper || "url('https://www.transparenttextures.com/patterns/old-wall.png')";
+
+        // Apply theme to Quill editors on load
+        for (const editorId in quillEditors) {
+            const editorContainer = quillEditors[editorId].container;
+            if (dataStore.characterSheetData.theme === 'dark') {
+                editorContainer.classList.add('dark-mode');
+            } else {
+                editorContainer.classList.remove('dark-mode');
+            }
+        }
     }
 
     function handleFileSelect(callback) {
@@ -781,11 +1535,11 @@
             case 'item':
                 data.name = document.getElementById('item-name').value;
                 data.type = document.getElementById('item-type').value;
-                data.bonus = document.getElementById('item-bonus').value;
+                data.bonus = getQuillEditorContent('item-bonus'); // Get content from Quill
                 data.rarity = document.getElementById('item-rarity').value;
                 data.img = document.getElementById('item-img-preview').src; 
                 data.id = editingId || crypto.randomUUID();
-                if (!data.name || !data.type || !data.bonus) {
+                if (!data.name || !data.type || data.bonus.trim() === '<p><br></p>') { // Check for empty Quill content
                     isValid = false;
                     showToast('Nome, tipo e descrição são obrigatórios.', 'error');
                 }
@@ -793,37 +1547,37 @@
             case 'journal':
                 data.title = document.getElementById('journal-title').value;
                 data.date = document.getElementById('journal-date').value;
-                data.content = document.getElementById('journal-content').value;
+                data.content = getQuillEditorContent('journal-content'); // Get content from Quill
                 data.id = editingId || crypto.randomUUID();
-                if (!data.title || !data.date || !data.content) {
+                if (!data.title || !data.date || data.content.trim() === '<p><br></p>') { // Check for empty Quill content
                     isValid = false;
                     showToast('Título, data e conteúdo são obrigatórios.', 'error');
                 }
                 break;
             case 'ability':
                 data.name = document.getElementById('ability-name').value;
-                data.desc = document.getElementById('ability-desc').value;
+                data.desc = getQuillEditorContent('ability-desc'); // Get content from Quill
                 data.uses = document.getElementById('ability-uses').value;
                 data.reset = document.getElementById('ability-reset').value;
+                data.category = document.getElementById('ability-category').value;
                 data.id = editingId || crypto.randomUUID();
                 if (editingId) {
-                    const existingAbilityCard = document.getElementById(editingId);
-                    if (existingAbilityCard) {
-                        const ticks = existingAbilityCard.querySelectorAll('.ability-use-tick');
-                        data.usedStates = Array.from(ticks).map(tick => tick.classList.contains('used'));
+                    const existingAbility = dataStore.characterSheetData.dynamic.ability.find(a => a.id === editingId);
+                    if (existingAbility) {
+                        data.usedStates = existingAbility.usedStates || [];
                     }
                 } else {
                     data.usedStates = [];
                 }
-                if (!data.name || !data.desc) {
+                if (!data.name || data.desc.trim() === '<p><br></p>' || !data.category) { // Check for empty Quill content
                     isValid = false;
-                    showToast('Nome e descrição são obrigatórios.', 'error');
+                    showToast('Nome, descrição e categoria são obrigatórios.', 'error');
                 }
                 break;
             case 'bond':
                 data.name = document.getElementById('bond-name').value;
                 data.relationship = document.getElementById('bond-relationship').value;
-                data.summary = document.getElementById('bond-summary').value;
+                data.summary = getQuillEditorContent('bond-summary'); // Get content from Quill
                 data.img = document.getElementById('bond-img-preview').src;
                 data.id = editingId || crypto.randomUUID();
                 if (!data.name || !data.relationship) {
@@ -835,8 +1589,9 @@
                 data.name = document.getElementById('weapon-name').value;
                 data.damage = document.getElementById('weapon-damage').value;
                 data.type = document.getElementById('weapon-type').value;
-                data.properties = document.getElementById('weapon-properties').value;
+                data.properties = getQuillEditorContent('weapon-properties'); // Get content from Quill
                 data.attribute = document.getElementById('weapon-attribute').value;
+                data.img = document.getElementById('weapon-img-preview').src; // NEW: Save weapon image
                 data.id = editingId || crypto.randomUUID();
                 if (!data.name || !data.damage) {
                     isValid = false;
@@ -878,23 +1633,64 @@
         }
         listElement.innerHTML = '';
 
-        dataArray.forEach(data => {
-            const cardHTML = createCardHTML(type, data, data.id);
-            listElement.insertAdjacentHTML('beforeend', cardHTML);
-        });
-
         if (type === 'ability') {
+            const searchTerm = document.getElementById('ability-search').value.toLowerCase();
+
+            const filteredAbilities = dataArray.filter(ability => {
+                const matchesCategory = currentAbilityFilter === 'All' || ability.category === currentAbilityFilter;
+                const matchesSearch = ability.name.toLowerCase().includes(searchTerm) || ability.desc.toLowerCase().includes(searchTerm);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filteredAbilities.length === 0) {
+                listElement.innerHTML = '<p class="text-center opacity-70 col-span-full">Nenhuma habilidade encontrada para o filtro atual.</p>';
+                return;
+            }
+
+            filteredAbilities.forEach(data => {
+                const cardHTML = createCardHTML(type, data, data.id);
+                listElement.insertAdjacentHTML('beforeend', cardHTML);
+            });
+            // Re-attach event listeners for ability use ticks (important after re-rendering)
             listElement.querySelectorAll('.ability-use-tick').forEach(tick => {
-                tick.removeEventListener('click', handleGlobalClick);
-                tick.addEventListener('click', handleGlobalClick);
+                tick.removeEventListener('click', handleGlobalClick); // Remove existing listener to prevent duplicates
+                tick.addEventListener('click', handleGlobalClick); // Add new listener
+            });
+
+        } else {
+            dataArray.forEach(data => {
+                const cardHTML = createCardHTML(type, data, data.id);
+                listElement.insertAdjacentHTML('beforeend', cardHTML);
             });
         }
+
         if (type === 'weapon') {
             listElement.querySelectorAll('.attack-button, .damage-button').forEach(button => {
                 button.removeEventListener('click', handleGlobalClick);
                 button.addEventListener('click', handleGlobalClick);
             });
         }
+    }
+
+    function viewAbilityDetails(id) {
+        const abilityData = dataStore.characterSheetData.dynamic.ability.find(ability => ability.id === id);
+        if (!abilityData) return;
+
+        document.getElementById('ability-view-title').textContent = abilityData.name;
+        document.getElementById('ability-view-category').textContent = abilityData.category;
+        document.getElementById('ability-view-full-desc').innerHTML = abilityData.desc; // Use innerHTML for rich text
+        
+        const usesInfoElement = document.getElementById('ability-view-uses-info');
+        if (abilityData.uses && abilityData.reset !== 'none') { 
+            let usedCount = (abilityData.usedStates || []).filter(state => state).length;
+            usesInfoElement.textContent = `Usos: ${usedCount}/${abilityData.uses} por ${abilityData.reset.replace('-', ' ')}`;
+        } else {
+            usesInfoElement.textContent = '';
+        }
+
+        document.getElementById('edit-ability-from-view-btn').dataset.editingId = id;
+
+        openModal('ability-view-modal');
     }
 
     function editItem(id) {
@@ -905,7 +1701,7 @@
         document.getElementById('item-name').value = itemData.name;
         document.getElementById('item-rarity').value = itemData.rarity;
         document.getElementById('item-type').value = itemData.type;
-        document.getElementById('item-bonus').value = itemData.bonus;
+        setQuillEditorContent('item-bonus', itemData.bonus); // Set content for Quill
         const preview = document.getElementById('item-img-preview');
         if (itemData.img && itemData.img.startsWith('data:image')) { preview.src = itemData.img; preview.classList.remove('hidden'); }
         else { preview.src = ""; preview.classList.add('hidden'); }
@@ -917,7 +1713,7 @@
         openModal('journal-modal', id);
         document.getElementById('journal-title').value = journalData.title;
         document.getElementById('journal-date').value = journalData.date;
-        document.getElementById('journal-content').value = journalData.content;
+        setQuillEditorContent('journal-content', journalData.content); // Set content for Quill
     }
     function editAbility(id) {
         const abilityData = dataStore.characterSheetData.dynamic.ability.find(ability => ability.id === id);
@@ -925,9 +1721,10 @@
 
         openModal('ability-modal', id);
         document.getElementById('ability-name').value = abilityData.name;
-        document.getElementById('ability-desc').value = abilityData.desc;
+        setQuillEditorContent('ability-desc', abilityData.desc); // Set content for Quill
         document.getElementById('ability-uses').value = abilityData.uses;
         document.getElementById('ability-reset').value = abilityData.reset;
+        document.getElementById('ability-category').value = abilityData.category || 'Geral';
     }
     function editBond(id) {
         const bondData = dataStore.characterSheetData.dynamic.bond.find(bond => bond.id === id);
@@ -936,7 +1733,7 @@
         openModal('bond-modal', id);
         document.getElementById('bond-name').value = bondData.name;
         document.getElementById('bond-relationship').value = bondData.relationship;
-        document.getElementById('bond-summary').value = bondData.summary;
+        setQuillEditorContent('bond-summary', bondData.summary); // Set content for Quill
         const preview = document.getElementById('bond-img-preview');
         if (bondData.img && bondData.img.startsWith('data:image')) { preview.src = bondData.img; preview.classList.remove('hidden'); }
         else { preview.src = ""; preview.classList.add('hidden'); }
@@ -949,8 +1746,11 @@
         document.getElementById('weapon-name').value = weaponData.name;
         document.getElementById('weapon-damage').value = weaponData.damage;
         document.getElementById('weapon-type').value = weaponData.type;
-        document.getElementById('weapon-properties').value = weaponData.properties;
+        setQuillEditorContent('weapon-properties', weaponData.properties); // Set content for Quill
         document.getElementById('weapon-attribute').value = weaponData.attribute;
+        const preview = document.getElementById('weapon-img-preview'); // NEW: Get weapon image preview
+        if (weaponData.img && weaponData.img.startsWith('data:image')) { preview.src = weaponData.img; preview.classList.remove('hidden'); }
+        else { preview.src = ""; preview.classList.add('hidden'); }
     }
     
     function viewJournalEntry(id) {
@@ -963,8 +1763,7 @@
                 <h3 class="font-ornate text-3xl">${journalData.title}</h3>
                 <p class="text-sm">${journalData.date}</p>
             </div>
-            <p class="whitespace-pre-wrap text-lg">${journalData.content}</p>
-        `;
+            <div class="prose max-w-none text-lg">${journalData.content}</div> `;
         document.getElementById('edit-journal-from-view-btn').dataset.editingId = id;
         openModal('journal-view-modal');
     }
@@ -972,7 +1771,7 @@
     function createCardHTML(type, data, id = null) {
         const cardId = id || crypto.randomUUID();
         const dataAttributes = Object.entries(data)
-            .filter(([key, value]) => key !== 'usedStates')
+            .filter(([key, value]) => key !== 'usedStates') // Don't put usedStates in data attributes
             .map(([key, value]) => `data-${key}="${String(value || '').replace(/"/g, '&quot;')}"`)
             .join(' ');
 
@@ -980,9 +1779,11 @@
         
         switch (type) {
             case 'item':
-                return `<div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg relative" data-type="item" ${dataAttributes}><img src="${data.img && data.img.startsWith('data:image') ? data.img : 'https://placehold.co/300x200/c8a06e/4a2c2a?text=Item'}" alt="${data.name}" class="w-full h-32 object-cover rounded mb-2"><h4 class="font-ornate text-xl">${data.name}</h4><p class="text-sm italic">${data.rarity} ${data.type}</p><p class="text-sm mt-1">${data.bonus}</p>${actionsHTML}</div>`;
+                return `<div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg relative" data-type="item" ${dataAttributes}><img src="${data.img && data.img.startsWith('data:image') ? data.img : 'https://placehold.co/300x200/d4a778/5a403a?text=Item'}" alt="${data.name}" class="w-full h-32 object-cover rounded mb-2"><h4 class="font-ornate text-xl">${data.name}</h4><p class="text-sm italic">${data.rarity} ${data.type}</p><div class="text-sm mt-1 prose-sm">${data.bonus}</div>${actionsHTML}</div>`;
             case 'journal':
-                return `<div id="${cardId}" class="dynamic-card journal-card paper-bg p-4 rounded-lg relative cursor-pointer" data-type="journal" ${dataAttributes}><div class="flex justify-between items-baseline pointer-events-none"><h4 class="font-ornate text-xl">${data.title}</h4><p class="text-sm">${data.date}</p></div><p class="text-sm italic opacity-70 truncate pointer-events-none">${data.content}</p>${actionsHTML}</div>`;
+                // Note: The `truncate` class on the p tag might hide rich text formatting.
+                // For full rich text display, it's better to remove `truncate` and handle overflow with max-height/overflow-y.
+                return `<div id="${cardId}" class="dynamic-card journal-card paper-bg p-4 rounded-lg relative cursor-pointer" data-type="journal" ${dataAttributes}><div class="flex justify-between items-baseline pointer-events-none"><h4 class="font-ornate text-xl">${data.title}</h4><p class="text-sm">${data.date}</p></div><div class="text-sm italic opacity-70 ability-card-description prose-sm">${data.content}</div>${actionsHTML}</div>`;
             case 'ability':
                 let usesHTML = '';
                 if (data.uses && data.reset !== 'none') { 
@@ -992,15 +1793,21 @@
                     ).join('');
                     usesHTML = `<div class="mt-2"><p class="text-sm">Usos: ${data.uses} por ${data.reset.replace('-', ' ')}</p><div class="flex space-x-1 mt-1">${ticks}</div></div>`; 
                 }
-                return `<div id="${cardId}" class="dynamic-card paper-bg p-4 rounded-lg relative" data-type="ability" ${dataAttributes}><h4 class="font-ornate text-xl">${data.name}</h4><p class="text-sm mt-1">${data.desc}</p>${usesHTML}${actionsHTML}</div>`;
+                return `<div id="${cardId}" class="dynamic-card paper-bg p-4 rounded-lg relative cursor-pointer" data-type="ability" ${dataAttributes}>
+                            <h4 class="font-ornate text-xl">${data.name} <span class="text-sm opacity-60">(${data.category})</span></h4>
+                            <div class="text-sm mt-1 ability-card-description prose-sm">${data.desc}</div>
+                            ${usesHTML}
+                            ${actionsHTML}
+                        </div>`;
             case 'bond':
-                return `<div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg flex items-start space-x-4 relative" data-type="bond" ${dataAttributes}><img src="${data.img && data.img.startsWith('data:image') ? data.img : 'https://placehold.co/100x100/c8a06e/4a2c2a?text=NPC'}" alt="${data.name}" class="w-24 h-24 object-cover rounded-full border-2 border-[var(--border-strong-color)]"><div><h4 class="font-ornate text-2xl">${data.name}</h4><p class="text-md italic">${data.relationship}</p><p class="text-sm mt-2">${data.summary}</p></div>${actionsHTML}</div>`;
+                return `<div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg flex items-start space-x-4 relative" data-type="bond" ${dataAttributes}><img src="${data.img && data.img.startsWith('data:image') ? data.img : 'https://placehold.co/100x100/d4a778/5a403a?text=NPC'}" alt="${data.name}" class="w-24 h-24 object-cover rounded-full border-2 border-[var(--border-strong-color)]"><div><h4 class="font-ornate text-2xl">${data.name}</h4><p class="text-md italic">${data.relationship}</p><div class="text-sm mt-2 prose-sm">${data.summary}</div></div>${actionsHTML}</div>`;
             case 'weapon':
                 return `
                     <div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg relative" data-type="weapon" ${dataAttributes}>
                         <h4 class="font-ornate text-xl">${data.name}</h4>
                         <p class="text-sm">Tipo: ${data.type}</p>
-                        ${data.properties ? `<p class="text-sm">Propriedades: ${data.properties}</p>` : ''}
+                        ${data.img && data.img.startsWith('data:image') ? `<img src="${data.img}" alt="${data.name}" class="w-full h-24 object-cover rounded mb-2">` : ''}
+                        ${data.properties && data.properties.trim() !== '<p><br></p>' ? `<div class="text-sm prose-sm">Propriedades: ${data.properties}</div>` : ''}
                         <p class="text-sm">Atributo: ${data.attribute}</p>
                         <div class="flex justify-between mt-2">
                             <button class="action-button py-1 px-3 rounded text-sm attack-button">Atacar</button>
@@ -1012,7 +1819,7 @@
         }
     }
 
-    // --- Funções de Local Storage ---
+    // --- Functions for Local Storage ---
     function debounce(func, delay) {
         let timeout;
         return function(...args) {
@@ -1022,15 +1829,15 @@
     }
 
     function saveToLocalStorage() {
-        // Salva inputs estáticos
-        document.querySelectorAll('input[id], textarea[id]').forEach(el => {
-            // Ignora inputs do tipo 'file' para evitar o erro de segurança
-            if (el.type !== 'file') {
+        // Saves static inputs (excluding Quill-managed textareas, which are saved on text-change)
+        document.querySelectorAll('input[id], select[id]').forEach(el => {
+            // Only save if it's not part of a Quill editor's internal structure
+            if (el.type !== 'file' && !el.closest('.quill-editor-container')) {
                 dataStore.characterSheetData.staticInputs[el.id] = el.value;
             }
         });
         
-        // Salva estados de toggles
+        // Save states of toggles
         document.querySelectorAll('.proficiency-toggle, .advantage-toggle, .death-save, .condition-token, #inspiration-tracker').forEach((el) => {
             let key = el.id || el.dataset.name || el.title;
             if (el.classList.contains('death-save')) {
@@ -1045,6 +1852,20 @@
             }
         });
 
+        // Save the state of "ability use ticks" for each ability
+        dataStore.characterSheetData.dynamic.ability.forEach(ability => {
+            const abilityCard = document.getElementById(ability.id);
+            if (abilityCard) {
+                const ticks = abilityCard.querySelectorAll('.ability-use-tick');
+                ability.usedStates = Array.from(ticks).map(tick => tick.classList.contains('used'));
+            }
+        });
+
+        // Save current ability filter and search term
+        dataStore.characterSheetData.staticInputs['currentAbilityFilter'] = currentAbilityFilter;
+        dataStore.characterSheetData.staticInputs['ability-search'] = document.getElementById('ability-search').value;
+
+
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(dataStore.characterSheetData));
             console.log("Ficha salva localmente.");
@@ -1057,32 +1878,47 @@
     function loadFromLocalStorage() {
         const savedData = localStorage.getItem(STORAGE_KEY);
         if (!savedData) {
-            // Se não houver dados salvos, inicializa com valores padrão para todos os inputs estáticos
+            // If no data saved, initialize with default values for all static inputs
             Object.keys(dataStore.characterSheetData.staticInputs).forEach(id => {
                 const el = document.getElementById(id);
-                if (el && el.type !== 'file') { // Garante que não está tentando preencher inputs de arquivo
+                // Check if it's a Quill editor related element
+                if (el && el.id.startsWith('editor-')) { // Quill editor div itself
+                    setQuillEditorContent(el.id.replace('editor-', ''), dataStore.characterSheetData.staticInputs[id]);
+                } else if (el && el.type !== 'file') { // Regular input/select
                     el.value = dataStore.characterSheetData.staticInputs[id];
                 }
             });
-            updateAllCalculations(); // Inicializa cálculos
+            updateAllCalculations(); 
             return;
         }
 
         try {
             const loadedSheetData = JSON.parse(savedData);
-            // Mescla dados salvos com a estrutura padrão, garantindo que novas propriedades sejam adicionadas
-            // sem sobrescrever a estrutura base.
-            dataStore.characterSheetData = { ...dataStore.characterSheetData, ...loadedSheetData };
+            // Deep merge to preserve structure if some keys are missing in loaded data
+            Object.assign(dataStore.characterSheetData, loadedSheetData); 
+            // Ensure dynamic arrays exist if they were missing in older saves
+            dataStore.characterSheetData.dynamic = dataStore.characterSheetData.dynamic || {};
+            dataStore.characterSheetData.dynamic.item = dataStore.characterSheetData.dynamic.item || [];
+            dataStore.characterSheetData.dynamic.journal = dataStore.characterSheetData.dynamic.journal || [];
+            dataStore.characterSheetData.dynamic.ability = dataStore.characterSheetData.dynamic.ability || [];
+            dataStore.characterSheetData.dynamic.bond = dataStore.characterSheetData.dynamic.bond || [];
+            dataStore.characterSheetData.dynamic.weapon = dataStore.characterSheetData.dynamic.weapon || [];
+            // Ensure equippedItems exists and has default structure
+            dataStore.characterSheetData.equippedItems = dataStore.characterSheetData.equippedItems || { "main-weapon": null, "offhand": null, "armor": null, "other": null };
 
-            // Carrega inputs estáticos
+
             for (const id in dataStore.characterSheetData.staticInputs) {
                 const el = document.getElementById(id);
-                if (el && el.type !== 'file') { // MUITO IMPORTANTE: Ignora inputs do tipo 'file'
-                    el.value = dataStore.characterSheetData.staticInputs[id];
+                if (el && el.type !== 'file') {
+                    // Handle Quill editor related elements for content loading
+                    if (id.startsWith('personality-traits') || id.startsWith('ideals') || id.startsWith('bonds-backstory') || id.startsWith('flaws') || id.startsWith('backstory') || id.startsWith('item-bonus') || id.startsWith('journal-content') || id.startsWith('ability-desc') || id.startsWith('bond-summary') || id.startsWith('weapon-properties')) {
+                        setQuillEditorContent(`editor-${id}`, dataStore.characterSheetData.staticInputs[id]);
+                    } else { // Regular input/select
+                        el.value = dataStore.characterSheetData.staticInputs[id];
+                    }
                 }
             }
 
-            // Carrega estados de toggles
             for (const key in dataStore.characterSheetData.toggles) {
                 const el = document.getElementById(key) || document.querySelector(`[data-name="${key}"]`) || document.querySelector(`[title="${key}"]`);
                 if (el) {
@@ -1106,25 +1942,20 @@
                     } else if (el.classList.contains('advantage-toggle') || el.classList.contains('condition-token') || el.id === 'inspiration-tracker') {
                         if (dataStore.characterSheetData.toggles[key]) {
                             el.classList.add('active');
-                            if (el.id === 'inspiration-tracker') {
-                                el.querySelector('i').classList.remove('opacity-30');
-                            }
                         } else {
                             el.classList.remove('active');
-                            if (el.id === 'inspiration-tracker') {
-                                el.querySelector('i').classList.add('opacity-30');
-                            }
                         }
                     }
                 }
             }
 
-            // Carrega imagens (personagem e wallpaper)
-            // Certifique-se de que as imagens existam nos dados carregados, caso contrário use um fallback
             document.getElementById('char-img-preview').src = dataStore.characterSheetData.images.charImage || "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon";
             document.body.style.backgroundImage = dataStore.characterSheetData.images.wallpaper || "url('https://www.transparenttextures.com/patterns/old-wall.png')";
 
-            // Carrega conteúdo dinâmico
+            currentAbilityFilter = dataStore.characterSheetData.staticInputs['currentAbilityFilter'] || 'All';
+            const savedSearchTerm = dataStore.characterSheetData.staticInputs['ability-search'] || '';
+            document.getElementById('ability-search').value = savedSearchTerm;
+            
             const dynamicSections = ['item', 'journal', 'ability', 'bond', 'weapon'];
             dynamicSections.forEach(type => {
                 if (dataStore.characterSheetData.dynamic[type]) {
@@ -1132,8 +1963,10 @@
                 }
             });
 
-            // Aplica o tema (claro/escuro)
-            applyThemeFromData();
+            // Update equipped items UI after loading all dynamic data
+            updateEquippedItemsUI();
+
+            applyThemeFromData(); // This will also recalculate HP bar color
 
             updateAllCalculations();
             console.log("Ficha carregada do armazenamento local.");
@@ -1142,15 +1975,28 @@
             console.error("Erro ao carregar ou analisar dados do localStorage. Iniciando ficha nova.", e);
             showToast("Erro ao carregar a ficha. Reiniciando dados. Detalhes: " + e.message, "error", 5000);
             localStorage.removeItem(STORAGE_KEY);
-            // Re-inicializa characterSheetData para seu estado padrão
             dataStore.characterSheetData = { 
-                staticInputs: {}, 
+                staticInputs: {
+                    "char-name": "", "char-race": "", "char-origin": "",
+                    "char-level": "1", "ac": "10", "speed": "30ft",
+                    "hp-current": "0", "hp-max": "1",
+                    "coins-cp": "0", "coins-sp": "0", "coins-gp": "0", "coins-pp": "0",
+                    "personality-traits": "", "ideals": "", "bonds-backstory": "", "flaws": "", "backstory": "",
+                    "journal-title": "", "journal-date": "", "journal-content": "",
+                    "ability-name": "", "ability-desc": "", "ability-uses": "", "ability-reset": "none", "ability-category": "Geral",
+                    "bond-name": "", "bond-relationship": "", "bond-summary": "",
+                    "weapon-name": "", "weapon-damage": "", "weapon-type": "", "weapon-properties": "", "weapon-attribute": "STR",
+                    "currentAbilityFilter": "All",
+                    "ability-search": ""
+                }, 
+                equippedItems: { // Reset equipped items on reset
+                    "main-weapon": null, "offhand": null, "armor": null, "other": null
+                },
                 toggles: {}, 
                 dynamic: { item: [], journal: [], ability: [], bond: [], weapon: [] }, 
                 images: { charImage: "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon", wallpaper: "url('https://www.transparenttextures.com/patterns/old-wall.png')" },
-                theme: 'light'
+                theme: 'light',
             };
-            // Define os valores padrão para inputs estáticos para evitar campos vazios após o reset
             document.getElementById('char-level').value = "1";
             document.getElementById('ac').value = "10";
             document.getElementById('speed').value = "30ft";
@@ -1161,13 +2007,21 @@
             document.getElementById('coins-gp').value = "0";
             document.getElementById('coins-pp').value = "0";
 
+            // Reset Quill editors to empty state on error
+            for (const editorId in quillEditors) {
+                quillEditors[editorId].setContents([]);
+            }
 
+            document.querySelectorAll('.ability-filter-button').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.ability-filter-button[data-filter="All"]').classList.add('active');
+
+            updateEquippedItemsUI(); // Reset UI after data reset
             updateAllCalculations();
         }
     }
 
 
-    // --- Funções do Rolador de Dados ---
+    // --- Dice Roller Functions ---
     function rollDice(sides) {
         const result = Math.floor(Math.random() * sides) + 1;
         const diceResultElement = document.getElementById('dice-result');
@@ -1266,10 +2120,10 @@
         };
     }
 
-    // --- Funções de Exportação e Importação ---
+    // --- Export and Import Functions ---
     function exportCharacterSheet() {
         try {
-            // Garante que os dados mais recentes estejam no dataStore.characterSheetData
+            // Ensure the latest data is in dataStore.characterSheetData
             saveToLocalStorage(); 
             const dataStr = JSON.stringify(dataStore.characterSheetData, null, 2);
             const blob = new Blob([dataStr], { type: "application/json" });
@@ -1302,14 +2156,14 @@
         reader.onload = (e) => {
             try {
                 const importedData = JSON.parse(e.target.result);
-                // Verifica se a estrutura básica da ficha é compatível
+                // Check if the basic sheet structure is compatible
                 if (importedData && typeof importedData === 'object' && 
                     importedData.staticInputs && importedData.dynamic && importedData.images) {
                     if (confirm('Importar esta ficha irá substituir TODOS os dados atuais. Deseja continuar?')) {
-                        // Salva o JSON importado diretamente no localStorage
+                        // Save the imported JSON directly to localStorage
                         localStorage.setItem(STORAGE_KEY, e.target.result); 
                         showToast("Ficha importada com sucesso! Recarregando...", "success");
-                        setTimeout(() => location.reload(), 1000); // Recarrega a página para aplicar
+                        setTimeout(() => location.reload(), 1000); // Reload page to apply
                     }
                 } else {
                     showToast("Arquivo JSON inválido. Certifique-se de que é um arquivo de exportação de ficha válido.", "error");
@@ -1328,6 +2182,134 @@
             showToast("Ficha redefinida! Recarregando...", "success");
             setTimeout(() => location.reload(), 1000);
         }
+    }
+
+    // --- Equipped Items & Select Item Modal Functions ---
+
+    function updateEquippedItemsUI() {
+        const equippedItems = dataStore.characterSheetData.equippedItems;
+
+        for (const slotName in equippedItems) {
+            const slotElement = document.getElementById(`equipped-slot-${slotName}`);
+            const slotNameSpan = slotElement.querySelector('.slot-name');
+            const clearButton = slotElement.querySelector('.clear-button');
+
+            const equippedItemData = equippedItems[slotName];
+
+            if (equippedItemData) {
+                // Find the actual item/weapon data
+                let item = null;
+                if (equippedItemData.type === 'item') {
+                    item = dataStore.characterSheetData.dynamic.item.find(i => i.id === equippedItemData.id);
+                } else if (equippedItemData.type === 'weapon') {
+                    item = dataStore.characterSheetData.dynamic.weapon.find(w => w.id === equippedItemData.id);
+                }
+
+                if (item) {
+                    slotNameSpan.textContent = item.name;
+                    slotElement.classList.remove('empty');
+                    clearButton.classList.remove('hidden');
+                } else {
+                    // Item not found (e.g., deleted), clear the slot
+                    equippedItems[slotName] = null;
+                    slotNameSpan.textContent = "Nenhum";
+                    slotElement.classList.add('empty');
+                    clearButton.classList.add('hidden');
+                }
+            } else {
+                slotNameSpan.textContent = "Nenhum";
+                slotElement.classList.add('empty');
+                clearButton.classList.add('hidden');
+            }
+        }
+        saveToLocalStorage(); // Ensure changes are saved
+    }
+
+    function openSelectItemModal() {
+        openModal('select-item-modal');
+        // Reset search and filters
+        document.getElementById('select-item-search').value = '';
+        document.querySelectorAll('.select-item-filter').forEach(btn => btn.classList.remove('active'));
+        document.querySelector('.select-item-filter[data-filter-type="all"]').classList.add('active');
+        populateSelectItemModal();
+    }
+
+    function populateSelectItemModal(filterType = 'all') {
+        const listElement = document.getElementById('item-select-list');
+        listElement.innerHTML = '';
+        const searchTerm = document.getElementById('select-item-search').value.toLowerCase();
+
+        let availableItems = [];
+
+        if (filterType === 'all' || filterType === 'item') {
+            dataStore.characterSheetData.dynamic.item.forEach(item => {
+                if (item.name.toLowerCase().includes(searchTerm) || item.type.toLowerCase().includes(searchTerm)) {
+                    availableItems.push({ ...item, itemType: 'item' }); // Add a property to distinguish
+                }
+            });
+        }
+
+        if (filterType === 'all' || filterType === 'weapon') {
+            dataStore.characterSheetData.dynamic.weapon.forEach(weapon => {
+                if (weapon.name.toLowerCase().includes(searchTerm) || weapon.type.toLowerCase().includes(searchTerm) || (weapon.properties && weapon.properties.toLowerCase().includes(searchTerm))) {
+                    availableItems.push({ ...weapon, itemType: 'weapon' }); // Add a property to distinguish
+                }
+            });
+        }
+
+        if (availableItems.length === 0) {
+            listElement.innerHTML = '<p class="text-center opacity-70 p-4">Nenhum item ou arma encontrado.</p>';
+            return;
+        }
+
+        availableItems.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+
+        availableItems.forEach(item => {
+            let img = '';
+            let typeLabel = '';
+            // Use the actual image if available, otherwise a placeholder
+            if (item.itemType === 'item') {
+                img = item.img && item.img.startsWith('data:image') ? item.img : 'https://placehold.co/40x40/d4a778/5a403a?text=I';
+                typeLabel = `Item (${item.type})`;
+            } else { // weapon
+                img = item.img && item.img.startsWith('data:image') ? item.img : 'https://placehold.co/40x40/d4a778/5a403a?text=W'; // Use weapon's image if available
+                typeLabel = `Arma (${item.type})`;
+            }
+
+            listElement.innerHTML += `
+                <div class="item-select-card" data-id="${item.id}" data-type="${item.itemType}">
+                    <img src="${img}" alt="${item.name}">
+                    <div>
+                        <div class="item-select-name">${item.name}</div>
+                        <div class="item-select-type">${typeLabel}</div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function equipItemToSlot(slotName, itemType, itemId) {
+        // Find the item/weapon data based on type and ID
+        let itemData = null;
+        if (itemType === 'item') {
+            itemData = dataStore.characterSheetData.dynamic.item.find(i => i.id === itemId);
+        } else if (itemType === 'weapon') {
+            itemData = dataStore.characterSheetData.dynamic.weapon.find(w => w.id === itemId);
+        }
+
+        if (itemData) {
+            dataStore.characterSheetData.equippedItems[slotName] = { id: itemId, type: itemType };
+            updateEquippedItemsUI();
+            showToast(`${itemData.name} equipado em ${slotName.replace('-', ' ')}.`, 'success');
+        } else {
+            showToast('Item/arma não encontrado para equipar.', 'error');
+        }
+    }
+
+    function clearEquippedSlot(slotName) {
+        dataStore.characterSheetData.equippedItems[slotName] = null;
+        updateEquippedItemsUI();
+        showToast(`Slot de ${slotName.replace('-', ' ')} limpo.`, 'success');
     }
 </script>
 
