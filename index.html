@@ -31,6 +31,23 @@
             /* Scrollbar colors for light mode */
             --scrollbar-track-color-light: rgba(212, 167, 120, 0.3); /* Lighter, more transparent */
             --scrollbar-thumb-color-light: var(--border-strong-color);
+
+            /* Mission Status Colors */
+            --quest-open-color: #d97706; /* Orange */
+            --quest-completed-color: #16a34a; /* Green */
+            --quest-cancelled-color: #dc2626; /* Red */
+
+            /* NEW: Priority Colors */
+            --priority-low-color: #3b82f6; /* Blue */
+            --priority-medium-color: #f59e0b; /* Amber */
+            --priority-high-color: #ef4444; /* Red */
+            --priority-urgent-color: #8b5cf6; /* Violet */
+
+            /* NEW: Connection Meter Colors */
+            --connection-high-color: #16a34a; /* Green */
+            --connection-medium-color: #f59e0b; /* Amber */
+            --connection-low-color: #dc2626; /* Red */
+            --connection-zero-color: #5a403a; /* Dark Brown for 0% */
         }
 
         /* --- Modo Noturno (Preto e Lilás Refinado) --- */
@@ -51,6 +68,23 @@
             /* Scrollbar colors for dark mode */
             --scrollbar-track-color-dark: rgba(147, 112, 219, 0.2); /* Darker, more transparent */
             --scrollbar-thumb-color-dark: var(--accent-color);
+
+            /* Mission Status Colors Dark Mode */
+            --quest-open-color: #fcd34d; /* Yellow */
+            --quest-completed-color: #60c790; /* Green */
+            --quest-cancelled-color: #ef4444; /* Red */
+
+            /* NEW: Priority Colors Dark Mode */
+            --priority-low-color: #60a5fa; /* Light Blue */
+            --priority-medium-color: #fbbf24; /* Yellow */
+            --priority-high-color: #f87171; /* Light Red */
+            --priority-urgent-color: #c4b5fd; /* Light Violet */
+
+            /* NEW: Connection Meter Colors Dark Mode */
+            --connection-high-color: #60c790; /* Green */
+            --connection-medium-color: #fbbf24; /* Yellow */
+            --connection-low-color: #ef4444; /* Red */
+            --connection-zero-color: #e6e0f0; /* Light text color for 0% in dark mode */
         }
 
         body {
@@ -340,6 +374,7 @@
             font-family: 'IM Fell English SC', serif;
             font-size: 2.5rem;
             color: var(--accent-color);
+            margin-top: 0.25rem;
         }
         #ability-view-modal .modal-category {
             font-size: 1.1rem;
@@ -357,7 +392,7 @@
         .quill-editor-container .ql-editor {
             min-height: 100px; /* Default height */
             color: var(--text-color); /* Inherit text color */
-            caret-color: var(--text-color) !important; /* Adicionado: Garante que o caret-color seja visível no editor Quill */
+            caret-color: var(--text-color) !important; /* Adicionado: Garante que a barra de digitação seja visível no editor Quill */
             user-select: text !important; /* Permite seleção de texto no editor */
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
@@ -403,7 +438,7 @@
             border-radius: 4px;
         }
         .quill-editor-container {
-             border: 1px solid var(--border-strong-color); /* Start with defined border */
+            border: 1px solid var(--border-strong-color); /* Start with defined border */
         }
         
         /* Override Quill's default colors for better dark mode contrast */
@@ -583,7 +618,8 @@
         /* For Webkit (Chrome, Safari, Edge) */
         .quill-editor-container .ql-editor::-webkit-scrollbar,
         .modal-body::-webkit-scrollbar,
-        .item-select-list::-webkit-scrollbar {
+        .item-select-list::-webkit-scrollbar,
+        .quest-card-description::-webkit-scrollbar { /* Adicionado para a descrição da missão */
             width: 0; /* Hidden by default */
             transition: width 0.3s ease-in-out; /* Smooth transition for width */
         }
@@ -591,26 +627,30 @@
         .quill-editor-container .ql-editor:hover::-webkit-scrollbar,
         .quill-editor-container .ql-editor:focus-within::-webkit-scrollbar, /* Show on focus-within for parent */
         .modal-body:hover::-webkit-scrollbar,
-        .item-select-list:hover::-webkit-scrollbar {
+        .item-select-list:hover::-webkit-scrollbar,
+        .quest-card-description:hover::-webkit-scrollbar { /* Adicionado para a descrição da missão */
             width: 8px; /* Show on hover */
         }
 
         .quill-editor-container .ql-editor::-webkit-scrollbar-track,
         .modal-body::-webkit-scrollbar-track,
-        .item-select-list::-webkit-scrollbar-track {
+        .item-select-list::-webkit-scrollbar-track,
+        .quest-card-description::-webkit-scrollbar-track { /* Adicionado para a descrição da missão */
             background: var(--scrollbar-track-color-light); /* Light mode track color */
             border-radius: 10px;
         }
 
         .dark-mode .quill-editor-container .ql-editor::-webkit-scrollbar-track,
         .dark-mode .modal-body::-webkit-scrollbar-track,
-        .dark-mode .item-select-list::-webkit-scrollbar-track {
+        .dark-mode .item-select-list::-webkit-scrollbar-track,
+        .dark-mode .quest-card-description::-webkit-scrollbar-track { /* Adicionado para a descrição da missão */
             background: var(--scrollbar-track-color-dark); /* Dark mode track color */
         }
 
         .quill-editor-container .ql-editor::-webkit-scrollbar-thumb,
         .modal-body::-webkit-scrollbar-thumb,
-        .item-select-list::-webkit-scrollbar-thumb {
+        .item-select-list::-webkit-scrollbar-thumb,
+        .quest-card-description::-webkit-scrollbar-thumb { /* Adicionado para a descrição da missão */
             background-color: var(--scrollbar-thumb-color-light); /* Light mode thumb color */
             border-radius: 10px;
             border: 2px solid transparent; /* Gives a slight padding effect */
@@ -622,20 +662,23 @@
         .quill-editor-container .ql-editor:hover::-webkit-scrollbar-thumb,
         .quill-editor-container .ql-editor:focus-within::-webkit-scrollbar-thumb, /* Show on focus-within for parent */
         .modal-body:hover::-webkit-scrollbar-thumb,
-        .item-select-list:hover::-webkit-scrollbar-thumb {
+        .item-select-list:hover::-webkit-scrollbar-thumb,
+        .quest-card-description:hover::-webkit-scrollbar-thumb { /* Adicionado para a descrição da missão */
             opacity: 1; /* Show on hover */
         }
 
         .dark-mode .quill-editor-container .ql-editor::-webkit-scrollbar-thumb,
         .dark-mode .modal-body::-webkit-scrollbar-thumb,
-        .dark-mode .item-select-list::-webkit-scrollbar-thumb {
+        .dark-mode .item-select-list::-webkit-scrollbar-thumb,
+        .dark-mode .quest-card-description:hover::-webkit-scrollbar-thumb { /* Adicionado para a descrição da missão */
             background-color: var(--scrollbar-thumb-color-dark); /* Dark mode thumb color */
         }
 
         /* For Firefox */
         .quill-editor-container .ql-editor,
         .modal-body,
-        .item-select-list {
+        .item-select-list,
+        .quest-card-description { /* Adicionado para a descrição da missão */
             scrollbar-width: none; /* Hide scrollbar by default in Firefox */
             scrollbar-color: transparent transparent; /* Hide scrollbar by default */
             transition: scrollbar-color 0.3s ease-in-out, scrollbar-width 0.3s ease-in-out;
@@ -644,7 +687,8 @@
         .quill-editor-container:hover .ql-editor,
         .quill-editor-container:focus-within .ql-editor, /* Show on focus-within for parent */
         .modal-body:hover,
-        .item-select-list:hover {
+        .item-select-list:hover,
+        .quest-card-description:hover { /* Adicionado para a descrição da missão */
             scrollbar-width: thin; /* Show thin scrollbar on hover */
             scrollbar-color: var(--scrollbar-thumb-color-light) var(--scrollbar-track-color-light);
         }
@@ -652,11 +696,377 @@
         .dark-mode .quill-editor-container:hover .ql-editor,
         .dark-mode .quill-editor-container:focus-within .ql-editor,
         .dark-mode .modal-body:hover,
-        .dark-mode .item-select-list:hover {
+        .dark-mode .item-select-list:hover,
+        .dark-mode .quest-card-description:hover { /* Adicionado para a descrição da missão */
             scrollbar-color: var(--scrollbar-thumb-color-dark) var(--scrollbar-track-color-dark);
         }
         /* --- End Custom Scrollbar Styles --- */
 
+        /* Mission Specific Styles */
+        .quest-card {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .quest-card:hover {
+            box-shadow: 0 0 10px 2px var(--glow-color);
+        }
+
+        .quest-card h4 {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quest-card-status {
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            color: var(--accent-text-color);
+        }
+
+        .quest-card-status.open {
+            background-color: var(--quest-open-color);
+        }
+        .quest-card-status.completed {
+            background-color: var(--quest-completed-color);
+        }
+        .quest-card-status.cancelled {
+            background-color: var(--quest-cancelled-color);
+        }
+
+        /* NEW: Priority Tags for Quests */
+        .quest-priority-tag {
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 0.15rem 0.4rem;
+            border-radius: 0.2rem;
+            display: inline-block;
+            margin-left: 0.5rem;
+            color: #ffffff; /* White text for all priority tags */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Slight text shadow for readability */
+        }
+
+        .quest-priority-tag.low { background-color: var(--priority-low-color); }
+        .quest-priority-tag.medium { background-color: var(--priority-medium-color); }
+        .quest-priority-tag.high { background-color: var(--priority-high-color); }
+        .quest-priority-tag.urgent { background-color: var(--priority-urgent-color); }
+
+
+        .quest-card-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            height: 60px; /* Fixed height for truncated description */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Limit to 3 lines */
+            -webkit-box-orient: vertical;
+            white-space: pre-wrap;
+        }
+        
+        .quest-actions {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            display: flex;
+            gap: 0.25rem;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .quest-card:hover .quest-actions {
+            opacity: 1;
+        }
+
+        .quest-actions button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            padding: 0.25rem;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+
+        .quest-actions button:hover {
+            color: var(--accent-color);
+        }
+
+        .quest-actions .delete-btn:hover {
+            color: var(--danger-color);
+        }
+
+        /* Quest Reminder Popup */
+        #quest-reminder-popup {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-strong-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            flex-direction: column; /* Ensure content stacks vertically */
+            display: flex; /* Override hidden for styling */
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        #quest-reminder-popup.hidden {
+            animation: fadeOut 0.5s ease-out forwards;
+            pointer-events: none; /* Prevent interaction when fading out */
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
+        }
+
+        #quest-reminder-popup h3 {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        #quest-reminder-popup ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #quest-reminder-popup li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap; /* Allow priority tag to wrap if needed */
+        }
+
+        #quest-reminder-popup li:last-child {
+            border-bottom: none;
+        }
+
+        #quest-reminder-popup .quest-popup-name {
+            font-weight: bold;
+            color: var(--text-color); /* Maintain theme text color */
+            flex-grow: 1; /* Allow name to take available space */
+            margin-right: 0.5rem;
+        }
+
+        /* Styles for the checkbox toggle */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 38px;
+            height: 22px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 22px;
+        }
+
+        .dark-mode .toggle-slider {
+            background-color: #555;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+            background-color: white;
+            bottom: 2px;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .toggle-slider:before {
+            -webkit-transform: translateX(16px);
+            -ms-transform: translateX(16px);
+            transform: translateX(16px);
+        }
+
+        .toggle-label {
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            user-select: none;
+        }
+
+        /* NEW: Bond-specific Connection Meter Styles */
+        .bond-connection-meter-container {
+            margin-top: 0.75rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed var(--border-color);
+            text-align: center;
+        }
+
+        .bond-connection-meter-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .bond-connection-meter {
+            width: 100%;
+            height: 12px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(to right, var(--connection-low-color) 0%, var(--connection-medium-color) 50%, var(--connection-high-color) 100%);
+            border-radius: 6px;
+            outline: none;
+            transition: box-shadow 0.2s ease-in-out;
+            margin-bottom: 0.5rem;
+        }
+
+        .bond-connection-meter::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border: 2px solid var(--border-strong-color);
+            border-radius: 50%;
+            cursor: grab;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .bond-connection-meter::-webkit-slider-thumb:active {
+            cursor: grabbing;
+        }
+
+        .bond-connection-meter::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border: 2px solid var(--border-strong-color);
+            border-radius: 50%;
+            cursor: grab;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .bond-connection-meter::-moz-range-thumb:active {
+            cursor: grabbing;
+        }
+
+        /* Remove default focus outline and apply custom focus style */
+        .bond-connection-meter:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--glow-color), 0 0 0 5px var(--accent-color);
+        }
+
+        .bond-connection-label {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--text-color);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Color-coded labels based on connection level */
+        .bond-connection-label.desprezo-total { color: var(--connection-low-color); }
+        .dark-mode .bond-connection-label.desprezo-total { color: var(--connection-low-color); } /* Explicit for dark mode */
+
+        .bond-connection-label.indiferenca { color: var(--text-color); opacity: 0.6; }
+        .dark-mode .bond-connection-label.indiferenca { color: var(--text-color); opacity: 0.6; }
+
+        .bond-connection-label.conexao-futil { color: var(--connection-medium-color); }
+        .dark-mode .bond-connection-label.conexao-futil { color: var(--connection-medium-color); }
+
+        .bond-connection-label.lacos-frageis { color: var(--connection-high-color); opacity: 0.7; }
+        .dark-mode .bond-connection-label.lacos-frageis { color: var(--connection-high-color); opacity: 0.7; }
+
+        .bond-connection-label.conexao-genuina { color: var(--connection-high-color); }
+        .dark-mode .bond-connection-label.conexao-genuina { color: var(--connection-high-color); }
+
+        /* Styles for the subtle audio player popup */
+        #audio-player-popup {
+            position: fixed;
+            bottom: 4rem; /* Adjust based on preference */
+            right: 1rem; /* Adjust based on preference */
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-strong-color);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            z-index: 90; /* Below modals, above toast */
+            transform: translateX(120%); /* Hidden by default */
+            transition: transform 0.3s ease-out;
+        }
+
+        #audio-player-popup.visible {
+            transform: translateX(0);
+        }
+
+        #audio-player-popup h4 {
+            font-family: 'IM Fell English SC', serif;
+            font-size: 1.1rem;
+            text-align: center;
+            color: var(--accent-color);
+        }
+
+        #audio-player-popup .controls {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        #audio-player-popup button {
+            background-color: var(--border-strong-color);
+            color: var(--accent-text-color);
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+        #audio-player-popup button:hover {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 5px 1px var(--glow-color);
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -676,7 +1086,7 @@
                     <button id="wallpaper-btn" title="Mudar Papel de Parede" class="text-xl text-[var(--border-strong-color)] hover:text-[var(--accent-color)]"><i class="fas fa-image"></i></button>
                     <input type="file" id="wallpaper-input" class="hidden" accept="image/*">
                     <button id="theme-toggle" title="Alternar Modo" class="text-xl text-[var(--border-strong-color)] hover:text-[var(--accent-color)]"><i class="fas fa-moon"></i></button>
-                    <button id="settings-btn" title="Configurações da Ficha" class="text-xl text-[var(--border-strong-color)] hover:text-[var(--accent-color)]"><i class="fas fa-cog"></i></button>
+                    <button id="audio-toggle-btn" title="Controles de Áudio" class="text-xl text-[var(--border-strong-color)] hover:text-[var(--accent-color)]"><i class="fas fa-music"></i></button> <button id="settings-btn" title="Configurações da Ficha" class="text-xl text-[var(--border-strong-color)] hover:text-[var(--accent-color)]"><i class="fas fa-cog"></i></button>
                 </div>
                 <div class="flex items-center justify-around text-center w-full mt-2">
                     <div id="inspiration-tracker" class="text-center cursor-pointer p-2 rounded-lg border border-transparent hover:border-[var(--border-color)] transition-all">
@@ -700,10 +1110,48 @@
             <button class="tab-button" onclick="openTab(event, 'journal')"><i class="fas fa-book-open"></i><span class="tab-text">Diário</span></button>
             <button class="tab-button" onclick="openTab(event, 'bonds')"><i class="fas fa-users"></i><span class="tab-text">Vínculos</span></button>
             <button class="tab-button" onclick="openTab(event, 'weapons')"><i class="fas fa-fire"></i><span class="tab-text">Armas</span></button>
+            <button class="tab-button" onclick="openTab(event, 'quests')"><i class="fas fa-map-marked-alt"></i><span class="tab-text">Missões</span></button>
         </div>
 
         <main>
-            <div id="main-stats" class="tab-content active"><div class="grid grid-cols-1 md:grid-cols-3 gap-6"><div class="space-y-6"><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Atributos</h2><div id="attributes-container" class="grid grid-cols-2 gap-4"></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Salvaguardas</h2><div id="saving-throws-container" class="space-y-2"></div></div></div><div class="space-y-6"><div class="grid grid-cols-3 gap-4 text-center"><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Classe de Armadura</label><input type="number" id="ac" class="input-base text-3xl" value="10"></div><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Iniciativa</label><div id="initiative-bonus" class="text-3xl font-bold">+0</div></div><div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Deslocamento</label><input type="text" id="speed" class="input-base text-3xl" value="30ft"></div></div><div class="paper-bg p-4 rounded-lg text-center"><h2 class="font-ornate text-2xl mb-2">Pontos de Vida</h2><div class="flex items-center justify-center space-x-2"><input type="number" id="hp-current" placeholder="Atuais" class="input-base w-20 text-2xl"><span class="text-2xl">/</span><input type="number" id="hp-max" placeholder="Max" class="input-base w-20 text-2xl"></div><div class="hp-bar-container mt-3"><div id="hp-bar" class="hp-bar-fill"></div></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Condições</h2><div id="conditions-container" class="flex flex-wrap justify-center gap-2 mt-2"></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Testes Contra a Morte</h2><div class="flex justify-around"><div><h3 class="font-bold">Sucessos</h3><div id="death-saves-success" class="flex space-x-2 mt-2"><div class="death-save"></div><div class="death-save"></div><div class="death-save"></div></div></div><div><h3 class="font-bold">Falhas</h3><div id="death-saves-failure" class="flex space-x-2 mt-2"><div class="death-save"></div><div class="death-save"></div><div class="death-save"></div></div></div></div></div></div><div class="paper-bg p-4 rounded-lg"><h2 class="font-ornate text-2xl text-center mb-4">Perícias</h2><div id="skills-container" class="space-y-2"></div></div></div></div>
+            <div id="main-stats" class="tab-content active">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="space-y-6">
+                        <div class="paper-bg p-4 rounded-lg">
+                            <h2 class="font-ornate text-2xl text-center mb-4">Atributos</h2>
+                            <div id="attributes-container" class="grid grid-cols-2 gap-4"></div>
+                        </div>
+                        <div class="paper-bg p-4 rounded-lg">
+                            <h2 class="font-ornate text-2xl text-center mb-4">Salvaguardas</h2>
+                            <div id="saving-throws-container" class="space-y-2"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Classe de Armadura</label><input type="number" id="ac" class="input-base text-3xl" value="10"></div>
+                            <div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Iniciativa</label><div id="initiative-bonus" class="text-3xl font-bold">+0</div></div>
+                            <div class="paper-bg p-3 rounded-lg"><label class="font-ornate">Deslocamento</label><input type="text" id="speed" class="input-base text-3xl" value="30ft"></div>
+                        </div>
+                        <div class="paper-bg p-4 rounded-lg text-center">
+                            <h2 class="font-ornate text-2xl mb-2">Pontos de Vida</h2>
+                            <div class="flex items-center justify-center space-x-2"><input type="number" id="hp-current" placeholder="Atuais" class="input-base w-20 text-2xl"><span class="text-2xl">/</span><input type="number" id="hp-max" placeholder="Max" class="input-base w-20 text-2xl"></div>
+                            <div class="hp-bar-container mt-3"><div id="hp-bar" class="hp-bar-fill"></div></div>
+                        </div>
+                        <div class="paper-bg p-4 rounded-lg">
+                            <h2 class="font-ornate text-2xl text-center mb-4">Condições</h2>
+                            <div id="conditions-container" class="flex flex-wrap justify-center gap-2 mt-2"></div>
+                        </div>
+                        <div class="paper-bg p-4 rounded-lg">
+                            <h2 class="font-ornate text-2xl text-center mb-4">Testes Contra a Morte</h2>
+                            <div class="flex justify-around"><div><h3 class="font-bold">Sucessos</h3><div id="death-saves-success" class="flex space-x-2 mt-2"><div class="death-save"></div><div class="death-save"></div><div class="death-save"></div></div></div><div><h3 class="font-bold">Falhas</h3><div id="death-saves-failure" class="flex space-x-2 mt-2"><div class="death-save"></div><div class="death-save"></div><div class="death-save"></div></div></div></div>
+                        </div>
+                    </div>
+                    <div class="paper-bg p-4 rounded-lg">
+                        <h2 class="font-ornate text-2xl text-center mb-4">Perícias</h2>
+                        <div id="skills-container" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
             <div id="character" class="tab-content p-4">
                 <h2 class="font-ornate text-3xl mb-4 text-center">Aparência e História</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -807,13 +1255,32 @@
                 <div id="abilities-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     </div>
             </div>
-            <div id="bonds" class="tab-content p-4"><h2 class="font-ornate text-3xl mb-4">Vínculos Sociais</h2><button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('bond-modal')">Adicionar Vínculo</button><div id="bonds-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div></div>
+            <div id="bonds" class="tab-content p-4">
+                <h2 class="font-ornate text-3xl mb-4">Vínculos Sociais</h2>
+                <button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('bond-modal')">Adicionar Vínculo</button>
+                <div id="bonds-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+            </div>
             
             <div id="weapons" class="tab-content p-4">
                 <h2 class="font-ornate text-3xl mb-4">Armas e Ataques</h2>
                 <button class="action-button font-bold py-2 px-4 rounded mb-4" onclick="openModal('weapon-modal')">Adicionar Arma</button>
                 <div id="weapons-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     </div>
+            </div>
+
+            <div id="quests" class="tab-content p-4">
+                <h2 class="font-ornate text-3xl mb-4">Missões</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <button class="action-button font-bold py-2 px-4 rounded" onclick="openModal('quest-modal')">Adicionar Missão</button>
+                    <div class="flex items-center">
+                        <span class="toggle-label mr-2">Ativar Lembrete de Missões</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-quest-reminder">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                <div id="quests-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </div>
         </main>
         
@@ -848,7 +1315,24 @@
         <option value="Equipamento">Equipamento</option>
     </select>
     <button id="save-ability-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar</button></div></div>
-    <div id="bond-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('bond-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Vínculo Social</h3><input type="text" id="bond-name" class="input-base w-full mb-2" placeholder="Nome"><label for="bond-img-input" class="block text-center cursor-pointer p-2 border border-dashed border-[var(--border-strong-color)] rounded-md my-2 hover:bg-[var(--tab-active-bg)]">Carregar Imagem</label><input type="file" id="bond-img-input" class="hidden" accept="image/*"><img id="bond-img-preview" class="hidden w-24 h-24 object-cover rounded-full mx-auto mb-2"><input type="text" id="bond-relationship" class="input-base w-full mb-2" placeholder="Relação (ex: Aliado, Rival)"><div id="editor-bond-summary" class="quill-editor-container h-24"></div><button id="save-bond-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Vínculo</button></div></div>
+    <div id="bond-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('bond-modal')">&times;</span>
+            <h3 class="font-ornate text-2xl mb-4">Vínculo Social</h3>
+            <input type="text" id="bond-name" class="input-base w-full mb-2" placeholder="Nome">
+            <label for="bond-img-input" class="block text-center cursor-pointer p-2 border border-dashed border-[var(--border-strong-color)] rounded-md my-2 hover:bg-[var(--tab-active-bg)]">Carregar Imagem</label>
+            <input type="file" id="bond-img-input" class="hidden" accept="image/*">
+            <img id="bond-img-preview" class="hidden w-24 h-24 object-cover rounded-full mx-auto mb-2">
+            <input type="text" id="bond-relationship" class="input-base w-full mb-2" placeholder="Relação (ex: Aliado, Rival)">
+            <div id="editor-bond-summary" class="quill-editor-container h-24"></div>
+            <div class="bond-connection-meter-container">
+                <label for="bond-connection-meter" class="bond-connection-meter-label">Nível de Conexão Genuína:</label>
+                <input type="range" id="bond-connection-meter" class="bond-connection-meter" min="0" max="100" value="100">
+                <span id="bond-connection-value" class="bond-connection-label">100% - Conexão Genuína</span>
+            </div>
+            <button id="save-bond-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Vínculo</button>
+        </div>
+    </div>
     
     <div id="weapon-modal" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('weapon-modal')">&times;</span><h3 class="font-ornate text-2xl mb-4">Arma</h3><input type="text" id="weapon-name" class="input-base w-full mb-2" placeholder="Nome da Arma"><input type="text" id="weapon-damage" class="input-base w-full mb-2" placeholder="Dano (ex: 1d8 perfurante)"><input type="text" id="weapon-type" class="input-base w-full mb-2" placeholder="Tipo (ex: Simples, Corpo a Corpo)"><div id="editor-weapon-properties" class="quill-editor-container h-24 mb-2"></div><label for="weapon-attribute" class="block text-sm font-bold mb-1">Atributo de Ataque:</label><select id="weapon-attribute" class="input-base bg-[var(--bg-color)] w-full mb-4"><option value="STR">Força (STR)</option><option value="DEX">Destreza (DEX)</option></select><label for="weapon-img-input" class="block text-center cursor-pointer p-2 border border-dashed border-[var(--border-strong-color)] rounded-md my-2 hover:bg-[var(--tab-active-bg)]">Carregar Imagem</label><input type="file" id="weapon-img-input" class="hidden" accept="image/*"><img id="weapon-img-preview" class="hidden w-full h-32 object-cover rounded mb-2"><button id="save-weapon-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Arma</button></div></div>
 
@@ -866,6 +1350,35 @@
                     Importar Ficha (.json)
                 </label>
                 <p class="text-sm opacity-80 text-center">Importar irá substituir todos os dados atuais da ficha.</p>
+                <hr class="border-[var(--border-color)] my-4">
+                <div class="space-y-2">
+                    <h4 class="font-ornate text-xl">Configurações de Áudio</h4>
+                    <label for="background-music-input" class="action-button font-bold py-2 px-4 rounded w-full text-center cursor-pointer">Carregar Música de Fundo</label>
+                    <input type="file" id="background-music-input" class="hidden" accept="audio/*" multiple>
+                    <div id="music-playlist" class="space-y-1"></div>
+                    <div class="flex items-center gap-2">
+                        <label for="music-volume" class="text-sm opacity-80">Volume Música:</label>
+                        <input type="range" id="music-volume" min="0" max="100" value="50" class="w-full">
+                    </div>
+                    
+                    <label for="sfx-input" class="action-button font-bold py-2 px-4 rounded w-full text-center cursor-pointer">Carregar Efeito Sonoro (SFX)</label>
+                    <input type="file" id="sfx-input" class="hidden" accept="audio/*">
+                    <div id="sfx-preview-container" class="flex justify-center items-center gap-2">
+                        <span id="sfx-name" class="text-sm opacity-80">Nenhum SFX</span>
+                        <button id="play-sfx-preview" class="action-button text-sm px-2 py-1 hidden">Play</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <label for="sfx-volume" class="text-sm opacity-80">Volume SFX:</label>
+                        <input type="range" id="sfx-volume" min="0" max="100" value="50" class="w-full">
+                    </div>
+                     <div class="flex items-center gap-2 mt-2">
+                        <label for="sfx-loop-toggle" class="text-sm opacity-80">Loop SFX:</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="sfx-loop-toggle">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
                 <hr class="border-[var(--border-color)] my-4">
                 <button class="danger-button font-bold py-2 px-4 rounded w-full" onclick="resetCharacterSheetConfirm()">Redefinir Ficha (Limpar Tudo)</button>
                 <p class="text-sm opacity-80 text-center text-red-700">Esta ação não pode ser desfeita!</p>
@@ -904,6 +1417,59 @@
         </div>
     </div>
 
+    <div id="quest-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('quest-modal')">&times;</span>
+            <h3 class="font-ornate text-2xl mb-4">Missão</h3>
+            <input type="text" id="quest-title" class="input-base w-full mb-2" placeholder="Título da Missão">
+            <div id="editor-quest-description" class="quill-editor-container min-h-[160px] mb-2"></div>
+            <label for="quest-status" class="block text-sm font-bold mt-4 mb-1">Status:</label>
+            <select id="quest-status" class="input-base bg-[var(--bg-color)] w-full mb-4">
+                <option value="open">Aberta</option>
+                <option value="completed">Concluída</option>
+                <option value="cancelled">Cancelada</option>
+            </select>
+            <label for="quest-priority" class="block text-sm font-bold mt-2 mb-1">Prioridade:</label>
+            <select id="quest-priority" class="input-base bg-[var(--bg-color)] w-full mb-4">
+                <option value="low">Baixa</option>
+                <option value="medium">Média</option>
+                <option value="high">Alta</option>
+                <option value="urgent">Urgente</option>
+            </select>
+            <button id="save-quest-btn" class="action-button font-bold py-2 px-4 rounded mt-4 w-full">Salvar Missão</button>
+        </div>
+    </div>
+
+    <div id="quest-view-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('quest-view-modal')">&times;</span>
+            <div class="modal-header">
+                <h3 id="quest-view-title" class="modal-title"></h3>
+                <p id="quest-view-status" class="quest-card-status"></p>
+                <p id="quest-view-priority" class="quest-priority-tag"></p>
+            </div>
+            <div id="quest-view-full-description" class="modal-body"></div>
+            <div class="text-right mt-4">
+                <button id="edit-quest-from-view-btn" class="action-button font-bold py-2 px-6 rounded">Editar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="quest-reminder-popup" class="fixed bottom-4 right-4 z-100 hidden">
+        <h3>Missões Pendentes</h3>
+        <ul id="quest-reminder-list">
+        </ul>
+        </div>
+
+    <div id="audio-player-popup" class="hidden">
+        <h4 id="current-track-name">Nenhuma Música</h4>
+        <div class="controls">
+            <button id="prev-track-btn" title="Faixa Anterior"><i class="fas fa-backward"></i></button>
+            <button id="play-pause-btn" title="Reproduzir/Pausar"><i class="fas fa-play"></i></button>
+            <button id="next-track-btn" title="Próxima Faixa"><i class="fas fa-forward"></i></button>
+        </div>
+    </div>
+
 <script>
     const STORAGE_KEY = 'dnd-character-sheet-data';
 
@@ -936,9 +1502,10 @@
                 "journal-title": "", "journal-date": "", "journal-content": "",
                 "ability-name": "", "ability-desc": "", "ability-uses": "", "ability-reset": "none", "ability-category": "Geral",
                 "bond-name": "", "bond-relationship": "", "bond-summary": "",
-                "weapon-name": "", "weapon-damage": "", "weapon-type": "", "weapon-properties": "", "weapon-attribute": "STR"
+                "weapon-name": "", "weapon-damage": "", "weapon-type": "", "weapon-properties": "", "weapon-attribute": "STR",
+                "questReminderEnabled": true // Toggle for quest reminder popup
             },
-            equippedItems: { // NEW: Store equipped item IDs
+            equippedItems: {
                 "main-weapon": null,
                 "offhand": null,
                 "armor": null,
@@ -948,15 +1515,72 @@
             dynamic: {
                 item: [],
                 journal: [],
-                ability: [],
-                bond: [],
-                weapon: []
+                ability: [
+                    // Habilidades do Swashbuckler (nova versão)
+                    {
+                        name: "Audácia Descarada",
+                        desc: "Ao rolar Iniciativa, você pode adicionar seu modificador de Carisma à rolagem. Além disso, você pode usar seu Ataque Furtivo contra uma criatura se estiver a 1,5m dela, nenhuma outra criatura estiver a 1,5m de você, e você não tiver Desvantagem na jogada de ataque.",
+                        uses: "",
+                        reset: "none",
+                        category: "Subclasse (Swashbuckler)",
+                        level: 3,
+                        id: "swashbuckler-rakish-audacity"
+                    },
+                    {
+                        name: "Passos Gracioso",
+                        desc: "Se você fizer um ataque corpo a corpo contra uma criatura durante seu turno, essa criatura não pode fazer Ataques de Oportunidade contra você pelo resto daquele turno.",
+                        uses: "",
+                        reset: "none",
+                        category: "Subclasse (Swashbuckler)",
+                        level: 3,
+                        id: "swashbuckler-fancy-footwork"
+                    },
+                    {
+                        name: "Panache",
+                        desc: "Você aprendeu novas formas de usar seu Ataque Furtivo. Os seguintes efeitos estão agora entre suas opções de Golpe Astuto:<br><b>Provocar (Custo: 1d6):</b> O alvo deve passar em um teste de resistência de Sabedoria, ou até o final do próximo turno dele, o alvo tem Desvantagem em jogadas de ataque contra alvos que não sejam você e não pode fazer Ataques de Oportunidade contra alvos que não sejam você.<br><b>Admirar (Custo: 3d6):</b> Cada criatura à sua escolha dentro de 9m de você deve passar em um teste de resistência de Sabedoria ou ficará com a condição Enfeitiçada até o final do seu próximo turno.",
+                        uses: "Variável (custo em d6 de Sneak Attack)",
+                        reset: "none",
+                        category: "Subclasse (Swashbuckler)",
+                        level: 9,
+                        id: "swashbuckler-panache"
+                    },
+                    {
+                        name: "Golpes Descarados (Dashing Strikes)",
+                        desc: "Você aprendeu novas formas de usar seu Ataque Furtivo. Os seguintes efeitos estão agora entre suas opções de Golpe Astuto:<br><b>Postura de Aparar (Custo: 2d6):</b> Role um d6. Até o início do seu próximo turno, você ganha um bônus na sua CA igual ao número rolado.<br><b>Revigorar (Custo: 2d6):</b> Escolha uma criatura que você possa ver a até 9m de você. Até o final do próximo turno dessa criatura, sempre que ela fizer uma jogada de ataque ou um teste de resistência, ela pode rolar um d6 e adicionar o número rolado à jogada de ataque ou ao teste de resistência.",
+                        uses: "Variável (custo em d6 de Sneak Attack)",
+                        reset: "none",
+                        category: "Subclasse (Swashbuckler)",
+                        level: 13,
+                        id: "swashbuckler-dashing-strikes"
+                    },
+                    {
+                        name: "Mestre Duelista (Master Duelist)",
+                        desc: "Imediatamente após usar seu Ataque Furtivo, você pode fazer outro ataque contra o mesmo alvo, desde que esteja a 1,5m dele e nenhuma outra criatura esteja a 1,5m de você.",
+                        uses: "1 por rodada",
+                        reset: "round", // Assumindo "uma vez por rodada" como um reset por rodada de combate
+                        category: "Subclasse (Swashbuckler)",
+                        level: 17,
+                        id: "swashbuckler-master-duelist"
+                    }
+                ],
+                bond: [], // Each bond will now store its own 'connection' value
+                weapon: [],
+                quest: [] // Array for quests
             },
             images: {
                 charImage: "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon",
                 wallpaper: "url('https://www.transparenttextures.com/patterns/old-wall.png')",
             },
             theme: 'light',
+            // NEW: Audio data storage
+            audio: {
+                musicPlaylist: [],
+                currentTrackIndex: 0,
+                musicVolume: 50,
+                sfxSource: null,
+                sfxVolume: 50,
+                sfxLoop: false
+            }
         }
     };
     let elementToDelete = null;
@@ -966,6 +1590,12 @@
 
     // Quill instances for rich text editors
     let quillEditors = {};
+
+    // NEW: Audio objects
+    const backgroundMusicAudio = new Audio();
+    const sfxAudio = new Audio();
+    let isPlayingMusic = false;
+    let isPlayingSfx = false;
 
     document.addEventListener('DOMContentLoaded', () => {
         populateAttributes();
@@ -978,12 +1608,16 @@
         applyThemeFromData();
         document.querySelectorAll('.tab-button.active').forEach(b => b.classList.add('glow-effect'));
         updateEquippedItemsUI(); // Update equipped items on load
+
+        // Show quest reminder popup on page load, if enabled
+        showQuestReminderPopup();
+        setupAudioPlayer(); // NEW: Setup audio player on load
     });
 
     // --- Functions for Quill.js ---
     function setupQuillEditors() {
         const toolbarOptions = [
-            ['bold', 'italic', 'underline', 'strike'],       // toggled buttons
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
             [{ 'list': 'ordered'}, { 'list': 'bullet' }],
             [{ 'align': [] }],
             ['clean']                                         // remove formatting button
@@ -1051,6 +1685,13 @@
             placeholder: 'Propriedades (ex: Acuidade, Leve)...'
         });
 
+        // NEW: Quest modal editor
+        quillEditors['quest-description'] = new Quill('#editor-quest-description', {
+            modules: { toolbar: toolbarOptions },
+            theme: 'snow',
+            placeholder: 'Descreva a missão...'
+        });
+
         // Add event listeners to Quill editors to save data
         for (const editorId in quillEditors) {
             quillEditors[editorId].on('text-change', debounce(() => {
@@ -1080,7 +1721,6 @@
 
     // --- Funções de Cálculo e Atualização Globais ---
     function getProficiencyBonus() { return Math.floor(((parseInt(document.getElementById('char-level').value) || 1) - 1) / 4) + 2; }
-    // CORREÇÃO: Passar 'attrShort' corretamente para a função
     function getAttributeModifier(attrShort) { return Math.floor(((parseInt(document.getElementById(`attr-${attrShort}`).value) || 10) - 10) / 2); }
 
     function updateAllCalculations() {
@@ -1089,7 +1729,6 @@
         dataStore.attributes.forEach(attr => {
             const modEl = document.getElementById(`mod-${attr.short}`);
             const oldMod = modEl.textContent;
-            // CORREÇÃO AQUI: Chamar getAttributeModifier com attr.short
             const newModVal = getAttributeModifier(attr.short); 
             const newModText = newModVal >= 0 ? `+${newModVal}` : newModVal;
             
@@ -1099,13 +1738,16 @@
                 modEl.addEventListener('animationend', () => modEl.classList.remove('modifier-flash'), { once: true });
             }
         });
+        // NEW: Calculate Initiative as DEX Mod + CHA Mod for Swashbuckler
         const dexMod = getAttributeModifier('DEX');
-        document.getElementById('initiative-bonus').textContent = dexMod >= 0 ? `+${dexMod}` : dexMod;
+        const chaMod = getAttributeModifier('CHA'); // Get Charisma Modifier
+        const initiativeBonus = dexMod + chaMod;
+        document.getElementById('initiative-bonus').textContent = initiativeBonus >= 0 ? `+${initiativeBonus}` : initiativeBonus;
+
         dataStore.attributes.forEach(attr => {
             const modifier = getAttributeModifier(attr.short);
             const profToggle = document.querySelector(`.proficiency-toggle[data-type="save"][data-name="${attr.short}"]`);
             let totalBonus = modifier;
-            // Check if profToggle exists before accessing its classList
             if (profToggle) {
                 if (profToggle.classList.contains('proficient')) totalBonus += profBonus;
                 else if (profToggle.classList.contains('expertise')) totalBonus += (profBonus * 2);
@@ -1116,7 +1758,6 @@
             const modifier = getAttributeModifier(skill.attr);
             const profToggle = document.querySelector(`.proficiency-toggle[data-type="skill"][data-name="${skill.name}"]`);
             let totalBonus = modifier;
-            // Check if profToggle exists before accessing its classList
             if (profToggle) {
                 if (profToggle.classList.contains('proficient')) totalBonus += profBonus;
                 else if (profToggle.classList.contains('expertise')) totalBonus += (profBonus * 2);
@@ -1178,148 +1819,166 @@
         });
     }
 
+    // Definindo handleGlobalClick no escopo global
+    function handleGlobalClick(e) {
+        const target = e.target;
+        const debouncedSave = debounce(saveToLocalStorage, 500);
+
+        const control = target.closest('.num-input-control');
+        const deleteBtn = target.closest('.delete-btn');
+        const editBtn = target.closest('.edit-btn');
+        const journalCard = target.closest('.journal-card');
+        const abilityUseTick = target.closest('.ability-use-tick');
+        const conditionToken = target.closest('.condition-token');
+        const inspirationTracker = target.closest('#inspiration-tracker');
+        const attackButton = target.closest('.attack-button');
+        const damageButton = target.closest('.damage-button');
+        const abilityCard = target.closest('.dynamic-card[data-type="ability"]');
+        const proficiencyToggle = target.closest('.proficiency-toggle');
+        const advantageToggle = target.closest('.advantage-toggle');
+        const equippedSlot = target.closest('.equipped-slot');
+        const clearEquipButton = target.closest('.clear-button[data-clear-slot]');
+
+        const questCard = target.closest('.quest-card');
+        const questToggleStatusBtn = target.closest('.toggle-status-btn');
+
+        if (deleteBtn) {
+            elementToDelete = deleteBtn.closest('.dynamic-card') || deleteBtn.closest('.quest-card');
+            openModal('confirm-delete-modal');
+            return;
+        }
+        if (editBtn) {
+            const card = editBtn.closest('.dynamic-card');
+            const type = card.dataset.type;
+            const id = card.id;
+            if (type === 'weapon') {
+                editWeapon(id);
+            } else if (type === 'ability') {
+                editAbility(id);
+            } else if (type === 'quest') {
+                editQuest(id);
+            } else if (type === 'bond') { // Edit Bond also uses its modal
+                editBond(id);
+            }
+             else {
+                window[`edit${capitalize(type)}`](id);
+            }
+            return;
+        }
+        if (attackButton) {
+            const weaponId = attackButton.closest('.dynamic-card').id;
+            rollAttack(weaponId);
+            return;
+        }
+        if (damageButton) {
+            const weaponId = damageButton.closest('.dynamic-card').id;
+            rollDamageForWeapon(weaponId);
+            return;
+        }
+
+        if (control) {
+            const targetId = control.dataset.target;
+            const step = parseInt(control.dataset.step);
+            const input = document.getElementById(targetId);
+            if (input) {
+                input.value = parseInt(input.value) + step;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                vibrate(20);
+            }
+        }
+        if (proficiencyToggle) {
+            toggleProficiency(proficiencyToggle);
+            vibrate(30);
+            debouncedSave();
+        }
+        if (advantageToggle) {
+            advantageToggle.classList.toggle('active');
+            vibrate(30);
+            debouncedSave();
+        }
+        if (target.classList.contains('death-save')) {
+            target.classList.toggle('filled');
+            vibrate(30);
+            debouncedSave();
+        }
+        if (journalCard) {
+            viewJournalEntry(journalCard.id);
+        }
+        if (abilityUseTick) {
+            abilityUseTick.classList.toggle('used');
+            vibrate(50);
+            debouncedSave();
+        }
+        if (conditionToken || target.closest('.condition-token')) {
+            const actualToken = conditionToken || target.closest('.condition-token');
+            actualToken.classList.toggle('active');
+            vibrate(30);
+            debouncedSave();
+        }
+        if (inspirationTracker) {
+            inspirationTracker.classList.toggle('active');
+            vibrate(40);
+            debouncedSave();
+        }
+
+        if (abilityCard && 
+            !target.closest('.edit-btn') && 
+            !target.closest('.delete-btn') && 
+            !target.closest('.ability-use-tick') &&
+            !target.closest('.ability-filter-button'))
+        {
+            viewAbilityDetails(abilityCard.id);
+        }
+
+        if (equippedSlot) {
+            currentEquipSlot = equippedSlot.dataset.slot;
+            openSelectItemModal();
+        }
+
+        if (clearEquipButton) {
+            const slotToClear = clearEquipButton.dataset.clearSlot;
+            clearEquippedSlot(slotToClear);
+            debouncedSave();
+        }
+
+        if (questCard && !target.closest('.quest-actions')) {
+            viewQuestDetails(questCard.id);
+        }
+        if (questToggleStatusBtn) {
+            const questId = questToggleStatusBtn.closest('.quest-card').id;
+            toggleQuestStatus(questId);
+            debouncedSave();
+        }
+    }
+
+
     function setupEventListeners() {
         const debouncedSave = debounce(saveToLocalStorage, 500);
         const sheetContainer = document.getElementById('sheet-container');
         
         // Listen for input changes on static elements
         document.querySelectorAll('input[id], select[id]').forEach(el => {
-            if (el.type !== 'file' && !el.id.startsWith('editor-')) { // Exclude Quill's hidden inputs
+            if (el.type !== 'file' && !el.id.startsWith('editor-')) {
                 el.addEventListener('input', handleStatChange);
                 el.addEventListener('input', debouncedSave);
             }
         });
         
         // Global click listener for toggles and dynamic elements
-        sheetContainer.addEventListener('click', (e) => {
-            const target = e.target;
-            const control = target.closest('.num-input-control');
-            const deleteBtn = target.closest('.delete-btn');
-            const editBtn = target.closest('.edit-btn');
-            const journalCard = target.closest('.journal-card');
-            const abilityUseTick = target.closest('.ability-use-tick');
-            const conditionToken = target.closest('.condition-token');
-            const inspirationTracker = target.closest('#inspiration-tracker');
-            const attackButton = target.closest('.attack-button');
-            const damageButton = target.closest('.damage-button');
-            const abilityCard = target.closest('.dynamic-card[data-type="ability"]');
-            const proficiencyToggle = target.closest('.proficiency-toggle');
-            const advantageToggle = target.closest('.advantage-toggle'); // Get specific advantage toggle
-            const equippedSlot = target.closest('.equipped-slot');
-            const clearEquipButton = target.closest('.clear-button[data-clear-slot]');
-
-
-            if (deleteBtn) {
-                elementToDelete = deleteBtn.closest('.dynamic-card');
-                openModal('confirm-delete-modal');
-                return;
-            }
-            if (editBtn) {
-                const card = editBtn.closest('.dynamic-card');
-                const type = card.dataset.type;
-                const id = card.id;
-                if (type === 'weapon') {
-                    editWeapon(id);
-                } else {
-                    if (type === 'ability') {
-                        editAbility(id);
-                    } else {
-                        window[`edit${capitalize(type)}`](id);
-                    }
-                }
-                return;
-            }
-            if (attackButton) {
-                const weaponId = attackButton.closest('.dynamic-card').id;
-                rollAttack(weaponId);
-                return;
-            }
-            if (damageButton) {
-                const weaponId = damageButton.closest('.dynamic-card').id;
-                rollDamageForWeapon(weaponId);
-                return;
-            }
-
-            if (control) {
-                const targetId = control.dataset.target;
-                const step = parseInt(control.dataset.step);
-                const input = document.getElementById(targetId);
-                if (input) {
-                    input.value = parseInt(input.value) + step;
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                    vibrate(20);
-                }
-            }
-            if (proficiencyToggle) {
-                toggleProficiency(proficiencyToggle);
-                vibrate(30);
-                debouncedSave(); // Save after proficiency toggle
-            }
-            if (advantageToggle) { // Use advantageToggle here
-                advantageToggle.classList.toggle('active');
-                vibrate(30);
-                debouncedSave(); // Save after advantage toggle
-            }
-            if (target.classList.contains('death-save')) {
-                target.classList.toggle('filled');
-                vibrate(30);
-                debouncedSave(); // Save after death save toggle
-            }
-            if (journalCard) {
-                viewJournalEntry(journalCard.id);
-            }
-            if (abilityUseTick) {
-                abilityUseTick.classList.toggle('used');
-                vibrate(50);
-                debouncedSave(); // Save after ability use toggle
-            }
-            if (conditionToken || target.closest('.condition-token')) {
-                const actualToken = conditionToken || target.closest('.condition-token');
-                actualToken.classList.toggle('active');
-                vibrate(30);
-                debouncedSave(); // Save after condition toggle
-            }
-            if (inspirationTracker) {
-                inspirationTracker.classList.toggle('active');
-                vibrate(40);
-                debouncedSave(); // Save after inspiration toggle
-            }
-
-            // If the click was on an ability card, but NOT on its internal action buttons (edit/delete/uses),
-            // and NOT on one of the ability filter buttons.
-            if (abilityCard && 
-                !target.closest('.edit-btn') && 
-                !target.closest('.delete-btn') && 
-                !target.closest('.ability-use-tick') &&
-                !target.closest('.ability-filter-button'))
-            {
-                viewAbilityDetails(abilityCard.id);
-            }
-
-            if (equippedSlot) {
-                currentEquipSlot = equippedSlot.dataset.slot; // Store which slot was clicked
-                openSelectItemModal();
-            }
-
-            if (clearEquipButton) {
-                const slotToClear = clearEquipButton.dataset.clearSlot;
-                clearEquippedSlot(slotToClear);
-                debouncedSave();
-            }
-        });
+        sheetContainer.addEventListener('click', handleGlobalClick);
         
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
         document.getElementById('wallpaper-btn').addEventListener('click', () => document.getElementById('wallpaper-input').click());
         
         document.getElementById('wallpaper-input').addEventListener('change', handleFileSelect(e => {
             document.body.style.backgroundImage = `url('${e.target.result}')`;
-            dataStore.characterSheetData.images.wallpaper = `url('${e.target.result}')`; // Salva a imagem de fundo
+            dataStore.characterSheetData.images.wallpaper = `url('${e.target.result}')`;
             debouncedSave();
         }));
 
         document.getElementById('char-img-input').addEventListener('change', handleFileSelect(e => {
             document.getElementById('char-img-preview').src = e.target.result;
-            dataStore.characterSheetData.images.charImage = e.target.result; // Salva a imagem do personagem
+            dataStore.characterSheetData.images.charImage = e.target.result;
             debouncedSave();
         }));
 
@@ -1327,15 +1986,13 @@
             const preview = document.getElementById('item-img-preview');
             preview.src = e.target.result;
             preview.classList.remove('hidden');
-            // A imagem do item será salva com o objeto do item na função saveData
         }));
         document.getElementById('bond-img-input').addEventListener('change', handleFileSelect(e => {
             const preview = document.getElementById('bond-img-preview');
             preview.src = e.target.result;
             preview.classList.remove('hidden');
-            // A imagem do vínculo será salva com o objeto do vínculo na função saveData
         }));
-        // NEW: Weapon Image Input Listener
+        // Weapon Image Input Listener
         document.getElementById('weapon-img-input').addEventListener('change', handleFileSelect(e => {
             const preview = document.getElementById('weapon-img-preview');
             preview.src = e.target.result;
@@ -1348,28 +2005,33 @@
         document.getElementById('save-ability-btn').addEventListener('click', () => { saveData('ability'); debouncedSave(); });
         document.getElementById('save-bond-btn').addEventListener('click', () => { saveData('bond'); debouncedSave(); });
         document.getElementById('save-weapon-btn').addEventListener('click', () => { saveData('weapon'); debouncedSave(); });
+        // Save Quest button
+        document.getElementById('save-quest-btn').addEventListener('click', () => { saveData('quest'); debouncedSave(); });
         
         document.getElementById('cancel-delete-btn').addEventListener('click', () => closeModal('confirm-delete-modal'));
         document.getElementById('confirm-delete-btn').addEventListener('click', () => {
             if (elementToDelete) {
-                // Remove from the DOM
                 elementToDelete.remove();
+                const type = elementToDelete.dataset.type || 
+                             (elementToDelete.classList.contains('journal-card') ? 'journal' :
+                             elementToDelete.classList.contains('quest-card') ? 'quest' : null);
 
-                // Remove from dataStore
-                const type = elementToDelete.dataset.type;
-                const id = elementToDelete.id;
-                dataStore.characterSheetData.dynamic[type] = dataStore.characterSheetData.dynamic[type].filter(item => item.id !== id);
+                if (type && dataStore.characterSheetData.dynamic[type]) {
+                    const id = elementToDelete.id;
+                    dataStore.characterSheetData.dynamic[type] = dataStore.characterSheetData.dynamic[type].filter(item => item.id !== id);
 
-                // If a deleted item was equipped, unequip it
-                for (const slot in dataStore.characterSheetData.equippedItems) {
-                    if (dataStore.characterSheetData.equippedItems[slot] && dataStore.characterSheetData.equippedItems[slot].id === id) {
-                        dataStore.characterSheetData.equippedItems[slot] = null;
-                        updateEquippedItemsUI(); // Update UI
-                        break; // Only one slot can hold this item
+                    for (const slot in dataStore.characterSheetData.equippedItems) {
+                        if (dataStore.characterSheetData.equippedItems[slot] && dataStore.characterSheetData.equippedItems[slot].id === id) {
+                            dataStore.characterSheetData.equippedItems[slot] = null;
+                            updateEquippedItemsUI();
+                            break;
+                        }
                     }
-                    }
-
-                showToast('Excluído com sucesso.', 'success');
+                    showToast('Excluído com sucesso.', 'success');
+                } else {
+                    console.error('Tipo de elemento ou array dinâmico não encontrado para exclusão:', elementToDelete);
+                    showToast('Erro ao excluir. Tipo de elemento desconhecido.', 'error');
+                }
                 elementToDelete = null;
                 debouncedSave();
             }
@@ -1391,6 +2053,14 @@
                 editAbility(id);
             }
         });
+        // Listener for the quest edit button in the view modal
+        document.getElementById('edit-quest-from-view-btn').addEventListener('click', (e) => {
+            const id = e.target.dataset.editingId;
+            if (id) {
+                closeModal('quest-view-modal');
+                editQuest(id);
+            }
+        });
 
 
         document.querySelectorAll('.dice-button').forEach(button => {
@@ -1403,20 +2073,18 @@
         // Event listeners for new ability filters and search
         document.getElementById('ability-filters').addEventListener('click', (e) => {
             if (e.target.classList.contains('ability-filter-button')) {
-                // Remove 'active' class from all filter buttons
                 document.querySelectorAll('.ability-filter-button').forEach(btn => btn.classList.remove('active'));
-                // Add 'active' to the clicked button
                 e.target.classList.add('active');
                 currentAbilityFilter = e.target.dataset.filter;
-                renderDynamicList('ability', dataStore.characterSheetData.dynamic.ability); // Re-render with new filter
-                debouncedSave(); // Save filter state
+                renderDynamicList('ability', dataStore.characterSheetData.dynamic.ability);
+                debouncedSave();
             }
         });
 
         document.getElementById('ability-search').addEventListener('input', debounce(() => {
-            renderDynamicList('ability', dataStore.characterSheetData.dynamic.ability); // Re-render with search
-            debouncedSave(); // Save search term
-        }, 300)); // Debounce to avoid re-rendering on every keystroke
+            renderDynamicList('ability', dataStore.characterSheetData.dynamic.ability);
+            debouncedSave();
+        }, 300));
 
         // Sheet settings
         document.getElementById('settings-btn').addEventListener('click', () => openModal('settings-modal'));
@@ -1424,7 +2092,7 @@
 
         // Item Select Modal Listeners
         document.getElementById('select-item-search').addEventListener('input', debounce(() => {
-            populateSelectItemModal(); // Re-populate with search
+            populateSelectItemModal();
         }, 300));
 
         document.querySelectorAll('.select-item-filter').forEach(button => {
@@ -1445,6 +2113,63 @@
                 debouncedSave();
             }
         });
+
+        // Toggle Quest Reminder
+        document.getElementById('toggle-quest-reminder').addEventListener('change', (e) => {
+            dataStore.characterSheetData.staticInputs.questReminderEnabled = e.target.checked;
+            saveToLocalStorage();
+            if (!e.target.checked) {
+                document.getElementById('quest-reminder-popup').classList.add('hidden');
+            } else {
+                showQuestReminderPopup();
+            }
+        });
+
+        // NEW: Bond Connection Meter listener in modal
+        const bondConnectionMeterInput = document.getElementById('bond-connection-meter');
+        if (bondConnectionMeterInput) { // Ensure element exists before adding listener
+            bondConnectionMeterInput.addEventListener('input', (e) => {
+                const value = parseInt(e.target.value);
+                updateBondConnectionMeterUIInModal(value);
+            });
+        }
+
+        // NEW: Audio Control Listeners
+        document.getElementById('audio-toggle-btn').addEventListener('click', toggleAudioPlayerPopup);
+
+        document.getElementById('background-music-input').addEventListener('change', handleMusicFileSelect);
+        document.getElementById('music-volume').addEventListener('input', (e) => {
+            dataStore.characterSheetData.audio.musicVolume = e.target.value;
+            backgroundMusicAudio.volume = e.target.value / 100;
+            saveToLocalStorage();
+        });
+        document.getElementById('sfx-input').addEventListener('change', handleSfxFileSelect);
+        document.getElementById('sfx-loop-toggle').addEventListener('change', (e) => {
+            dataStore.characterSheetData.audio.sfxLoop = e.target.checked;
+            sfxAudio.loop = e.target.checked;
+            if(isPlayingSfx && !e.target.checked) { sfxAudio.pause(); isPlayingSfx = false; }
+            saveToLocalStorage();
+        });
+        document.getElementById('sfx-volume').addEventListener('input', (e) => {
+            dataStore.characterSheetData.audio.sfxVolume = e.target.value;
+            sfxAudio.volume = e.target.value / 100;
+            saveToLocalStorage();
+        });
+        document.getElementById('play-sfx-preview').addEventListener('click', () => {
+            if (sfxAudio.src) {
+                if (sfxAudio.paused) {
+                    sfxAudio.play().then(() => isPlayingSfx = true).catch(e => console.error("Error playing SFX:", e));
+                } else {
+                    sfxAudio.pause();
+                    isPlayingSfx = false;
+                }
+            }
+        });
+
+        document.getElementById('play-pause-btn').addEventListener('click', toggleMusicPlayPause);
+        document.getElementById('next-track-btn').addEventListener('click', playNextTrack);
+        document.getElementById('prev-track-btn').addEventListener('click', playPrevTrack);
+        backgroundMusicAudio.addEventListener('ended', playNextTrack);
     }
     
     function handleStatChange(e) {
@@ -1484,9 +2209,7 @@
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.classList.add("active", "glow-effect");
 
-        // When abilities tab is opened, re-render to apply saved filters/search
         if (tabName === 'abilities') {
-            // Update 'active' class for the saved filter button
             document.querySelectorAll('.ability-filter-button').forEach(btn => {
                 if (btn.dataset.filter === currentAbilityFilter) {
                     btn.classList.add('active');
@@ -1495,26 +2218,37 @@
                 }
             });
             renderDynamicList('ability', dataStore.characterSheetData.dynamic.ability);
+        } else if (tabName === 'quests') {
+            renderDynamicList('quest', dataStore.characterSheetData.dynamic.quest);
+            document.getElementById('quest-reminder-popup').classList.add('hidden');
         }
     }
     function openModal(modalId, editingId = null) {
         const modal = document.getElementById(modalId);
         modal.dataset.editingId = editingId || '';
-        // Clear inputs APENAS if it's not a view modal and not a confirmation/settings modal
-        if (modalId !== 'confirm-delete-modal' && modalId !== 'journal-view-modal' && modalId !== 'settings-modal' && modalId !== 'ability-view-modal' && modalId !== 'select-item-modal') {
+        if (modalId !== 'confirm-delete-modal' && modalId !== 'journal-view-modal' && modalId !== 'settings-modal' && modalId !== 'ability-view-modal' && modalId !== 'select-item-modal' && modalId !== 'quest-view-modal') {
             modal.querySelectorAll('input[type="text"], input[type="number"], input[type="date"], select').forEach(el => {
                 el.value = '';
             });
-            // Clear Quill editor content
             for (const editorId in quillEditors) {
-                if (modal.querySelector(`#editor-${editorId}`)) { // Check if the editor belongs to this modal
-                    quillEditors[editorId].setContents([]); // Clear Quill editor
+                if (modal.querySelector(`#editor-${editorId}`)) {
+                    quillEditors[editorId].setContents([]);
                 }
             }
             
             if (modalId === 'ability-modal') {
                 document.getElementById('ability-category').value = 'Geral';
             }
+            if (modalId === 'quest-modal') {
+                document.getElementById('quest-status').value = 'open';
+                document.getElementById('quest-priority').value = 'medium';
+            }
+            // Set default for bond connection meter when opening new bond modal
+            if (modalId === 'bond-modal') {
+                document.getElementById('bond-connection-meter').value = 100; // Default to 100%
+                updateBondConnectionMeterUIInModal(100); // Update the displayed value/label
+            }
+
             const previews = modal.querySelectorAll('img[id$="-preview"]');
             previews.forEach(p => { p.classList.add('hidden'); p.removeAttribute('src'); });
         }
@@ -1523,13 +2257,36 @@
     function closeModal(modalId) { 
         document.getElementById(modalId).style.display = 'none'; 
     }
-    window.onclick = (event) => { if (event.target.classList.contains('modal')) event.target.style.display = "none"; }
+    window.onclick = (event) => { 
+        if (event.target.classList.contains('modal')) event.target.style.display = "none";
+        // Close audio player popup if clicked outside
+        const audioPlayerPopup = document.getElementById('audio-player-popup');
+        const audioToggleButton = document.getElementById('audio-toggle-btn');
+        if (audioPlayerPopup.classList.contains('visible') && 
+            !audioPlayerPopup.contains(event.target) && 
+            !audioToggleButton.contains(event.target)) {
+            toggleAudioPlayerPopup();
+        }
+    }
 
     function toggleTheme() {
         const themeIcon = document.querySelector('#theme-toggle i');
         document.documentElement.classList.toggle('dark-mode');
-        // Re-applies HP bar color for the correct theme
         updateHpBar(); 
+        
+        // Re-apply connection meter colors on bond cards after theme change
+        dataStore.characterSheetData.dynamic.bond.forEach(bond => {
+            const bondCard = document.getElementById(bond.id);
+            if (bondCard) {
+                const connectionLabelSpan = bondCard.querySelector('.bond-connection-label');
+                if (connectionLabelSpan) {
+                     const connectionValue = bond.connection || 0;
+                     const labelText = getBondConnectionLabel(connectionValue);
+                     connectionLabelSpan.className = 'bond-connection-label'; // Reset classes
+                     connectionLabelSpan.classList.add(labelText.toLowerCase().replace(/\s+/g, '-'));
+                }
+            }
+        });
 
         // Update Quill editor theme
         for (const editorId in quillEditors) {
@@ -1665,6 +2422,7 @@
                 data.summary = getQuillEditorContent('bond-summary'); // Get content from Quill
                 data.img = document.getElementById('bond-img-preview').src;
                 data.id = editingId || crypto.randomUUID();
+                data.connection = document.getElementById('bond-connection-meter').value; // NEW: Save connection value
                 if (!data.name || !data.relationship) {
                     isValid = false;
                     showToast('Nome e relação são obrigatórios.', 'error');
@@ -1681,6 +2439,17 @@
                 if (!data.name || !data.damage) {
                     isValid = false;
                     showToast('Nome e dano da arma são obrigatórios.', 'error');
+                }
+                break;
+            case 'quest': // NEW: Quest data handling
+                data.title = document.getElementById('quest-title').value;
+                data.description = getQuillEditorContent('quest-description');
+                data.status = document.getElementById('quest-status').value;
+                data.priority = document.getElementById('quest-priority').value; // NEW: Save priority
+                data.id = editingId || crypto.randomUUID();
+                if (!data.title || data.description.trim() === '<p><br></p>') {
+                    isValid = false;
+                    showToast('Título e descrição da missão são obrigatórios.', 'error');
                 }
                 break;
         }
@@ -1701,6 +2470,9 @@
         renderDynamicList(type, dynamicDataArray);
         closeModal(modalId);
         showToast(`${capitalize(type)} salvo com sucesso!`, 'success');
+        if (type === 'quest') {
+            showQuestReminderPopup(); // Re-evaluate and show popup after saving a quest
+        }
     }
 
     function renderDynamicList(type, dataArray) {
@@ -1709,7 +2481,8 @@
             journal: 'journal-entries',
             ability: 'abilities-list',
             bond: 'bonds-list',
-            weapon: 'weapons-list'
+            weapon: 'weapons-list',
+            quest: 'quests-list'
         };
         const listElement = document.getElementById(listIdMap[type]);
         if (!listElement) {
@@ -1718,13 +2491,19 @@
         }
         listElement.innerHTML = '';
 
+        const charLevel = parseInt(document.getElementById('char-level').value) || 1; // Get current character level
+
         if (type === 'ability') {
             const searchTerm = document.getElementById('ability-search').value.toLowerCase();
 
             const filteredAbilities = dataArray.filter(ability => {
                 const matchesCategory = currentAbilityFilter === 'All' || ability.category === currentAbilityFilter;
                 const matchesSearch = ability.name.toLowerCase().includes(searchTerm) || ability.desc.toLowerCase().includes(searchTerm);
-                return matchesCategory && matchesSearch;
+                
+                // Only show abilities if character level meets requirement
+                const meetsLevelRequirement = !ability.level || charLevel >= ability.level;
+
+                return matchesCategory && matchesSearch && meetsLevelRequirement;
             });
 
             if (filteredAbilities.length === 0) {
@@ -1736,23 +2515,33 @@
                 const cardHTML = createCardHTML(type, data, data.id);
                 listElement.insertAdjacentHTML('beforeend', cardHTML);
             });
-            // Re-attach event listeners for ability use ticks (important after re-rendering)
-            listElement.querySelectorAll('.ability-use-tick').forEach(tick => {
-                tick.removeEventListener('click', handleGlobalClick); // Remove existing listener to prevent duplicates
-                tick.addEventListener('click', handleGlobalClick); // Add new listener
+        } else if (type === 'quest') {
+            const priorityOrder = { 'urgent': 1, 'high': 2, 'medium': 3, 'low': 4 };
+            const sortedQuests = [...dataArray].sort((a, b) => {
+                if (a.status === 'open' && b.status !== 'open') return -1;
+                if (a.status !== 'open' && b.status === 'open') return 1;
+
+                if (a.status === 'open' && b.status === 'open') {
+                    const priorityDiff = priorityOrder[a.priority] - priorityOrder[b.priority];
+                    if (priorityDiff !== 0) return priorityDiff;
+                }
+
+                return a.title.localeCompare(b.title);
             });
 
-        } else {
+            if (sortedQuests.length === 0) {
+                listElement.innerHTML = '<p class="text-center opacity-70 col-span-full">Nenhuma missão adicionada ainda. Clique em "Adicionar Missão" para começar!</p>';
+            } else {
+                sortedQuests.forEach(data => {
+                    const cardHTML = createCardHTML(type, data, data.id);
+                    listElement.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            }
+        }
+        else {
             dataArray.forEach(data => {
                 const cardHTML = createCardHTML(type, data, data.id);
                 listElement.insertAdjacentHTML('beforeend', cardHTML);
-            });
-        }
-
-        if (type === 'weapon') {
-            listElement.querySelectorAll('.attack-button, .damage-button').forEach(button => {
-                button.removeEventListener('click', handleGlobalClick);
-                button.addEventListener('click', handleGlobalClick);
             });
         }
     }
@@ -1763,7 +2552,7 @@
 
         document.getElementById('ability-view-title').textContent = abilityData.name;
         document.getElementById('ability-view-category').textContent = abilityData.category;
-        document.getElementById('ability-view-full-desc').innerHTML = abilityData.desc; // Use innerHTML for rich text
+        document.getElementById('ability-view-full-desc').innerHTML = abilityData.desc;
         
         const usesInfoElement = document.getElementById('ability-view-uses-info');
         if (abilityData.uses && abilityData.reset !== 'none') { 
@@ -1778,6 +2567,90 @@
         openModal('ability-view-modal');
     }
 
+    function editQuest(id) {
+        const questData = dataStore.characterSheetData.dynamic.quest.find(quest => quest.id === id);
+        if (!questData) return;
+
+        openModal('quest-modal', id);
+        document.getElementById('quest-title').value = questData.title;
+        setQuillEditorContent('quest-description', questData.description);
+        document.getElementById('quest-status').value = questData.status;
+        document.getElementById('quest-priority').value = questData.priority || 'medium';
+    }
+
+    function viewQuestDetails(id) {
+        const questData = dataStore.characterSheetData.dynamic.quest.find(quest => quest.id === id);
+        if (!questData) return;
+
+        document.getElementById('quest-view-title').textContent = questData.title;
+        const statusElement = document.getElementById('quest-view-status');
+        statusElement.textContent = capitalize(questData.status);
+        statusElement.className = `quest-card-status ${questData.status}`;
+        
+        const priorityElement = document.getElementById('quest-view-priority');
+        priorityElement.textContent = capitalize(questData.priority);
+        priorityElement.className = `quest-priority-tag ${questData.priority}`;
+
+        document.getElementById('quest-view-full-description').innerHTML = questData.description;
+
+        document.getElementById('edit-quest-from-view-btn').dataset.editingId = id;
+        openModal('quest-view-modal');
+    }
+
+    function toggleQuestStatus(id) {
+        const questIndex = dataStore.characterSheetData.dynamic.quest.findIndex(q => q.id === id);
+        if (questIndex !== -1) {
+            const currentStatus = dataStore.characterSheetData.dynamic.quest[questIndex].status;
+            if (currentStatus === 'open') {
+                dataStore.characterSheetData.dynamic.quest[questIndex].status = 'completed';
+                showToast('Missão marcada como Concluída!', 'success');
+            } else if (currentStatus === 'completed') {
+                dataStore.characterSheetData.dynamic.quest[questIndex].status = 'open';
+                showToast('Missão reaberta!', 'success');
+            } else {
+                showToast('Missões canceladas só podem ser reabertas editando-as.', 'error');
+                return; 
+            }
+            renderDynamicList('quest', dataStore.characterSheetData.dynamic.quest);
+            showQuestReminderPopup();
+        }
+    }
+
+    function showQuestReminderPopup() {
+        const popup = document.getElementById('quest-reminder-popup');
+        const questList = document.getElementById('quest-reminder-list');
+        const quests = dataStore.characterSheetData.dynamic.quest;
+        const reminderEnabled = dataStore.characterSheetData.staticInputs.questReminderEnabled;
+        const priorityOrder = { 'urgent': 1, 'high': 2, 'medium': 3, 'low': 4 };
+
+
+        questList.innerHTML = '';
+
+        if (!reminderEnabled) {
+            popup.classList.add('hidden');
+            return;
+        }
+
+        const openQuests = quests
+            .filter(q => q.status === 'open')
+            .sort((a, b) => {
+                const priorityDiff = priorityOrder[a.priority] - priorityOrder[b.priority];
+                if (priorityDiff !== 0) return priorityDiff;
+                return a.title.localeCompare(b.title);
+            });
+
+        if (openQuests.length > 0) {
+            openQuests.forEach(quest => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="quest-popup-name">${quest.title}</span><span class="quest-priority-tag ${quest.priority}">${capitalize(quest.priority)}</span>`;
+                questList.appendChild(li);
+            });
+            popup.classList.remove('hidden');
+        } else {
+            popup.classList.add('hidden');
+        }
+    }
+
     function editItem(id) {
         const itemData = dataStore.characterSheetData.dynamic.item.find(item => item.id === id);
         if (!itemData) return;
@@ -1786,7 +2659,7 @@
         document.getElementById('item-name').value = itemData.name;
         document.getElementById('item-rarity').value = itemData.rarity;
         document.getElementById('item-type').value = itemData.type;
-        setQuillEditorContent('item-bonus', itemData.bonus); // Set content for Quill
+        setQuillEditorContent('item-bonus', itemData.bonus);
         const preview = document.getElementById('item-img-preview');
         if (itemData.img && itemData.img.startsWith('data:image')) { preview.src = itemData.img; preview.classList.remove('hidden'); }
         else { preview.src = ""; preview.classList.add('hidden'); }
@@ -1798,7 +2671,7 @@
         openModal('journal-modal', id);
         document.getElementById('journal-title').value = journalData.title;
         document.getElementById('journal-date').value = journalData.date;
-        setQuillEditorContent('journal-content', journalData.content); // Set content for Quill
+        setQuillEditorContent('journal-content', journalData.content);
     }
     function editAbility(id) {
         const abilityData = dataStore.characterSheetData.dynamic.ability.find(ability => ability.id === id);
@@ -1806,7 +2679,7 @@
 
         openModal('ability-modal', id);
         document.getElementById('ability-name').value = abilityData.name;
-        setQuillEditorContent('ability-desc', abilityData.desc); // Set content for Quill
+        setQuillEditorContent('ability-desc', abilityData.desc);
         document.getElementById('ability-uses').value = abilityData.uses;
         document.getElementById('ability-reset').value = abilityData.reset;
         document.getElementById('ability-category').value = abilityData.category || 'Geral';
@@ -1818,10 +2691,17 @@
         openModal('bond-modal', id);
         document.getElementById('bond-name').value = bondData.name;
         document.getElementById('bond-relationship').value = bondData.relationship;
-        setQuillEditorContent('bond-summary', bondData.summary); // Set content for Quill
+        setQuillEditorContent('bond-summary', bondData.summary);
         const preview = document.getElementById('bond-img-preview');
         if (bondData.img && bondData.img.startsWith('data:image')) { preview.src = bondData.img; preview.classList.remove('hidden'); }
         else { preview.src = ""; preview.classList.add('hidden'); }
+        
+        // Load connection meter value and update UI
+        const bondConnectionMeter = document.getElementById('bond-connection-meter');
+        if (bondConnectionMeter) {
+            bondConnectionMeter.value = bondData.connection !== undefined ? bondData.connection : 100; // Default to 100 if not set
+            updateBondConnectionMeterUIInModal(bondConnectionMeter.value); // Update the displayed value/label
+        }
     }
     function editWeapon(id) {
         const weaponData = dataStore.characterSheetData.dynamic.weapon.find(weapon => weapon.id === id);
@@ -1831,9 +2711,9 @@
         document.getElementById('weapon-name').value = weaponData.name;
         document.getElementById('weapon-damage').value = weaponData.damage;
         document.getElementById('weapon-type').value = weaponData.type;
-        setQuillEditorContent('weapon-properties', weaponData.properties); // Set content for Quill
+        setQuillEditorContent('weapon-properties', weaponData.properties);
         document.getElementById('weapon-attribute').value = weaponData.attribute;
-        const preview = document.getElementById('weapon-img-preview'); // NEW: Get weapon image preview
+        const preview = document.getElementById('weapon-img-preview');
         if (weaponData.img && weaponData.img.startsWith('data:image')) { preview.src = weaponData.img; preview.classList.remove('hidden'); }
         else { preview.src = ""; preview.classList.add('hidden'); }
     }
@@ -1853,10 +2733,42 @@
         openModal('journal-view-modal');
     }
 
+    function getBondConnectionLabel(value) {
+        if (value >= 81) return "Conexão Genuína";
+        if (value >= 61) return "Laços Frágeis";
+        if (value >= 41) return "Conexão Fútil";
+        if (value >= 21) return "Indiferença";
+        return "Desprezo Total";
+    }
+
+    // Update function for the connection meter in the bond modal
+    function updateBondConnectionMeterUIInModal(value) {
+        const valueSpan = document.getElementById('bond-connection-value');
+        const meter = document.getElementById('bond-connection-meter');
+        if (valueSpan && meter) {
+            valueSpan.textContent = `${value}% - ${getBondConnectionLabel(value)}`;
+            valueSpan.className = 'bond-connection-label'; // Reset class
+            valueSpan.classList.add(getBondConnectionLabel(value).toLowerCase().replace(/\s+/g, '-'));
+
+            // Dynamically update the gradient background of the slider
+            const colorLow = getComputedStyle(document.documentElement).getPropertyValue('--connection-low-color').trim();
+            const colorMedium = getComputedStyle(document.documentElement).getPropertyValue('--connection-medium-color').trim();
+            const colorHigh = getComputedStyle(document.documentElement).getPropertyValue('--connection-high-color').trim();
+            const colorZero = getComputedStyle(document.documentElement).getPropertyValue('--connection-zero-color').trim();
+
+            if (value === 0) {
+                 meter.style.background = `${colorZero}`;
+            } else {
+                meter.style.background = `linear-gradient(to right, ${colorLow} 0%, ${colorLow} ${Math.min(value, 40)}%, ${colorMedium} ${Math.min(value, 60)}%, ${colorHigh} ${value}%, ${colorHigh} 100%)`;
+            }
+        }
+    }
+
+
     function createCardHTML(type, data, id = null) {
         const cardId = id || crypto.randomUUID();
         const dataAttributes = Object.entries(data)
-            .filter(([key, value]) => key !== 'usedStates') // Don't put usedStates in data attributes
+            .filter(([key, value]) => key !== 'usedStates')
             .map(([key, value]) => `data-${key}="${String(value || '').replace(/"/g, '&quot;')}"`)
             .join(' ');
 
@@ -1866,8 +2778,6 @@
             case 'item':
                 return `<div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg relative" data-type="item" ${dataAttributes}><img src="${data.img && data.img.startsWith('data:image') ? data.img : 'https://placehold.co/300x200/d4a778/5a403a?text=Item'}" alt="${data.name}" class="w-full h-32 object-cover rounded mb-2"><h4 class="font-ornate text-xl">${data.name}</h4><p class="text-sm italic">${data.rarity} ${data.type}</p><div class="text-sm mt-1 prose-sm">${data.bonus}</div>${actionsHTML}</div>`;
             case 'journal':
-                // Note: The `truncate` class on the p tag might hide rich text formatting.
-                // For full rich text display, it's better to remove `truncate` and handle overflow with max-height/overflow-y.
                 return `<div id="${cardId}" class="dynamic-card journal-card paper-bg p-4 rounded-lg relative cursor-pointer" data-type="journal" ${dataAttributes}><div class="flex justify-between items-baseline pointer-events-none"><h4 class="font-ornate text-xl">${data.title}</h4><p class="text-sm">${data.date}</p></div><div class="text-sm italic opacity-70 ability-card-description prose-sm">${data.content}</div>${actionsHTML}</div>`;
             case 'ability':
                 let usesHTML = '';
@@ -1885,7 +2795,20 @@
                             ${actionsHTML}
                         </div>`;
             case 'bond':
-                return `<div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg flex items-start space-x-4 relative" data-type="bond" ${dataAttributes}><img src="${data.img && data.img.startsWith('data:image') ? data.img : 'https://placehold.co/100x100/d4a778/5a403a?text=NPC'}" alt="${data.name}" class="w-24 h-24 object-cover rounded-full border-2 border-[var(--border-strong-color)]"><div><h4 class="font-ornate text-2xl">${data.name}</h4><p class="text-md italic">${data.relationship}</p><div class="text-sm mt-2 prose-sm">${data.summary}</div></div>${actionsHTML}</div>`;
+                const connectionLabel = getBondConnectionLabel(data.connection || 0);
+                return `<div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg flex items-start space-x-4 relative" data-type="bond" ${dataAttributes}>
+                            <img src="${data.img && data.img.startsWith('data:image') ? data.img : 'https://placehold.co/100x100/d4a778/5a403a?text=NPC'}" alt="${data.name}" class="w-24 h-24 object-cover rounded-full border-2 border-[var(--border-strong-color)]">
+                            <div>
+                                <h4 class="font-ornate text-2xl">${data.name}</h4>
+                                <p class="text-md italic">${data.relationship}</p>
+                                <div class="text-sm mt-2 prose-sm">${data.summary}</div>
+                                <div class="bond-connection-meter-container">
+                                    <span class="bond-connection-meter-label">Conexão: ${data.connection || 0}%</span>
+                                    <span class="bond-connection-label ${connectionLabel.toLowerCase().replace(/\s+/g, '-')}">${connectionLabel}</span>
+                                </div>
+                            </div>
+                            ${actionsHTML}
+                        </div>`;
             case 'weapon':
                 return `
                     <div id="${cardId}" class="dynamic-card paper-bg p-3 rounded-lg relative" data-type="weapon" ${dataAttributes}>
@@ -1901,6 +2824,33 @@
                         ${actionsHTML}
                     </div>
                 `;
+            case 'quest': // NEW: Quest card HTML
+                let statusText = '';
+                let toggleButtonText = '';
+                if (data.status === 'open') {
+                    statusText = 'Aberta';
+                    toggleButtonText = '<i class="fas fa-check-circle"></i>';
+                } else if (data.status === 'completed') {
+                    statusText = 'Concluída';
+                    toggleButtonText = '<i class="fas fa-redo"></i>';
+                } else { // cancelled
+                    statusText = 'Cancelada';
+                    toggleButtonText = '';
+                }
+                const toggleButton = toggleButtonText ? `<button class="toggle-status-btn text-sm p-1" title="Marcar/Reabrir">${toggleButtonText}</button>` : '';
+
+                return `
+                    <div id="${cardId}" class="quest-card dynamic-card" data-type="quest" ${dataAttributes}>
+                        <div class="quest-actions">
+                            ${toggleButton}
+                            <button class="edit-btn text-sm p-1" title="Editar Missão"><i class="fas fa-pencil-alt"></i></button>
+                            <button class="delete-btn text-sm p-1" title="Excluir Missão"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                        <h4 class="font-ornate">${data.title} <span class="quest-priority-tag ${data.priority}">${capitalize(data.priority)}</span></h4>
+                        <span class="quest-card-status ${data.status}">${statusText}</span>
+                        <div class="text-sm mt-1 quest-card-description prose-sm">${data.description}</div>
+                    </div>
+                `;
         }
     }
 
@@ -1914,15 +2864,12 @@
     }
 
     function saveToLocalStorage() {
-        // Saves static inputs (excluding Quill-managed textareas, which are saved on text-change)
         document.querySelectorAll('input[id], select[id]').forEach(el => {
-            // Only save if it's not part of a Quill editor's internal structure
             if (el.type !== 'file' && !el.closest('.quill-editor-container')) {
                 dataStore.characterSheetData.staticInputs[el.id] = el.value;
             }
         });
         
-        // Save states of toggles
         document.querySelectorAll('.proficiency-toggle, .advantage-toggle, .death-save, .condition-token, #inspiration-tracker').forEach((el) => {
             let key = el.id || el.dataset.name || el.title;
             if (el.classList.contains('death-save')) {
@@ -1937,7 +2884,6 @@
             }
         });
 
-        // Save the state of "ability use ticks" for each ability
         dataStore.characterSheetData.dynamic.ability.forEach(ability => {
             const abilityCard = document.getElementById(ability.id);
             if (abilityCard) {
@@ -1946,10 +2892,14 @@
             }
         });
 
-        // Save current ability filter and search term
         dataStore.characterSheetData.staticInputs['currentAbilityFilter'] = currentAbilityFilter;
         dataStore.characterSheetData.staticInputs['ability-search'] = document.getElementById('ability-search').value;
-
+        dataStore.characterSheetData.staticInputs.questReminderEnabled = document.getElementById('toggle-quest-reminder').checked;
+        
+        // NEW: Save audio settings
+        dataStore.characterSheetData.audio.musicVolume = document.getElementById('music-volume').value;
+        dataStore.characterSheetData.audio.sfxVolume = document.getElementById('sfx-volume').value;
+        dataStore.characterSheetData.audio.sfxLoop = document.getElementById('sfx-loop-toggle').checked;
 
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(dataStore.characterSheetData));
@@ -1963,13 +2913,11 @@
     function loadFromLocalStorage() {
         const savedData = localStorage.getItem(STORAGE_KEY);
         if (!savedData) {
-            // If no data saved, initialize with default values for all static inputs
             Object.keys(dataStore.characterSheetData.staticInputs).forEach(id => {
                 const el = document.getElementById(id);
-                // Check if it's a Quill editor related element
-                if (el && el.id.startsWith('editor-')) { // Quill editor div itself
+                if (el && el.id.startsWith('editor-')) {
                     setQuillEditorContent(el.id.replace('editor-', ''), dataStore.characterSheetData.staticInputs[id]);
-                } else if (el && el.type !== 'file') { // Regular input/select
+                } else if (el && el.type !== 'file') {
                     el.value = dataStore.characterSheetData.staticInputs[id];
                 }
             });
@@ -1979,26 +2927,33 @@
 
         try {
             const loadedSheetData = JSON.parse(savedData);
-            // Deep merge to preserve structure if some keys are missing in loaded data
+            // Deep merge to ensure new properties exist if loading older save
             Object.assign(dataStore.characterSheetData, loadedSheetData); 
-            // Ensure dynamic arrays exist if they were missing in older saves
             dataStore.characterSheetData.dynamic = dataStore.characterSheetData.dynamic || {};
             dataStore.characterSheetData.dynamic.item = dataStore.characterSheetData.dynamic.item || [];
             dataStore.characterSheetData.dynamic.journal = dataStore.characterSheetData.dynamic.journal || [];
             dataStore.characterSheetData.dynamic.ability = dataStore.characterSheetData.dynamic.ability || [];
             dataStore.characterSheetData.dynamic.bond = dataStore.characterSheetData.dynamic.bond || [];
             dataStore.characterSheetData.dynamic.weapon = dataStore.characterSheetData.dynamic.weapon || [];
-            // Ensure equippedItems exists and has default structure
+            dataStore.characterSheetData.dynamic.quest = dataStore.characterSheetData.dynamic.quest || [];
             dataStore.characterSheetData.equippedItems = dataStore.characterSheetData.equippedItems || { "main-weapon": null, "offhand": null, "armor": null, "other": null };
+            // NEW: Ensure audio data structure exists
+            dataStore.characterSheetData.audio = dataStore.characterSheetData.audio || {
+                musicPlaylist: [],
+                currentTrackIndex: 0,
+                musicVolume: 50,
+                sfxSource: null,
+                sfxVolume: 50,
+                sfxLoop: false
+            };
 
 
             for (const id in dataStore.characterSheetData.staticInputs) {
                 const el = document.getElementById(id);
                 if (el && el.type !== 'file') {
-                    // Handle Quill editor related elements for content loading
-                    if (id.startsWith('personality-traits') || id.startsWith('ideals') || id.startsWith('bonds-backstory') || id.startsWith('flaws') || id.startsWith('backstory') || id.startsWith('item-bonus') || id.startsWith('journal-content') || id.startsWith('ability-desc') || id.startsWith('bond-summary') || id.startsWith('weapon-properties')) {
+                    if (id.startsWith('personality-traits') || id.startsWith('ideals') || id.startsWith('bonds-backstory') || id.startsWith('flaws') || id.startsWith('backstory') || id.startsWith('item-bonus') || id.startsWith('journal-content') || id.startsWith('ability-desc') || id.startsWith('bond-summary') || id.startsWith('weapon-properties') || id.startsWith('quest-description')) {
                         setQuillEditorContent(`editor-${id}`, dataStore.characterSheetData.staticInputs[id]);
-                    } else { // Regular input/select
+                    } else {
                         el.value = dataStore.characterSheetData.staticInputs[id];
                     }
                 }
@@ -2040,21 +2995,48 @@
             currentAbilityFilter = dataStore.characterSheetData.staticInputs['currentAbilityFilter'] || 'All';
             const savedSearchTerm = dataStore.characterSheetData.staticInputs['ability-search'] || '';
             document.getElementById('ability-search').value = savedSearchTerm;
+            document.getElementById('toggle-quest-reminder').checked = dataStore.characterSheetData.staticInputs.questReminderEnabled;
             
-            const dynamicSections = ['item', 'journal', 'ability', 'bond', 'weapon'];
+            const dynamicSections = ['item', 'journal', 'ability', 'bond', 'weapon', 'quest'];
             dynamicSections.forEach(type => {
                 if (dataStore.characterSheetData.dynamic[type]) {
                     renderDynamicList(type, dataStore.characterSheetData.dynamic[type]);
                 }
             });
 
-            // Update equipped items UI after loading all dynamic data
             updateEquippedItemsUI();
-
-            applyThemeFromData(); // This will also recalculate HP bar color
-
+            applyThemeFromData();
             updateAllCalculations();
             console.log("Ficha carregada do armazenamento local.");
+
+            // NEW: Load audio settings and initialize players
+            if (document.getElementById('music-volume')) {
+                document.getElementById('music-volume').value = dataStore.characterSheetData.audio.musicVolume;
+                backgroundMusicAudio.volume = dataStore.characterSheetData.audio.musicVolume / 100;
+            }
+            if (document.getElementById('sfx-volume')) {
+                document.getElementById('sfx-volume').value = dataStore.characterSheetData.audio.sfxVolume;
+                sfxAudio.volume = dataStore.characterSheetData.audio.sfxVolume / 100;
+            }
+            if (document.getElementById('sfx-loop-toggle')) {
+                document.getElementById('sfx-loop-toggle').checked = dataStore.characterSheetData.audio.sfxLoop;
+                sfxAudio.loop = dataStore.characterSheetData.audio.sfxLoop;
+            }
+            updateMusicPlaylistUI(); // Populate playlist in settings
+            if (dataStore.characterSheetData.audio.sfxSource) {
+                sfxAudio.src = dataStore.characterSheetData.audio.sfxSource;
+                document.getElementById('sfx-name').textContent = "SFX Carregado"; // Or parse name from dataUrl
+                document.getElementById('play-sfx-preview').classList.remove('hidden');
+            }
+            if (dataStore.characterSheetData.audio.musicPlaylist.length > 0) {
+                backgroundMusicAudio.src = dataStore.characterSheetData.audio.musicPlaylist[dataStore.characterSheetData.audio.currentTrackIndex]?.data || '';
+                document.getElementById('current-track-name').textContent = dataStore.characterSheetData.audio.musicPlaylist[dataStore.characterSheetData.audio.currentTrackIndex]?.name || 'Música';
+                // Autoplay music if it was playing previously (careful with browser policies)
+                if (isPlayingMusic && !backgroundMusicAudio.paused) {
+                    backgroundMusicAudio.play().catch(e => console.log("Autoplay blocked:", e));
+                }
+            }
+
 
         } catch (e) {
             console.error("Erro ao carregar ou analisar dados do localStorage. Iniciando ficha nova.", e);
@@ -2072,15 +3054,24 @@
                     "bond-name": "", "bond-relationship": "", "bond-summary": "",
                     "weapon-name": "", "weapon-damage": "", "weapon-type": "", "weapon-properties": "", "weapon-attribute": "STR",
                     "currentAbilityFilter": "All",
-                    "ability-search": ""
+                    "ability-search": "",
+                    "questReminderEnabled": true 
                 }, 
-                equippedItems: { // Reset equipped items on reset
+                equippedItems: {
                     "main-weapon": null, "offhand": null, "armor": null, "other": null
                 },
                 toggles: {}, 
-                dynamic: { item: [], journal: [], ability: [], bond: [], weapon: [] }, 
+                dynamic: { item: [], journal: [], ability: [], bond: [], weapon: [], quest: [] },
                 images: { charImage: "https://placehold.co/100x100/c8a06e/4a2c2a?text=Icon", wallpaper: "url('https://www.transparenttextures.com/patterns/old-wall.png')" },
                 theme: 'light',
+                audio: { // Reset audio to defaults
+                    musicPlaylist: [],
+                    currentTrackIndex: 0,
+                    musicVolume: 50,
+                    sfxSource: null,
+                    sfxVolume: 50,
+                    sfxLoop: false
+                }
             };
             document.getElementById('char-level').value = "1";
             document.getElementById('ac').value = "10";
@@ -2092,7 +3083,6 @@
             document.getElementById('coins-gp').value = "0";
             document.getElementById('coins-pp').value = "0";
 
-            // Reset Quill editors to empty state on error
             for (const editorId in quillEditors) {
                 quillEditors[editorId].setContents([]);
             }
@@ -2100,7 +3090,7 @@
             document.querySelectorAll('.ability-filter-button').forEach(btn => btn.classList.remove('active'));
             document.querySelector('.ability-filter-button[data-filter="All"]').classList.add('active');
 
-            updateEquippedItemsUI(); // Reset UI after data reset
+            updateEquippedItemsUI();
             updateAllCalculations();
         }
     }
@@ -2208,7 +3198,6 @@
     // --- Export and Import Functions ---
     function exportCharacterSheet() {
         try {
-            // Ensure the latest data is in dataStore.characterSheetData
             saveToLocalStorage(); 
             const dataStr = JSON.stringify(dataStore.characterSheetData, null, 2);
             const blob = new Blob([dataStr], { type: "application/json" });
@@ -2241,14 +3230,12 @@
         reader.onload = (e) => {
             try {
                 const importedData = JSON.parse(e.target.result);
-                // Check if the basic sheet structure is compatible
                 if (importedData && typeof importedData === 'object' && 
                     importedData.staticInputs && importedData.dynamic && importedData.images) {
                     if (confirm('Importar esta ficha irá substituir TODOS os dados atuais. Deseja continuar?')) {
-                        // Save the imported JSON directly to localStorage
                         localStorage.setItem(STORAGE_KEY, e.target.result); 
                         showToast("Ficha importada com sucesso! Recarregando...", "success");
-                        setTimeout(() => location.reload(), 1000); // Reload page to apply
+                        setTimeout(() => location.reload(), 1000);
                     }
                 } else {
                     showToast("Arquivo JSON inválido. Certifique-se de que é um arquivo de exportação de ficha válido.", "error");
@@ -2282,7 +3269,6 @@
             const equippedItemData = equippedItems[slotName];
 
             if (equippedItemData) {
-                // Find the actual item/weapon data
                 let item = null;
                 if (equippedItemData.type === 'item') {
                     item = dataStore.characterSheetData.dynamic.item.find(i => i.id === equippedItemData.id);
@@ -2295,7 +3281,6 @@
                     slotElement.classList.remove('empty');
                     clearButton.classList.remove('hidden');
                 } else {
-                    // Item not found (e.g., deleted), clear the slot
                     equippedItems[slotName] = null;
                     slotNameSpan.textContent = "Nenhum";
                     slotElement.classList.add('empty');
@@ -2307,12 +3292,11 @@
                 clearButton.classList.add('hidden');
             }
         }
-        saveToLocalStorage(); // Ensure changes are saved
+        saveToLocalStorage();
     }
 
     function openSelectItemModal() {
         openModal('select-item-modal');
-        // Reset search and filters
         document.getElementById('select-item-search').value = '';
         document.querySelectorAll('.select-item-filter').forEach(btn => btn.classList.remove('active'));
         document.querySelector('.select-item-filter[data-filter-type="all"]').classList.add('active');
@@ -2329,7 +3313,7 @@
         if (filterType === 'all' || filterType === 'item') {
             dataStore.characterSheetData.dynamic.item.forEach(item => {
                 if (item.name.toLowerCase().includes(searchTerm) || item.type.toLowerCase().includes(searchTerm)) {
-                    availableItems.push({ ...item, itemType: 'item' }); // Add a property to distinguish
+                    availableItems.push({ ...item, itemType: 'item' });
                 }
             });
         }
@@ -2337,7 +3321,7 @@
         if (filterType === 'all' || filterType === 'weapon') {
             dataStore.characterSheetData.dynamic.weapon.forEach(weapon => {
                 if (weapon.name.toLowerCase().includes(searchTerm) || weapon.type.toLowerCase().includes(searchTerm) || (weapon.properties && weapon.properties.toLowerCase().includes(searchTerm))) {
-                    availableItems.push({ ...weapon, itemType: 'weapon' }); // Add a property to distinguish
+                    availableItems.push({ ...weapon, itemType: 'weapon' });
                 }
             });
         }
@@ -2347,17 +3331,16 @@
             return;
         }
 
-        availableItems.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+        availableItems.sort((a, b) => a.name.localeCompare(b.name));
 
         availableItems.forEach(item => {
             let img = '';
             let typeLabel = '';
-            // Use the actual image if available, otherwise a placeholder
             if (item.itemType === 'item') {
                 img = item.img && item.img.startsWith('data:image') ? item.img : 'https://placehold.co/40x40/d4a778/5a403a?text=I';
                 typeLabel = `Item (${item.type})`;
             } else { // weapon
-                img = item.img && item.img.startsWith('data:image') ? item.img : 'https://placehold.co/40x40/d4a778/5a403a?text=W'; // Use weapon's image if available
+                img = item.img && item.img.startsWith('data:image') ? item.img : 'https://placehold.co/40x40/d4a778/5a403a?text=W';
                 typeLabel = `Arma (${item.type})`;
             }
 
@@ -2374,7 +3357,6 @@
     }
 
     function equipItemToSlot(slotName, itemType, itemId) {
-        // Find the item/weapon data based on type and ID
         let itemData = null;
         if (itemType === 'item') {
             itemData = dataStore.characterSheetData.dynamic.item.find(i => i.id === itemId);
@@ -2396,6 +3378,222 @@
         updateEquippedItemsUI();
         showToast(`Slot de ${slotName.replace('-', ' ')} limpo.`, 'success');
     }
+
+    // --- NEW: Audio Playback Functions ---
+    function setupAudioPlayer() {
+        backgroundMusicAudio.loop = true; // Music loops by default
+        backgroundMusicAudio.volume = dataStore.characterSheetData.audio.musicVolume / 100;
+        sfxAudio.loop = dataStore.characterSheetData.audio.sfxLoop;
+        sfxAudio.volume = dataStore.characterSheetData.audio.sfxVolume / 100;
+
+        // Try to resume music if it was playing when page was last closed
+        if (dataStore.characterSheetData.audio.musicPlaylist.length > 0 && dataStore.characterSheetData.audio.currentTrackIndex !== undefined) {
+            const currentTrack = dataStore.characterSheetData.audio.musicPlaylist[dataStore.characterSheetData.audio.currentTrackIndex];
+            if (currentTrack && currentTrack.data) {
+                backgroundMusicAudio.src = currentTrack.data;
+                document.getElementById('current-track-name').textContent = currentTrack.name || 'Música Desconhecida';
+                // Autoplay might be blocked by browsers, so play/pause button will be the primary control
+            }
+        }
+    }
+
+    function toggleAudioPlayerPopup() {
+        const popup = document.getElementById('audio-player-popup');
+        popup.classList.toggle('visible');
+    }
+
+    function toggleMusicPlayPause() {
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const playIcon = playPauseBtn.querySelector('.fa-play');
+        const pauseIcon = playPauseBtn.querySelector('.fa-pause');
+
+        if (backgroundMusicAudio.paused) {
+            if (backgroundMusicAudio.src) {
+                backgroundMusicAudio.play()
+                    .then(() => {
+                        isPlayingMusic = true;
+                        if (playIcon) playIcon.classList.replace('fa-play', 'fa-pause');
+                        showToast(`Reproduzindo: ${document.getElementById('current-track-name').textContent}`, 'success');
+                    })
+                    .catch(e => {
+                        console.error("Erro ao reproduzir música (provavelmente autoplay bloqueado):", e);
+                        showToast("A reprodução de música foi bloqueada pelo navegador. Tente interagir com a página primeiro.", 'error');
+                        isPlayingMusic = false; // Ensure state is correct
+                        if (pauseIcon) pauseIcon.classList.replace('fa-pause', 'fa-play');
+                    });
+            } else {
+                showToast("Nenhuma música carregada na playlist.", 'error');
+            }
+        } else {
+            backgroundMusicAudio.pause();
+            isPlayingMusic = false;
+            if (pauseIcon) pauseIcon.classList.replace('fa-pause', 'fa-play');
+            showToast("Música pausada.", 'success');
+        }
+    }
+
+    function playMusicTrack(index) {
+        if (dataStore.characterSheetData.audio.musicPlaylist.length === 0) {
+            showToast("Nenhuma música na playlist.", 'error');
+            return;
+        }
+        if (index < 0) index = dataStore.characterSheetData.audio.musicPlaylist.length - 1;
+        if (index >= dataStore.characterSheetData.audio.musicPlaylist.length) index = 0;
+
+        dataStore.characterSheetData.audio.currentTrackIndex = index;
+        const currentTrack = dataStore.characterSheetData.audio.musicPlaylist[index];
+        backgroundMusicAudio.src = currentTrack.data;
+        document.getElementById('current-track-name').textContent = currentTrack.name || 'Música Desconhecida';
+        
+        backgroundMusicAudio.play().then(() => {
+            isPlayingMusic = true;
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const playIcon = playPauseBtn.querySelector('.fa-play');
+            const pauseIcon = playPauseBtn.querySelector('.fa-pause');
+            if (playIcon) playIcon.classList.replace('fa-play', 'fa-pause');
+            if (!playIcon && !pauseIcon) { // Initial state, add pause icon directly
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            showToast(`Reproduzindo: ${currentTrack.name}`, 'success');
+        }).catch(e => {
+            console.error("Erro ao reproduzir música:", e);
+            showToast("Não foi possível reproduzir a música. Pode ser que o navegador tenha bloqueado o autoplay.", 'error');
+            isPlayingMusic = false;
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const pauseIcon = playPauseBtn.querySelector('.fa-pause');
+            if (pauseIcon) pauseIcon.classList.replace('fa-pause', 'fa-play');
+        });
+        saveToLocalStorage();
+    }
+
+    function playNextTrack() {
+        let nextIndex = dataStore.characterSheetData.audio.currentTrackIndex + 1;
+        if (nextIndex >= dataStore.characterSheetData.audio.musicPlaylist.length) {
+            nextIndex = 0; // Loop back to the start
+        }
+        playMusicTrack(nextIndex);
+    }
+
+    function playPrevTrack() {
+        let prevIndex = dataStore.characterSheetData.audio.currentTrackIndex - 1;
+        if (prevIndex < 0) {
+            prevIndex = dataStore.characterSheetData.audio.musicPlaylist.length - 1; // Loop to the end
+        }
+        playMusicTrack(prevIndex);
+    }
+
+    function handleMusicFileSelect(event) {
+        const files = Array.from(event.target.files);
+        if (files.length === 0) return;
+
+        const newPlaylistItems = [];
+        let filesProcessed = 0;
+
+        files.forEach(file => {
+            if (file.type.startsWith('audio/')) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    newPlaylistItems.push({
+                        name: file.name,
+                        data: e.target.result
+                    });
+                    filesProcessed++;
+                    if (filesProcessed === files.length) {
+                        dataStore.characterSheetData.audio.musicPlaylist = newPlaylistItems;
+                        dataStore.characterSheetData.audio.currentTrackIndex = 0; // Reset index to first track
+                        updateMusicPlaylistUI();
+                        playMusicTrack(0); // Start playing the first newly loaded track
+                        showToast(`Carregadas ${files.length} músicas na playlist!`, 'success');
+                        saveToLocalStorage();
+                    }
+                };
+                reader.readAsDataURL(file);
+            } else {
+                showToast(`O arquivo ${file.name} não é um formato de áudio suportado.`, 'error');
+                filesProcessed++; // Still count as processed to finish loading
+            }
+        });
+    }
+
+    function updateMusicPlaylistUI() {
+        const playlistContainer = document.getElementById('music-playlist');
+        playlistContainer.innerHTML = '';
+        if (dataStore.characterSheetData.audio.musicPlaylist.length === 0) {
+            playlistContainer.innerHTML = '<p class="text-sm opacity-70 text-center">Nenhuma música carregada.</p>';
+            return;
+        }
+
+        dataStore.characterSheetData.audio.musicPlaylist.forEach((track, index) => {
+            const trackElement = document.createElement('div');
+            trackElement.className = 'flex items-center justify-between text-sm py-1 border-b border-[var(--border-color)] last:border-b-0';
+            trackElement.innerHTML = `
+                <span class="flex-grow text-left">${track.name}</span>
+                <div>
+                    <button class="text-red-700 hover:text-red-900 px-1" data-track-index="${index}" data-action="remove-track"><i class="fas fa-trash-alt"></i></button>
+                    <button class="text-green-700 hover:text-green-900 px-1" data-track-index="${index}" data-action="play-track"><i class="fas fa-play"></i></button>
+                </div>
+            `;
+            playlistContainer.appendChild(trackElement);
+        });
+
+        // Add listeners for dynamically created playlist buttons
+        playlistContainer.querySelectorAll('button[data-action="remove-track"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const indexToRemove = parseInt(e.currentTarget.dataset.trackIndex);
+                removeMusicTrack(indexToRemove);
+            });
+        });
+        playlistContainer.querySelectorAll('button[data-action="play-track"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const indexToPlay = parseInt(e.currentTarget.dataset.trackIndex);
+                playMusicTrack(indexToPlay);
+            });
+        });
+    }
+
+    function removeMusicTrack(index) {
+        if (index > -1 && index < dataStore.characterSheetData.audio.musicPlaylist.length) {
+            const removedTrack = dataStore.characterSheetData.audio.musicPlaylist.splice(index, 1);
+            showToast(`Música "${removedTrack[0]?.name || 'desconhecida'}" removida.`, 'success');
+
+            // Adjust current track index if necessary
+            if (dataStore.characterSheetData.audio.currentTrackIndex === index) {
+                backgroundMusicAudio.pause();
+                backgroundMusicAudio.src = '';
+                document.getElementById('current-track-name').textContent = 'Nenhuma Música';
+                isPlayingMusic = false;
+                const playPauseBtn = document.getElementById('play-pause-btn');
+                const pauseIcon = playPauseBtn.querySelector('.fa-pause');
+                if (pauseIcon) pauseIcon.classList.replace('fa-pause', 'fa-play');
+                dataStore.characterSheetData.audio.currentTrackIndex = 0; // Reset index to start
+            } else if (dataStore.characterSheetData.audio.currentTrackIndex > index) {
+                dataStore.characterSheetData.audio.currentTrackIndex--; // Decrement index if track before it was removed
+            }
+            updateMusicPlaylistUI();
+            saveToLocalStorage();
+        }
+    }
+
+    function handleSfxFileSelect(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (file.type.startsWith('audio/')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                dataStore.characterSheetData.audio.sfxSource = e.target.result;
+                sfxAudio.src = e.target.result;
+                document.getElementById('sfx-name').textContent = file.name;
+                document.getElementById('play-sfx-preview').classList.remove('hidden');
+                showToast(`Efeito sonoro "${file.name}" carregado!`, 'success');
+                saveToLocalStorage();
+            };
+            reader.readAsDataURL(file);
+        } else {
+            showToast(`O arquivo ${file.name} não é um formato de áudio suportado para SFX.`, 'error');
+        }
+    }
+
 </script>
 
 </body>
