@@ -28,6 +28,9 @@
             --glow-color: rgba(175, 130, 90, 0.5); /* Brilho suave em tons de papiro */
             --success-color: #2b7a4b; /* Verde escuro para sucesso */
             --success-bg-color: rgba(144, 238, 144, 0.8); /* Verde claro para fundo de sucesso */
+            /* Scrollbar colors for light mode */
+            --scrollbar-track-color-light: rgba(212, 167, 120, 0.3); /* Lighter, more transparent */
+            --scrollbar-thumb-color-light: var(--border-strong-color);
         }
 
         /* --- Modo Noturno (Preto e Lilás Refinado) --- */
@@ -45,6 +48,9 @@
             --glow-color: rgba(176, 143, 230, 0.4); /* Brilho lilás suave */
             --success-color: #60c790; /* Verde menta para sucesso, mais visível no escuro */
             --success-bg-color: rgba(96, 199, 144, 0.3); /* Fundo verde transparente */
+            /* Scrollbar colors for dark mode */
+            --scrollbar-track-color-dark: rgba(147, 112, 219, 0.2); /* Darker, more transparent */
+            --scrollbar-thumb-color-dark: var(--accent-color);
         }
 
         body {
@@ -572,6 +578,85 @@
             font-size: 0.8rem;
             opacity: 0.7;
         }
+
+        /* --- Custom Scrollbar Styles for Quill Editors and Modals --- */
+        /* For Webkit (Chrome, Safari, Edge) */
+        .quill-editor-container .ql-editor::-webkit-scrollbar,
+        .modal-body::-webkit-scrollbar,
+        .item-select-list::-webkit-scrollbar {
+            width: 0; /* Hidden by default */
+            transition: width 0.3s ease-in-out; /* Smooth transition for width */
+        }
+
+        .quill-editor-container .ql-editor:hover::-webkit-scrollbar,
+        .quill-editor-container .ql-editor:focus-within::-webkit-scrollbar, /* Show on focus-within for parent */
+        .modal-body:hover::-webkit-scrollbar,
+        .item-select-list:hover::-webkit-scrollbar {
+            width: 8px; /* Show on hover */
+        }
+
+        .quill-editor-container .ql-editor::-webkit-scrollbar-track,
+        .modal-body::-webkit-scrollbar-track,
+        .item-select-list::-webkit-scrollbar-track {
+            background: var(--scrollbar-track-color-light); /* Light mode track color */
+            border-radius: 10px;
+        }
+
+        .dark-mode .quill-editor-container .ql-editor::-webkit-scrollbar-track,
+        .dark-mode .modal-body::-webkit-scrollbar-track,
+        .dark-mode .item-select-list::-webkit-scrollbar-track {
+            background: var(--scrollbar-track-color-dark); /* Dark mode track color */
+        }
+
+        .quill-editor-container .ql-editor::-webkit-scrollbar-thumb,
+        .modal-body::-webkit-scrollbar-thumb,
+        .item-select-list::-webkit-scrollbar-thumb {
+            background-color: var(--scrollbar-thumb-color-light); /* Light mode thumb color */
+            border-radius: 10px;
+            border: 2px solid transparent; /* Gives a slight padding effect */
+            background-clip: padding-box; /* Ensures border is inside */
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+        }
+
+        .quill-editor-container .ql-editor:hover::-webkit-scrollbar-thumb,
+        .quill-editor-container .ql-editor:focus-within::-webkit-scrollbar-thumb, /* Show on focus-within for parent */
+        .modal-body:hover::-webkit-scrollbar-thumb,
+        .item-select-list:hover::-webkit-scrollbar-thumb {
+            opacity: 1; /* Show on hover */
+        }
+
+        .dark-mode .quill-editor-container .ql-editor::-webkit-scrollbar-thumb,
+        .dark-mode .modal-body::-webkit-scrollbar-thumb,
+        .dark-mode .item-select-list::-webkit-scrollbar-thumb {
+            background-color: var(--scrollbar-thumb-color-dark); /* Dark mode thumb color */
+        }
+
+        /* For Firefox */
+        .quill-editor-container .ql-editor,
+        .modal-body,
+        .item-select-list {
+            scrollbar-width: none; /* Hide scrollbar by default in Firefox */
+            scrollbar-color: transparent transparent; /* Hide scrollbar by default */
+            transition: scrollbar-color 0.3s ease-in-out, scrollbar-width 0.3s ease-in-out;
+        }
+
+        .quill-editor-container:hover .ql-editor,
+        .quill-editor-container:focus-within .ql-editor, /* Show on focus-within for parent */
+        .modal-body:hover,
+        .item-select-list:hover {
+            scrollbar-width: thin; /* Show thin scrollbar on hover */
+            scrollbar-color: var(--scrollbar-thumb-color-light) var(--scrollbar-track-color-light);
+        }
+
+        .dark-mode .quill-editor-container:hover .ql-editor,
+        .dark-mode .quill-editor-container:focus-within .ql-editor,
+        .dark-mode .modal-body:hover,
+        .dark-mode .item-select-list:hover {
+            scrollbar-color: var(--scrollbar-thumb-color-dark) var(--scrollbar-track-color-dark);
+        }
+        /* --- End Custom Scrollbar Styles --- */
+
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -898,7 +983,7 @@
     // --- Functions for Quill.js ---
     function setupQuillEditors() {
         const toolbarOptions = [
-            ['bold', 'italic', 'underline', 'strike'],         // toggled buttons
+            ['bold', 'italic', 'underline', 'strike'],       // toggled buttons
             [{ 'list': 'ordered'}, { 'list': 'bullet' }],
             [{ 'align': [] }],
             ['clean']                                         // remove formatting button
